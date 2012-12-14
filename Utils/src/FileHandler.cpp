@@ -7,8 +7,13 @@ FileHandler::FileHandler(const string& path, const int openType)
 {
 	if (openType == OPEN_TYPE_READ) {
 		m_File.open(path.c_str(), ios::in);
+
 	} else if (openType == OPEN_TYPE_WRITE) {
 		m_File.open(path.c_str(), ios::out);
+
+	} else if (openType == OPEN_TYPE_APPEND) {
+		m_File.open(path.c_str(), ios::app);
+
 	} else {
 		throw OpenFileException();
 	}

@@ -15,6 +15,7 @@ public:
 
 	static const int OPEN_TYPE_READ		= 0;
 	static const int OPEN_TYPE_WRITE	= 1;
+	static const int OPEN_TYPE_APPEND	= 2;
 
 private :
 	std::fstream m_File;
