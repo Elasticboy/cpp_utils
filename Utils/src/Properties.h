@@ -28,7 +28,10 @@ protected:
 	const bool GetBool(const std::string& key, const bool& defaultValue);
 	void SetBool(const std::string& key, const bool& value);
 
+	const std::vector<Property> GetList() { return m_Properties; }
+	const std::string GetFilePath() { return m_FilePath; }
+
 private:
-	std::string m_FilePath;
 	std::vector<Property> m_Properties;
+	std::string m_FilePath;
 };
