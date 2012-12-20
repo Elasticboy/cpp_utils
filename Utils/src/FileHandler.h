@@ -20,4 +20,3 @@ public:
 private :
 	std::fstream m_File;
 };
-
