@@ -2,10 +2,10 @@
 
 #include <string>
 
-class Log
+class Logger
 {
 public:
-	Log(const std::string& filename);
+	Logger(const std::string& filename);
 
 	void info(const std::string& message);
 	void debug(const std::string& message);
@@ -17,5 +17,4 @@ private:
 
 	void write(const std::string& message);
 	void writeInFile(const std::string& filename, const std::string& message);
-	std::string getTime(const bool& withSapces);
 };
