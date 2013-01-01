@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
+#include <string>
+#include <map>
 #include "FileHandler.h"
-#include "Property.h"
 #include "PropertyException.h"
 
 class Properties
@@ -28,10 +28,10 @@ protected:
 	const bool GetBool(const std::string& key, const bool& defaultValue);
 	void SetBool(const std::string& key, const bool& value);
 
-	const std::vector<Property> GetList() { return m_Properties; }
+	const std::map<std::string, std::string> GetList() { return m_Properties; }
 	const std::string GetFilePath() { return m_FilePath; }
 
 private:
-	std::vector<Property> m_Properties;
+	std::map<std::string, std::string> m_Properties;
 	std::string m_FilePath;
 };

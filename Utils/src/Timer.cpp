@@ -10,7 +10,7 @@ using namespace std;
 
 // TODO: Fix formatting problem => 2012-12-21 1:7:47
 // TODO: change function parameters => format (Y-M-d H:m:s
-string Timer::getTime(const bool& withSapces)
+const string Timer::getTime(const bool& withSapces)
 {
 	time_t now = time(nullptr);
 	tm ltm;
@@ -33,21 +33,21 @@ string Timer::getTime(const bool& withSapces)
 	return oss.str();
 }
 
-long long Timer::counter()
+const long long Timer::counter()
 {
 	LARGE_INTEGER li;
 	QueryPerformanceCounter(&li);
 	return li.QuadPart;
 }
 
-long long Timer::frequency()
+const long long Timer::frequency()
 {
 	LARGE_INTEGER li;
 	QueryPerformanceFrequency(&li);
 	return li.QuadPart;
 }
 
-double Timer::getElapsedTimeMs(long long start, long long finish)
+const double Timer::getElapsedTimeMs(long long start, long long finish)
 {
 	return (finish - start) * 1000.0 / frequency();
 }

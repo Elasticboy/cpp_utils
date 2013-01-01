@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "Properties.h"
+#include "StringUtils.h"
 #include <sstream>
 
 using namespace std;
@@ -20,8 +21,8 @@ Properties::~Properties() {}
 const string Properties::GetString(const string& key)
 {
 	for (const auto& prop : m_Properties) {
-		if (prop.Key == key) {
-			return prop.Value;
+		if (prop.first == key) {
+			return prop.second;
 		}
 	}
 
@@ -38,7 +39,7 @@ const string Properties::GetString(const string& key, const string& defaultValue
 {
 	try {
 		return GetString(key);
-	} catch (const ReadPropertyException& exception) {
+	} catch (const ReadPropertyException&) {
 		return defaultValue;
 	}
 }
@@ -51,9 +52,9 @@ const string Properties::GetString(const string& key, const string& defaultValue
  */
 void Properties::SetString(const string& key, const string& value)
 {
-	for (auto &prop : m_Properties) {
-		if (prop.Key == key) {
-			prop.Value = value;
+	for (auto& prop : m_Properties) {
+		if (prop.first == key) {
+			prop.second = value;
 			return;
 		}
 	}
@@ -83,7 +84,7 @@ const int Properties::GetInt(const string& key, const int& defaultValue)
 {
 	try {
 		return GetInt(key);
-	} catch (const ReadPropertyException& exception) {
+	} catch (const ReadPropertyException&) {
 		return defaultValue;
 	}
 }
@@ -125,7 +126,7 @@ const bool Properties::GetBool(const string& key, const bool& defaultValue)
 {
 	try {
 		return GetBool(key);
-	} catch (const ReadPropertyException& exception) {
+	} catch (const ReadPropertyException&) {
 		return defaultValue;
 	}
 }
@@ -161,17 +162,9 @@ void Properties::LoadProperties(const string& path)
 			const int equalPos	= line.find('=');
 
 			if (equalPos != -1) {
-				cout << line << endl;  // on affiche la ligne
-				Property prop;
-				prop.Key	= line.substr(0, equalPos);
-				prop.Value	= line.substr(equalPos + 1);
-				m_Properties.push_back(prop);
-				//cout << "Before trim:=" << value << endl;
-				//remove(value.begin(), value.end(), ' ');
-				//cout << "After trim:=" << value << endl;
-
-			} else {
-				cout << "No '=' sign for line :" << line << endl;  // on affiche la ligne
+				const string key	= StringUtils::Trim(line.substr(0, equalPos));
+				const string value	= StringUtils::Trim(line.substr(equalPos + 1));
+				m_Properties[key] = value;
 			}
 		}
 		cout << endl;
@@ -190,8 +183,8 @@ void Properties::SaveProperties(const string& path)
 	}
 
 	try {
-		for (auto prop : m_Properties) {
-			fh.GetFile() << prop.Key << "=" << prop.Value << endl;
+		for (const auto& prop : m_Properties) {
+			fh.GetFile() << prop.first << "=" << prop.second << endl;
 		}
 	} catch(...) {
 		throw SavePropertyException();

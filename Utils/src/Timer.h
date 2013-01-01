@@ -5,9 +5,9 @@
 class Timer
 {
 public:
-	static std::string getTime(const bool& withSapces);
-	static long long counter();
-	static long long frequency();
-	static double getElapsedTimeMs(long long start, long long finish);
+	static const std::string getTime(const bool& withSapces);
+	static const long long counter();
+	static const long long frequency();
+	static const double getElapsedTimeMs(long long start, long long finish);
 };
 

@@ -22,14 +22,14 @@ FileHandler::FileHandler(const string& path, const int openType)
 		throw OpenFileException();
 	}
 
-	cout << "File " << path << " is open !" << endl;
+	//cout << "File " << path << " is open !" << endl;
 }
 
 FileHandler::~FileHandler()
 {
 	if (m_File.is_open()) {
 		m_File.close();
-		cout << "File has been closed !" << endl;
+		//cout << "File has been closed !" << endl;
 	}
 }
 

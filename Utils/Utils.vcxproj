@@ -64,6 +64,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,6 +81,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -88,11 +90,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lang.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\FileException.h" />
     <ClInclude Include="src\PropertyException.h" />
     <ClInclude Include="src\SpecializedException.h" />
-    <ClInclude Include="src\Property.h" />
     <ClInclude Include="src\FileHandler.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Goemetry.h" />
@@ -100,14 +102,15 @@
     <ClInclude Include="src\StringUtils.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="src\Timer.h" />
+    <ClInclude Include="src\Translator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="src\Lang.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\FileException.cpp" />
     <ClCompile Include="src\PropertyException.cpp" />
     <ClCompile Include="src\SpecializedException.cpp" />
-    <ClCompile Include="src\Property.cpp" />
     <ClCompile Include="src\FileHandler.cpp" />
     <ClCompile Include="src\Goemetry.cpp" />
     <ClCompile Include="src\Properties.cpp" />
@@ -117,6 +120,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\Translator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.ico" />
