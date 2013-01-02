@@ -24,12 +24,13 @@ const map<string, string> Lang::GetList()
 
 const string Lang::GetText(const string& key)
 {
-	return  Properties::GetString(key);
+	return Properties::GetString(key);
 }
 
 const string Lang::GetText(const string& key, const string& arg)
 {
-	const auto& str = Properties::GetString(key);
-	const regex regexp("$1");
-	return regex_replace(str, regexp, arg);
+	// TODO: use regex_find to check useless call to GetText() with arg
+	const auto str = Properties::GetString(key);
+	const regex r("\\$1");
+	return regex_replace(str, r, arg);
 }

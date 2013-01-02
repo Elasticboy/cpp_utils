@@ -167,9 +167,7 @@ void Properties::LoadProperties(const string& path)
 				m_Properties[key] = value;
 			}
 		}
-		cout << endl;
 	} catch (...) {
-		cout << "Error while loading file " << path << endl;
 		throw LoadPropertyException();
 	}
 }
