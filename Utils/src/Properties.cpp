@@ -26,7 +26,7 @@ const string Properties::GetString(const string& key)
 		}
 	}
 
-	throw ReadPropertyException();
+	throw ReadPropertyException("Key \"" + key + "\" not found in file \"" + m_FilePath + "\".");
 }
 
 /**
@@ -107,7 +107,8 @@ void Properties::SetInt(const string& key, const int& value)
  */
 const bool Properties::GetBool(const string& key)
 {
-	auto stringProperty = GetString(key);if (stringProperty == "true") {
+	auto stringProperty = GetString(key);
+	if (stringProperty == "true") {
 		return true;
 	} else if (stringProperty == "false") {
 		return false;
@@ -151,8 +152,7 @@ void Properties::LoadProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_TYPE_READ);
 	if (!fh.GetFile()) {
-		cerr << "Can not open the file to read !" << endl;
-		throw LoadPropertyException();
+		throw LoadPropertyException("Can not open the file to read !");
 	}
 
 	try {
@@ -161,7 +161,7 @@ void Properties::LoadProperties(const string& path)
 
 			const int equalPos	= line.find('=');
 
-			if (equalPos != -1) {
+			if (equalPos != string::npos) {
 				const string key	= StringUtils::Trim(line.substr(0, equalPos));
 				const string value	= StringUtils::Trim(line.substr(equalPos + 1));
 				m_Properties[key] = value;
