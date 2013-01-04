@@ -69,3 +69,10 @@ string Translator::GetString(const string& key, const string& arg)
 	}
 	return ""; // TODO: Throw exception here StringNotFound
 }
+
+//TODO: use templates for arg != string (ex : int, double, ...) 
+//template<typename T> string Translator::GetString(const string& key, const T& arg)
+std::string Translator::GetString(const std::string& key, const int& arg)
+{
+	return GetString(key, to_string(arg));
+}

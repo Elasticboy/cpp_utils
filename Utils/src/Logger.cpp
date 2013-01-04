@@ -49,6 +49,7 @@ void Logger::writeInFile(const string& logFilename, const string& message)
 	FileHandler fwriter(logFilename, FileHandler::OPEN_TYPE_APPEND);
 	if (!fwriter.GetFile()) {
 		cerr << "Can not open the file '" << logFilename << "' to write !" << endl;
+		cout << message << endl;
 		return;
 	}
 

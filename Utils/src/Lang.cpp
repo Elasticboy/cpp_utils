@@ -29,8 +29,14 @@ const string Lang::GetText(const string& key)
 
 const string Lang::GetText(const string& key, const string& arg)
 {
-	// TODO: use regex_find to check useless call to GetText() with arg
 	const auto str = Properties::GetString(key);
+	
+	// TODO: use regex_find to check useless call to GetText() with arg
+	if (str.find("$1") != string::npos) {
+		cerr << "No $1 found for the key : \"" << key << "\".";
+		cerr << "Consider using Lang::GetText(const string& key) instead of Lang::GetText(const string& key, const string& arg)";
+	}
+	
 	const regex r("\\$1");
 	return regex_replace(str, r, arg);
 }
