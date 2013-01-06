@@ -12,11 +12,11 @@ public:
 	static Translator* getInstance();
 	static void freeInstance();
 
-	void SetLanguage(const std::string& languageKey);
-	void AddLanguage(const std::string& languageKey, const std::string& dataFile);
-	std::string GetString(const std::string& key);
-	std::string GetString(const std::string& key, const std::string& arg);
-	std::string GetString(const std::string& key, const int& arg);
+	void setLanguage(const std::string& languageKey);
+	void addLanguage(const std::string& languageKey, const std::string& dataFile);
+	std::string getString(const std::string& key);
+	std::string getString(const std::string& key, const std::string& arg);
+	std::string getString(const std::string& key, const int& arg);
 
 private:
 	static Translator* m_instance;

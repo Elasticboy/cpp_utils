@@ -2,9 +2,9 @@
 #include "FileException.h"
 #include <iostream>
 
-FileException::FileException(std::string message) : m_Message(message)
+FileException::FileException(std::string message) : m_message(message)
 {
-	std::cerr << m_Message << std::endl;
+	std::cerr << m_message << std::endl;
 }
 
 OpenFileException::OpenFileException()

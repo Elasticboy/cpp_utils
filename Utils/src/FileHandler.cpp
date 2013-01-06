@@ -6,19 +6,19 @@ using namespace std;
 FileHandler::FileHandler(const string& path, const int openType)
 {
 	if (openType == OPEN_TYPE_READ) {
-		m_File.open(path.c_str(), ios::in);
+		m_file.open(path.c_str(), ios::in);
 
 	} else if (openType == OPEN_TYPE_WRITE) {
-		m_File.open(path.c_str(), ios::out);
+		m_file.open(path.c_str(), ios::out);
 
 	} else if (openType == OPEN_TYPE_APPEND) {
-		m_File.open(path.c_str(), ios::app);
+		m_file.open(path.c_str(), ios::app);
 
 	} else {
 		throw OpenFileException();
 	}
 	
-	if (!m_File.is_open()) {
+	if (!m_file.is_open()) {
 		throw OpenFileException();
 	}
 
@@ -27,13 +27,13 @@ FileHandler::FileHandler(const string& path, const int openType)
 
 FileHandler::~FileHandler()
 {
-	if (m_File.is_open()) {
-		m_File.close();
+	if (m_file.is_open()) {
+		m_file.close();
 		//cout << "File has been closed !" << endl;
 	}
 }
 
-fstream& FileHandler::GetFile()
+fstream& FileHandler::getFile()
 {
-	return m_File;
+	return m_file;
 }

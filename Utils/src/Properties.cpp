@@ -5,9 +5,9 @@
 
 using namespace std;
 
-Properties::Properties(const string& path) : m_FilePath(path)
+Properties::Properties(const string& path) : m_filePath(path)
 {
-	LoadProperties(m_FilePath);
+	loadProperties(m_filePath);
 }
 
 Properties::~Properties() {}
@@ -18,15 +18,15 @@ Properties::~Properties() {}
  * @return The value of the property as a string.
  * @throw ReadPropertyException if the key is not found.
  */
-const string Properties::GetString(const string& key)
+const string Properties::getString(const string& key)
 {
-	for (const auto& prop : m_Properties) {
+	for (const auto& prop : m_properties) {
 		if (prop.first == key) {
 			return prop.second;
 		}
 	}
 
-	throw ReadPropertyException("Key \"" + key + "\" not found in file \"" + m_FilePath + "\".");
+	throw ReadPropertyException("Key \"" + key + "\" not found in file \"" + m_filePath + "\".");
 }
 
 /**
@@ -35,10 +35,10 @@ const string Properties::GetString(const string& key)
  * @param defaultValue The value to return if ReadPropertyException is raised.
  * @return The value of the property as a string.
  */
-const string Properties::GetString(const string& key, const string& defaultValue)
+const string Properties::getString(const string& key, const string& defaultValue)
 {
 	try {
-		return GetString(key);
+		return getString(key);
 	} catch (const ReadPropertyException&) {
 		return defaultValue;
 	}
@@ -50,9 +50,9 @@ const string Properties::GetString(const string& key, const string& defaultValue
  * @param value The value to set.
  * @throw ReadPropertyException if the key is not found.
  */
-void Properties::SetString(const string& key, const string& value)
+void Properties::setString(const string& key, const string& value)
 {
-	for (auto& prop : m_Properties) {
+	for (auto& prop : m_properties) {
 		if (prop.first == key) {
 			prop.second = value;
 			return;
@@ -68,9 +68,9 @@ void Properties::SetString(const string& key, const string& value)
  * @return The value of the property as an integer.
  * @throw ReadPropertyException cast from string to int fails.
  */
-const int Properties::GetInt(const string& key)
+const int Properties::getInt(const string& key)
 {
-	auto propertyAsString = GetString(key);
+	auto propertyAsString = getString(key);
 	return stoi(propertyAsString);
 }
 
@@ -80,10 +80,10 @@ const int Properties::GetInt(const string& key)
  * @param defaultValue The value to return if ReadPropertyException is raised.
  * @return The value of the property as an integer.
  */
-const int Properties::GetInt(const string& key, const int& defaultValue)
+const int Properties::getInt(const string& key, const int& defaultValue)
 {
 	try {
-		return GetInt(key);
+		return getInt(key);
 	} catch (const ReadPropertyException&) {
 		return defaultValue;
 	}
@@ -95,9 +95,9 @@ const int Properties::GetInt(const string& key, const int& defaultValue)
  * @param value The value to set.
  * @throw ReadPropertyException if the key is not found.
  */
-void Properties::SetInt(const string& key, const int& value)
+void Properties::setInt(const string& key, const int& value)
 {
-	SetString(key, to_string(value));
+	setString(key, to_string(value));
 }
 
 /**
@@ -105,9 +105,9 @@ void Properties::SetInt(const string& key, const int& value)
  * @param key The key of the property.
  * @return The value of the property as a boolean.
  */
-const bool Properties::GetBool(const string& key)
+const bool Properties::getBool(const string& key)
 {
-	auto stringProperty = GetString(key);
+	auto stringProperty = getString(key);
 	if (stringProperty == "true") {
 		return true;
 	} else if (stringProperty == "false") {
@@ -123,10 +123,10 @@ const bool Properties::GetBool(const string& key)
  * @param defaultValue The value to return if ReadPropertyException is raised.
  * @return The value of the property as a boolean.
  */
-const bool Properties::GetBool(const string& key, const bool& defaultValue)
+const bool Properties::getBool(const string& key, const bool& defaultValue)
 {
 	try {
-		return GetBool(key);
+		return getBool(key);
 	} catch (const ReadPropertyException&) {
 		return defaultValue;
 	}
@@ -138,33 +138,33 @@ const bool Properties::GetBool(const string& key, const bool& defaultValue)
  * @param value The value to set.
  * @throw ReadPropertyException if the key is not found.
  */
-void Properties::SetBool(const string& key, const bool& value)
+void Properties::setBool(const string& key, const bool& value)
 {
 	const string valueAsString = (value) ? "true" : "false";
-	SetString(key, valueAsString);
+	setString(key, valueAsString);
 }
 
 /**
  * Load the properties from a file.
  * @param path : The property file to read.
  */
-void Properties::LoadProperties(const string& path)
+void Properties::loadProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_TYPE_READ);
-	if (!fh.GetFile()) {
+	if (!fh.getFile()) {
 		throw LoadPropertyException("Can not open the file to read !");
 	}
 
 	try {
 		string line;
-		while(getline(fh.GetFile(), line)) {
+		while(getline(fh.getFile(), line)) {
 
 			const int equalPos	= line.find('=');
 
 			if (equalPos != string::npos) {
-				const string key	= StringUtils::Trim(line.substr(0, equalPos));
-				const string value	= StringUtils::Trim(line.substr(equalPos + 1));
-				m_Properties[key] = value;
+				const string key	= StringUtils::trim(line.substr(0, equalPos));
+				const string value	= StringUtils::trim(line.substr(equalPos + 1));
+				m_properties[key] = value;
 			}
 		}
 	} catch (...) {
@@ -172,24 +172,24 @@ void Properties::LoadProperties(const string& path)
 	}
 }
 
-void Properties::SaveProperties(const string& path)
+void Properties::saveProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_TYPE_WRITE);
-	if (!fh.GetFile()) {
+	if (!fh.getFile()) {
 		cerr << "Can not open the file to write !" << endl;
 		throw SavePropertyException();
 	}
 
 	try {
-		for (const auto& prop : m_Properties) {
-			fh.GetFile() << prop.first << "=" << prop.second << endl;
+		for (const auto& prop : m_properties) {
+			fh.getFile() << prop.first << "=" << prop.second << endl;
 		}
 	} catch(...) {
 		throw SavePropertyException();
 	}
 }
 
-void Properties::SaveProperties()
+void Properties::saveProperties()
 {
-	SaveProperties(m_FilePath);
+	saveProperties(m_filePath);
 }

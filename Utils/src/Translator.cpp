@@ -31,7 +31,7 @@ Translator::~Translator()
 {
 }
 
-void Translator::SetLanguage(const string& languageKey){
+void Translator::setLanguage(const string& languageKey){
 	m_languageKey = languageKey;
 }
 
@@ -40,7 +40,7 @@ void Translator::SetLanguage(const string& languageKey){
  * languageKey The key which define the language.
  * dataFile The path of the language file.
  */
-void Translator::AddLanguage(const string& languageKey, const string& dataFile)
+void Translator::addLanguage(const string& languageKey, const string& dataFile)
 {
 	// Add only if dosen't exist
 	if (m_langFiles.find(languageKey) != m_langFiles.end()) {
@@ -50,21 +50,21 @@ void Translator::AddLanguage(const string& languageKey, const string& dataFile)
 	m_langFiles.insert(make_pair(languageKey, Lang(dataFile)));
 }
 
-string Translator::GetString(const string& key)
+string Translator::getString(const string& key)
 {
 	for (auto langFile : m_langFiles) {
 		if (langFile.first == m_languageKey) {
-			return langFile.second.GetText(key);
+			return langFile.second.getText(key);
 		}
 	}
 	return ""; // TODO: Throw exception here StringNotFound
 }
 
-string Translator::GetString(const string& key, const string& arg)
+string Translator::getString(const string& key, const string& arg)
 {
 	for (auto langFile : m_langFiles) {
 		if (langFile.first == m_languageKey) {
-			return langFile.second.GetText(key, arg);
+			return langFile.second.getText(key, arg);
 		}
 	}
 	return ""; // TODO: Throw exception here StringNotFound
@@ -72,7 +72,7 @@ string Translator::GetString(const string& key, const string& arg)
 
 //TODO: use templates for arg != string (ex : int, double, ...) 
 //template<typename T> string Translator::GetString(const string& key, const T& arg)
-std::string Translator::GetString(const std::string& key, const int& arg)
+string Translator::getString(const std::string& key, const int& arg)
 {
-	return GetString(key, to_string(arg));
+	return getString(key, to_string(arg));
 }

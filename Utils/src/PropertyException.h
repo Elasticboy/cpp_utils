@@ -12,8 +12,8 @@ public:
 	PropertyException(const std::string& message, const std::string& subMessage);
 
 protected:
-	std::string m_Message;
-	std::string m_SubMessage;
+	std::string m_message;
+	std::string m_subMessage;
 };
 
 /*

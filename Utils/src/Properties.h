@@ -12,26 +12,26 @@ public:
 	~Properties();
 
 protected:
-	void LoadProperties(const std::string& path);
-	void SaveProperties(const std::string& path);
-	void SaveProperties();
+	void loadProperties(const std::string& path);
+	void saveProperties(const std::string& path);
+	void saveProperties();
 	
-	const std::string GetString(const std::string& key);
-	const std::string GetString(const std::string& key, const std::string& defaultValue);
-	void SetString(const std::string& key, const std::string& value);
+	const std::string getString(const std::string& key);
+	const std::string getString(const std::string& key, const std::string& defaultValue);
+	void setString(const std::string& key, const std::string& value);
 
-	const int GetInt(const std::string& key);
-	const int GetInt(const std::string& key, const int& defaultValue);
-	void SetInt(const std::string& key, const int& value);
+	const int getInt(const std::string& key);
+	const int getInt(const std::string& key, const int& defaultValue);
+	void setInt(const std::string& key, const int& value);
 
-	const bool GetBool(const std::string& key);
-	const bool GetBool(const std::string& key, const bool& defaultValue);
-	void SetBool(const std::string& key, const bool& value);
+	const bool getBool(const std::string& key);
+	const bool getBool(const std::string& key, const bool& defaultValue);
+	void setBool(const std::string& key, const bool& value);
 
-	const std::map<std::string, std::string> GetList() { return m_Properties; }
-	const std::string GetFilePath() { return m_FilePath; }
+	const std::map<std::string, std::string> getList() { return m_properties; }
+	const std::string getFilePath() { return m_filePath; }
 
 private:
-	std::map<std::string, std::string> m_Properties;
-	std::string m_FilePath;
+	std::map<std::string, std::string> m_properties;
+	std::string m_filePath;
 };

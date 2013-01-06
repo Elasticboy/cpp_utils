@@ -10,9 +10,9 @@ public:
 	Lang(const std::string& path);
 	~Lang(void);
 	
-	const std::string GetFilename();
-	const std::map<std::string, std::string> GetList();
-	const std::string GetText(const std::string& key);
-	const std::string GetText(const std::string& key, const std::string& arg);
+	const std::string getFilename();
+	const std::map<std::string, std::string> getList();
+	const std::string getText(const std::string& key);
+	const std::string getText(const std::string& key, const std::string& arg);
 };
 

@@ -3,15 +3,15 @@
 #include <iostream>
 
 PropertyException::PropertyException(const std::string& message)
-	: m_Message(message)
+	: m_message(message)
 {
-	std::cerr << m_Message << std::endl;
+	std::cerr << m_message << std::endl;
 }
 
 PropertyException::PropertyException(const std::string& message, const std::string& subMessage)
-	: m_Message(message), m_SubMessage(subMessage)
+	: m_message(message), m_subMessage(subMessage)
 {
-	std::cerr << m_Message << m_SubMessage << std::endl;
+	std::cerr << m_message << m_subMessage << std::endl;
 }
 
 LoadPropertyException::LoadPropertyException()

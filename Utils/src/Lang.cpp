@@ -12,24 +12,24 @@ Lang::~Lang(void)
 {
 }
 
-const string Lang::GetFilename()
+const string Lang::getFilename()
 {
-	return Properties::GetFilePath();
+	return Properties::getFilePath();
 }
 
-const map<string, string> Lang::GetList()
+const map<string, string> Lang::getList()
 {
-	return Properties::GetList();
+	return Properties::getList();
 }
 
-const string Lang::GetText(const string& key)
+const string Lang::getText(const string& key)
 {
-	return Properties::GetString(key);
+	return Properties::getString(key);
 }
 
-const string Lang::GetText(const string& key, const string& arg)
+const string Lang::getText(const string& key, const string& arg)
 {
-	const auto str = Properties::GetString(key);
+	const auto str = Properties::getString(key);
 	
 	// TODO: use regex_find to check useless call to GetText() with arg
 	if (str.find("$1") != string::npos) {

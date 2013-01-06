@@ -11,12 +11,12 @@ public:
 	FileHandler(const std::string& path, const int openType);
 	~FileHandler();
 	
-	std::fstream& GetFile();
+	std::fstream& getFile();
 
 	static const int OPEN_TYPE_READ		= 0;
 	static const int OPEN_TYPE_WRITE	= 1;
 	static const int OPEN_TYPE_APPEND	= 2;
 
 private :
-	std::fstream m_File;
+	std::fstream m_file;
 };

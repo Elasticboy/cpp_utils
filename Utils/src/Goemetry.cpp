@@ -15,7 +15,7 @@ PointF::PointF(POINT point) :  x((float)point.x), y((float)point.y)
 {
 }
 
-void PointF::Display(string _name)
+void PointF::display(string _name)
 {
 	cout << "Displaying " << _name.c_str() << endl;
 	cout << "(" << x << "; " << y	<< ")" << endl << endl;
@@ -32,30 +32,30 @@ Rect::Rect(RECT rect) : left(rect.left), top(rect.top), right(rect.right), botto
 {
 }
 
-void Rect::Display(string _name)
+void Rect::display(string _name)
 {
 	cout << "Displaying " << _name.c_str() << endl;
 	cout << " - Position : "	<< left	<< ", "	<< top << ", ";
 	cout << right << ", "	<< bottom << endl;
-	cout << " - Dimensions : "	<< GetWidth() << "x" << GetHeight() << endl << endl;
+	cout << " - Dimensions : "	<< getWidth() << "x" << getHeight() << endl << endl;
 }
 
-int Rect::GetWidth()
+int Rect::getWidth()
 {
 	return right - left;
 }
 
-void Rect::SetWidth(int _width)
+void Rect::setWidth(int _width)
 {
 	right = left + _width;
 }
 
-int Rect::GetHeight()
+int Rect::getHeight()
 {
 	return bottom - top;
 }
 
-void Rect::SetHeight(int _height)
+void Rect::setHeight(int _height)
 {
 	bottom = top + _height;
 }
