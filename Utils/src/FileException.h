@@ -1,14 +1,16 @@
 #pragma once
 
 #include <string>
+#include <exception>
 
 /**
  * Mother class for file exceptions.
  */
-class FileException
+class FileException : public std::exception
 {
 public:
-	FileException(std::string message);
+	FileException(std::string message) throw();
+	virtual const char* what() const throw();
 protected:
 	std::string m_message;
 };

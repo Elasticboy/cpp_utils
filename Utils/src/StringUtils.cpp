@@ -4,14 +4,14 @@
 
 using namespace std;
 
-bool StringUtils::startWith(const std::string& str, const std::string& startStr)
+bool StringUtils::startsWith(const std::string& str, const std::string& prefix)
 {
-	return startStr == str.substr(0, startStr.length());
+	return prefix == str.substr(0, prefix.length());
 }
 
-bool StringUtils::endWith(const std::string& str, const std::string& endStr)
+bool StringUtils::endsWith(const std::string& str, const std::string& suffix)
 {
-	return endStr == str.substr(str.length() - endStr.length());
+	return suffix == str.substr(str.length() - suffix.length());
 }
 
 /**

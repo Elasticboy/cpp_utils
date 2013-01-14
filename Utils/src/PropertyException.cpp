@@ -14,6 +14,11 @@ PropertyException::PropertyException(const std::string& message, const std::stri
 	std::cerr << m_message << m_subMessage << std::endl;
 }
 
+const char* PropertyException::what() const throw()
+{
+	return (m_message + m_subMessage).c_str();
+}
+
 LoadPropertyException::LoadPropertyException()
 	: PropertyException("LoadPropertyException : Error while loading property.")	{ }
 LoadPropertyException::LoadPropertyException(const std::string& message)

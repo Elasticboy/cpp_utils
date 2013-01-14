@@ -152,15 +152,19 @@ void Properties::loadProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_TYPE_READ);
 	if (!fh.getFile()) {
-		throw LoadPropertyException("Can not open the file to read !");
+		throw LoadPropertyException("Can not open the file \"" + path + "\" to read !");
 	}
 
 	try {
 		string line;
 		while(getline(fh.getFile(), line)) {
 
-			const int equalPos	= line.find('=');
+			// Lines that begin with "#" are considered as comments
+			if (StringUtils::startsWith(StringUtils::trim(line), "#")) {
+				continue;
+			}
 
+			const int equalPos	= line.find('=');
 			if (equalPos != string::npos) {
 				const string key	= StringUtils::trim(line.substr(0, equalPos));
 				const string value	= StringUtils::trim(line.substr(equalPos + 1));
@@ -168,7 +172,7 @@ void Properties::loadProperties(const string& path)
 			}
 		}
 	} catch (...) {
-		throw LoadPropertyException();
+		throw LoadPropertyException("An error occured while parsing the property file \"" + path + "\".");
 	}
 }
 

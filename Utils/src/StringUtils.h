@@ -7,8 +7,8 @@
 class StringUtils
 {
 public:
-	static bool startWith(const std::string& str, const std::string& startStr);
-	static bool endWith(const std::string& str, const std::string& endStr);
+	static bool startsWith(const std::string& str, const std::string& prefix);
+	static bool endsWith(const std::string& str, const std::string& suffix);
 	static const std::string trim(const std::string& str);
 	static void clearBuffer(char* buffer);
 	static bstr_t stringToBStr(const std::string& str);
