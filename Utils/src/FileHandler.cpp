@@ -15,11 +15,11 @@ FileHandler::FileHandler(const string& path, const int openType)
 		m_file.open(path.c_str(), ios::app);
 
 	} else {
-		throw OpenFileException();
+		throw OpenFileException("Type of openning not supported " + to_string(openType) + ".");
 	}
 	
 	if (!m_file.is_open()) {
-		throw OpenFileException();
+		throw OpenFileException("Error while openning \"" + path + "\" with type " + to_string(openType) + ".");
 	}
 
 	//cout << "File " << path << " is open !" << endl;

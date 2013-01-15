@@ -39,7 +39,7 @@ const string Properties::getString(const string& key, const string& defaultValue
 {
 	try {
 		return getString(key);
-	} catch (const ReadPropertyException&) {
+	} catch (const exception&) {
 		return defaultValue;
 	}
 }
@@ -59,7 +59,7 @@ void Properties::setString(const string& key, const string& value)
 		}
 	}
 
-	throw WritePropertyException();
+	throw WritePropertyException("The key \"" + key + "\" does not exist in file \"" + m_filePath + "\".");
 }
 
 /**
@@ -84,7 +84,7 @@ const int Properties::getInt(const string& key, const int& defaultValue)
 {
 	try {
 		return getInt(key);
-	} catch (const ReadPropertyException&) {
+	} catch (const exception&) {
 		return defaultValue;
 	}
 }
@@ -114,7 +114,7 @@ const bool Properties::getBool(const string& key)
 		return false;
 	}
 
-	throw ReadPropertyException();
+	throw ReadPropertyException("Can not convert \"" + stringProperty + "\" to a boolean in file \"" + m_filePath + "\".");
 }
 
 /**
@@ -127,7 +127,7 @@ const bool Properties::getBool(const string& key, const bool& defaultValue)
 {
 	try {
 		return getBool(key);
-	} catch (const ReadPropertyException&) {
+	} catch (const exception&) {
 		return defaultValue;
 	}
 }
@@ -171,7 +171,7 @@ void Properties::loadProperties(const string& path)
 				m_properties[key] = value;
 			}
 		}
-	} catch (...) {
+	} catch (const exception&) {
 		throw LoadPropertyException("An error occured while parsing the property file \"" + path + "\".");
 	}
 }
@@ -180,16 +180,15 @@ void Properties::saveProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_TYPE_WRITE);
 	if (!fh.getFile()) {
-		cerr << "Can not open the file to write !" << endl;
-		throw SavePropertyException();
+		throw SavePropertyException("Can not open the file \"" + path + "\" to write !");
 	}
 
 	try {
 		for (const auto& prop : m_properties) {
 			fh.getFile() << prop.first << "=" << prop.second << endl;
 		}
-	} catch(...) {
-		throw SavePropertyException();
+	} catch(const exception&) {
+		throw SavePropertyException("Error while saving the properties in the file \"" + path + "\".");
 	}
 }
 

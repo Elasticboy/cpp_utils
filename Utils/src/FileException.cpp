@@ -13,14 +13,14 @@ const char* FileException::what() const throw()
 	return m_message.c_str();
 }
 
-OpenFileException::OpenFileException()
-	: FileException("OpenFileException : Error while opening file.")	{ }
+OpenFileException::OpenFileException(const std::string& message)
+	: FileException("OpenFileException : "	+ message)	{ }
 
-CloseFileException::CloseFileException()
-	: FileException("CloseFileException : Error while closing file.")	{ }
+CloseFileException::CloseFileException(const std::string& message)
+	: FileException("CloseFileException : "	+ message)	{ }
 
-ReadFileException::ReadFileException()
-	: FileException("ReadFileException : Error while reading file.")	{ }
+ReadFileException::ReadFileException(const std::string& message)
+	: FileException("ReadFileException : "	+ message)	{ }
 
-WriteFileException::WriteFileException()
-	: FileException("WriteFileException : Error while writting file.")	{ }
+WriteFileException::WriteFileException(const std::string& message)
+	: FileException("WriteFileException : "	+ message)	{ }

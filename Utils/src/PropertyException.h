@@ -10,12 +10,10 @@ class PropertyException : public std::exception
 {
 public:
 	PropertyException(const std::string& message) throw();
-	PropertyException(const std::string& message, const std::string& subMessage) throw();
 	virtual const char* what() const throw();
 
 protected:
 	std::string m_message;
-	std::string m_subMessage;
 };
 
 /*
@@ -24,27 +22,23 @@ protected:
 class LoadPropertyException : public PropertyException
 {
 public:
-	LoadPropertyException();
-	LoadPropertyException(const std::string& message);
+	LoadPropertyException(const std::string& message = "Error while loading property.");
 };
 
 class SavePropertyException : public PropertyException
 {
 public:
-	SavePropertyException();
-	SavePropertyException(const std::string& message);
+	SavePropertyException(const std::string& message = "Error while saving property.");
 };
 
 class ReadPropertyException : public PropertyException
 {
 public:
-	ReadPropertyException();
-	ReadPropertyException(const std::string& message);
+	ReadPropertyException(const std::string& message = "Error while reading property.");
 };
 
 class WritePropertyException : public PropertyException
 {
 public:
-	WritePropertyException();
-	WritePropertyException(const std::string& message);
+	WritePropertyException(const std::string& message = "Error while writing property.");
 };
