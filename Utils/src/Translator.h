@@ -17,6 +17,7 @@ public:
 	std::string getString(const std::string& key);
 	std::string getString(const std::string& key, const std::string& arg);
 	std::string getString(const std::string& key, const int& arg);
+	int countLanguages();
 
 private:
 	static Translator* m_instance;

@@ -37,16 +37,18 @@ void Translator::setLanguage(const string& languageKey){
 
 /**
  * Add a new language to the translator.
- * languageKey The key which define the language.
- * dataFile The path of the language file.
+ * @param languageKey The key which define the language.
+ * @param dataFile The path of the language file.
  */
 void Translator::addLanguage(const string& languageKey, const string& dataFile)
 {
 	// Add only if dosen't exist
 	if (m_langFiles.find(languageKey) != m_langFiles.end()) {
+		// Key already exists => return.
 		return;
 	}
 
+	// Key does not exist. Add the file
 	m_langFiles.insert(make_pair(languageKey, Lang(dataFile)));
 }
 
@@ -75,4 +77,12 @@ string Translator::getString(const string& key, const string& arg)
 string Translator::getString(const std::string& key, const int& arg)
 {
 	return getString(key, to_string(arg));
+}
+
+/**
+ * Count available languages.
+ */
+int Translator::countLanguages()
+{
+	return m_langFiles.size();
 }
