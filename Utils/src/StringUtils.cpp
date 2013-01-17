@@ -6,11 +6,19 @@ using namespace std;
 
 bool StringUtils::startsWith(const std::string& str, const std::string& prefix)
 {
+	if (str.length() < prefix.length()) {
+		return false;
+	}
+
 	return prefix == str.substr(0, prefix.length());
 }
 
 bool StringUtils::endsWith(const std::string& str, const std::string& suffix)
 {
+	if (str.length() < suffix.length()) {
+		return false;
+	}
+
 	return suffix == str.substr(str.length() - suffix.length());
 }
 

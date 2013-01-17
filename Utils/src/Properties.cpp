@@ -160,7 +160,7 @@ void Properties::loadProperties(const string& path)
 		while(getline(fh.getFile(), line)) {
 
 			// Lines that begin with "#" are considered as comments
-			if (StringUtils::startsWith(StringUtils::trim(line), "#")) {
+			if (line.empty() || StringUtils::startsWith(StringUtils::trim(line), "#")) {
 				continue;
 			}
 
