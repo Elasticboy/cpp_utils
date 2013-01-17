@@ -171,8 +171,8 @@ void Properties::loadProperties(const string& path)
 				m_properties[key] = value;
 			}
 		}
-	} catch (const exception&) {
-		throw LoadPropertyException("An error occured while parsing the property file \"" + path + "\".");
+	} catch (const exception& e) {
+		throw LoadPropertyException("An error occured while parsing the property file \"" + path + "\" : " + e.what());
 	}
 }
 

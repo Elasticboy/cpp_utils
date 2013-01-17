@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Translator.h"
+#include "Exception.h"
 
 using namespace std;
 
@@ -31,8 +32,16 @@ Translator::~Translator()
 {
 }
 
-void Translator::setLanguage(const string& languageKey){
-	m_languageKey = languageKey;
+/**
+ * Set the language if it is available in m_langFiles.
+ */
+void Translator::setLanguage(const string& languageKey)
+{
+	if (m_langFiles.find(languageKey) != m_langFiles.end()) {
+		m_languageKey = languageKey;
+	}
+
+	throw Exception("Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
 }
 
 /**
