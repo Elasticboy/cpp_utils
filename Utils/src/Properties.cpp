@@ -150,7 +150,7 @@ void Properties::setBool(const string& key, const bool& value)
  */
 void Properties::loadProperties(const string& path)
 {
-	FileHandler fh(path, FileHandler::OPEN_TYPE_READ);
+	FileHandler fh(path, FileHandler::OPEN_MODE_READ);
 	if (!fh.getFile()) {
 		throw LoadPropertyException("Can not open the file \"" + path + "\" to read !");
 	}
@@ -159,7 +159,7 @@ void Properties::loadProperties(const string& path)
 		string line;
 		while(getline(fh.getFile(), line)) {
 
-			// Lines that begin with "#" are considered as comments
+			// Ingnore empty lines and lines that begin with "#" (considered as comments)
 			if (line.empty() || StringUtils::startsWith(StringUtils::trim(line), "#")) {
 				continue;
 			}
@@ -178,7 +178,7 @@ void Properties::loadProperties(const string& path)
 
 void Properties::saveProperties(const string& path)
 {
-	FileHandler fh(path, FileHandler::OPEN_TYPE_WRITE);
+	FileHandler fh(path, FileHandler::OPEN_MODE_WRITE);
 	if (!fh.getFile()) {
 		throw SavePropertyException("Can not open the file \"" + path + "\" to write !");
 	}

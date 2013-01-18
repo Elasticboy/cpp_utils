@@ -3,23 +3,18 @@
 
 using namespace std;
 
-FileHandler::FileHandler(const string& path, const int openType)
+FileHandler::FileHandler(const string& path, const int& openMode)
 {
-	if (openType == OPEN_TYPE_READ) {
-		m_file.open(path.c_str(), ios::in);
+	ios_base::openmode mode = getOpenMode(openMode);
 
-	} else if (openType == OPEN_TYPE_WRITE) {
-		m_file.open(path.c_str(), ios::out);
-
-	} else if (openType == OPEN_TYPE_APPEND) {
-		m_file.open(path.c_str(), ios::app);
-
-	} else {
-		throw OpenFileException("Type of openning not supported " + to_string(openType) + ".");
+	try {
+		m_file.open(path.c_str(), mode);
+	} catch (const exception& e) {
+		throw OpenFileException("Error while openning \"" + path + "\" : " + e.what() + ".");
 	}
-	
+
 	if (!m_file.is_open()) {
-		throw OpenFileException("Error while openning \"" + path + "\" with type " + to_string(openType) + ".");
+		throw OpenFileException("Error, couldn't open the file \"" + path + "\".");
 	}
 
 	//cout << "File " << path << " is open !" << endl;
@@ -36,4 +31,25 @@ FileHandler::~FileHandler()
 fstream& FileHandler::getFile()
 {
 	return m_file;
+}
+
+/**
+ * Get the ios_base::openmode corresponding to the internal openMode value.
+ * @param openMode The mode of openning to translate.
+ * @return The ios_base::openmode corresponding to the internal openMode value.
+ * @throws An OpenFileException if the given openMode is not supported.
+ */
+ios_base::openmode FileHandler::getOpenMode(const int& openMode)
+{
+	if (openMode == OPEN_MODE_READ) {
+		return ios_base::in;
+		
+	} else if (openMode == OPEN_MODE_WRITE) {
+		return ios_base::out;
+
+	} else if (openMode == OPEN_MODE_APPEND) {
+		return ios_base::app;
+	}
+	
+	throw OpenFileException("Openning mode \"" + to_string(openMode) + "\" is not supported.");
 }

@@ -89,9 +89,10 @@ string Translator::getString(const std::string& key, const int& arg)
 }
 
 /**
- * Count available languages.
+ * The translator is concidered initialized if at least on language is set.
+ * @return True if the number of registered languages is superior to zero.
  */
-int Translator::countLanguages()
+bool Translator::isInitialized()
 {
-	return m_langFiles.size();
+	return m_langFiles.size() > 0;
 }
