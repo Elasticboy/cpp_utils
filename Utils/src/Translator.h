@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include "Lang.h"
+#include "Logger.h"
 
 class Translator
 {
@@ -21,6 +22,7 @@ public:
 
 private:
 	static Translator* m_instance;
+	static Logger* m_log;
 	
 	Translator();
 	~Translator();
