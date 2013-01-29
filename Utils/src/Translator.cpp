@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Translator.h"
 #include "Exception.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -26,15 +27,10 @@ void Translator::freeInstance()
 Translator::Translator()
 {
 	m_languageKey = LANG_EN;
-	m_log = new Logger("Translator.log");
 }
 
 Translator::~Translator()
 {
-	if (m_log) {
-		delete(m_log);
-		m_log = nullptr;
-	}
 }
 
 /**
@@ -45,7 +41,7 @@ void Translator::setLanguage(const string& languageKey)
 	if (m_langFiles.find(languageKey) != m_langFiles.end()) {
 		m_languageKey = languageKey;
 	}
-	m_log->debug("Translator::setLanguage(" + languageKey + ")");
+	Utils::getLogger()->debug("Translator::setLanguage(" + languageKey + ")");
 	throw Exception("Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
 }
 

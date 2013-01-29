@@ -104,6 +104,7 @@
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\Translator.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -123,6 +124,7 @@
     </ClCompile>
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Translator.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.ico" />

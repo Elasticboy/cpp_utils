@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "Properties.h"
 #include "StringUtils.h"
+#include "Utils.h"
 #include <sstream>
 
 using namespace std;
@@ -26,6 +27,7 @@ const string Properties::getString(const string& key)
 		}
 	}
 
+	Utils::getLogger()->warning("Properties::getString(" + key + ") : Key \"" + key + "\" not found in file \"" + m_filePath + "\".");
 	throw ReadPropertyException("Key \"" + key + "\" not found in file \"" + m_filePath + "\".");
 }
 
@@ -40,6 +42,7 @@ const string Properties::getString(const string& key, const string& defaultValue
 	try {
 		return getString(key);
 	} catch (const exception&) {
+		Utils::getLogger()->info("Properties::getString(const string& key, const string& defaultValue) : Using default value \"" + defaultValue + "\" for key \"" + key + "\".");
 		return defaultValue;
 	}
 }

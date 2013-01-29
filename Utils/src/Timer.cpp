@@ -2,35 +2,48 @@
 #include "Timer.h"
 
 #include <windows.h>
-#include <sstream>
-#include <ctime>
 #include <stdio.h>
+#include <time.h>
+#include <string>
 
 using namespace std;
 
-// TODO: Fix formatting problem => 2012-12-21 1:7:47
-// TODO: change function parameters => format (Y-M-d H:m:s
-const string Timer::getTime(const bool& withSapces)
+/**
+ * %a	Abbreviated weekday name		=> Thu
+ * %A	Full weekday name				=> Thursday
+ * %b	Abbreviated month name			=> Aug
+ * %B	Full month name					=> August
+ * %c	Date and time representation	=> Thu Aug 23 14:55:02 2001
+ * %d	Day of the month (01-31)			=> 23
+ * %H	Hour in 24h format (00-23)		=> 14
+ * %I	Hour in 12h format (01-12)		=> 02
+ * %j	Day of the year (001-366)		=> 235
+ * %m	Month as a decimal number (01-12) =>08
+ * %M	Minute (00-59)					=> 55
+ * %p	AM or PM designation			=> PM
+ * %S	Second (00-61)					=> 02
+ * %U	Week number with the first Sunday as the first day of week one (00-53) => 33
+ * %w	Weekday as a decimal number with Sunday as 0 (0-6) => 4
+ * %W	Week number with the first Monday as the first day of week one (00-53) => 34
+ * %x	Date representation				=> 08/23/01
+ * %X	Time representation				=> 14:55:02
+ * %y	Year, last two digits (00-99)	=> 01
+ * %Y	Year							=> 2001
+ * %Z	Timezone name or abbreviation	=> CDT
+ * %%	A % sign						=> %
+ */
+const string Timer::getTime(const string& format)
 {
 	time_t now = time(nullptr);
-	tm ltm;
-	localtime_s(&ltm, &now);
+	tm timeinfo;
+	localtime_s(&timeinfo, &now);
 
-	// print various components of tm structure.
-	const int year	= ltm.tm_year	+ 1900;
-	const int month	= ltm.tm_mon	+ 1;
-	const int day	= ltm.tm_mday;
-	const int hour	= ltm.tm_hour;
-	const int min	= ltm.tm_min;
-	const int sec	= ltm.tm_sec;
-	
-	ostringstream oss;
-	if (withSapces) {
-		oss << year << "-" << month << "-" << day << " " << hour << ":" << min << ":" << sec;
-	} else {
-		oss << year << "-" << month << "-" << day;
-	}
-	return oss.str();
+	const int buffSize = 80;
+	char buffer[buffSize];
+
+	strftime(buffer, buffSize, format.c_str(), &timeinfo);
+
+	return string(buffer);
 }
 
 const long long Timer::counter()

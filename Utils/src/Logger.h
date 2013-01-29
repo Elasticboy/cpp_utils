@@ -13,7 +13,7 @@ public:
 	void error(const std::string& message);
 
 private:
-	std::string m_LogFile;
+	std::string m_logFile;
 
 	void write(const std::string& message);
 	void writeInFile(const std::string& filename, const std::string& message);

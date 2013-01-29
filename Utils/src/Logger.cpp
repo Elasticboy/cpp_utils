@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Logger::Logger(const string& filename) : m_LogFile(filename) { }
+Logger::Logger(const string& filename) : m_logFile(filename) { }
 
 void Logger::info(const std::string& message)
 {
@@ -15,7 +15,7 @@ void Logger::info(const std::string& message)
 
 void Logger::debug(const std::string& message)
 {
-	write("DEBUG  : " + message);
+	write("DEBUG : " + message);
 }
 
 void Logger::warning(const std::string& message)
@@ -36,7 +36,7 @@ void Logger::error(const std::string& message)
  */
 void Logger::write(const string& message)
 {
-	writeInFile(m_LogFile, Timer::getTime(true) + " - " + message);
+	writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + message);
 }
 
 /**
