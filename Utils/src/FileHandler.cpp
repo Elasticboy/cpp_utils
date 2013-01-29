@@ -14,7 +14,7 @@ FileHandler::FileHandler(const string& path, const int& openMode)
 	}
 
 	if (!m_file.is_open()) {
-		throw OpenFileException("Error, couldn't open the file \"" + path + "\".");
+		throw OpenFileException("File not found \"" + path + "\".");
 	}
 
 	//cout << "File " << path << " is open !" << endl;

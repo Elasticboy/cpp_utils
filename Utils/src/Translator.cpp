@@ -40,7 +40,10 @@ void Translator::setLanguage(const string& languageKey)
 {
 	if (m_langFiles.find(languageKey) != m_langFiles.end()) {
 		m_languageKey = languageKey;
+		Utils::getLogger()->debug("Translator::setLanguage(), new language \"" + languageKey + "\".");
+		return;
 	}
+
 	Utils::getLogger()->debug("Translator::setLanguage(" + languageKey + ")");
 	throw Exception("Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
 }
@@ -55,11 +58,13 @@ void Translator::addLanguage(const string& languageKey, const string& dataFile)
 	// Add only if dosen't exist
 	if (m_langFiles.find(languageKey) != m_langFiles.end()) {
 		// Key already exists => return.
+		Utils::getLogger()->debug("Translator::addLanguage(), Language \"" + languageKey + "\" already added.");
 		return;
 	}
 
 	// Key does not exist. Add the file
 	m_langFiles.insert(make_pair(languageKey, Lang(dataFile)));
+	Utils::getLogger()->debug("Translator::addLanguage(), Language \"" + languageKey + "\" added to the translator.");
 }
 
 string Translator::getString(const string& key)

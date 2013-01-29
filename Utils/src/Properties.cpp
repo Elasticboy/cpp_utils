@@ -42,7 +42,7 @@ const string Properties::getString(const string& key, const string& defaultValue
 	try {
 		return getString(key);
 	} catch (const exception&) {
-		Utils::getLogger()->info("Properties::getString(const string& key, const string& defaultValue) : Using default value \"" + defaultValue + "\" for key \"" + key + "\".");
+		Utils::getLogger()->warning("Properties::getString() : Using default value \"" + defaultValue + "\" for key \"" + key + "\".");
 		return defaultValue;
 	}
 }
@@ -61,8 +61,8 @@ void Properties::setString(const string& key, const string& value)
 			return;
 		}
 	}
-
-	throw WritePropertyException("The key \"" + key + "\" does not exist in file \"" + m_filePath + "\".");
+	
+	Utils::getLogger()->warning("Properties::setString(), The key \"" + key + "\" does not exist in file \"" + m_filePath + "\".");
 }
 
 /**

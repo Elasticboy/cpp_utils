@@ -2,8 +2,8 @@
 #include "Timer.h"
 
 #include <windows.h>
-#include <stdio.h>
-#include <time.h>
+#include <cstdio>
+#include <ctime>
 #include <string>
 
 using namespace std;

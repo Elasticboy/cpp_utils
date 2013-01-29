@@ -1,5 +1,7 @@
 #include "stdafx.h"
+
 #include "Lang.h"
+#include "Utils.h"
 #include <regex>
 
 using namespace std;
@@ -30,13 +32,13 @@ const string Lang::getText(const string& key)
 const string Lang::getText(const string& key, const string& arg)
 {
 	const auto str = Properties::getString(key);
-	
-	// TODO: use regex_find to check useless call to GetText() with arg
-	if (str.find("$1") != string::npos) {
-		cerr << "No $1 found for the key : \"" << key << "\".";
-		cerr << "Consider using Lang::GetText(const string& key) instead of Lang::GetText(const string& key, const string& arg)";
+	smatch match;
+	const regex r("\\$1");
+
+	if (!regex_search(str, match, r)) {
+		Utils::getLogger()->warning("Lang::getText(), No $1 found for the key : \"" + key + "\". Argument \"" + arg + "\" is useless !");
+		Utils::getLogger()->warning("Lang::getText(), Consider using Lang::GetText(key) instead of Lang::GetText(key, arg)");
 	}
 	
-	const regex r("\\$1");
 	return regex_replace(str, r, arg);
 }

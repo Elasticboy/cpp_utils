@@ -5,8 +5,9 @@
 #include <stdio.h>
 
 using namespace std;
+#define QUIET_MODE true // If not in QUIET_MODE, write log in console too
 
-Logger::Logger(const string& filename) : m_logFile(filename) { }
+Logger::Logger(const string& filename) : m_logFile("logs/" + filename) { }
 
 void Logger::info(const std::string& message)
 {
@@ -36,7 +37,15 @@ void Logger::error(const std::string& message)
  */
 void Logger::write(const string& message)
 {
-	writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + message);
+	try {
+		writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + message);
+		if (!QUIET_MODE) {
+			cout << message << endl;
+		}
+	} catch (const exception&) {
+		cerr << "Can not open the file '" << m_logFile << "' to write !" << endl;
+		cout << message << endl;
+	}
 }
 
 /**
@@ -44,14 +53,8 @@ void Logger::write(const string& message)
  * @param logFilename the logfile name.
  * @param message The message to write in the file.
  */
-void Logger::writeInFile(const string& logFilename, const string& message)
-{
+void Logger::writeInFile(const string& logFilename, const string& logMessage)
+{	
 	FileHandler fwriter(logFilename, FileHandler::OPEN_MODE_APPEND);
-	if (!fwriter.getFile()) {
-		cerr << "Can not open the file '" << logFilename << "' to write !" << endl;
-		cout << message << endl;
-		return;
-	}
-
-	fwriter.getFile() << message << endl;
+	fwriter.getFile() << logMessage << endl;
 }

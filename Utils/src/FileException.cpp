@@ -5,7 +5,6 @@
 FileException::FileException(std::string message)
 	: m_message(message)
 {
-	std::cerr << m_message << std::endl;
 }
 
 const char* FileException::what() const throw()
