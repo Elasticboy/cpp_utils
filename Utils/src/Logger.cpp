@@ -5,28 +5,40 @@
 #include <stdio.h>
 
 using namespace std;
-#define QUIET_MODE true // If not in QUIET_MODE, write log in console too
 
-Logger::Logger(const string& filename) : m_logFile("logs/" + filename) { }
+const bool QUIET_MODE = false; // If not in QUIET_MODE, write log in console too
+const string LOG_DIR = ".\\logs\\";
 
-void Logger::info(const std::string& message)
+const string PREFIX_DEBUG	= "DEBUG : ";
+const string PREFIX_INFO	= "INFO  : ";
+const string PREFIX_WARNING	= "WARN  : ";
+const string PREFIX_ERROR	= "ERROR : ";
+
+Logger::Logger(const string& filename) : m_logFile(LOG_DIR + filename) { }
+
+void Logger::setLogFile(const string& filename)
 {
-	write("INFO  : " + message);
+	m_logFile = LOG_DIR + filename;
 }
 
-void Logger::debug(const std::string& message)
+void Logger::debug(const string& message)
 {
-	write("DEBUG : " + message);
+	write(PREFIX_DEBUG + message);
 }
 
-void Logger::warning(const std::string& message)
+void Logger::info(const string& message)
 {
-	write("WARN  : " + message);
+	write(PREFIX_INFO + message);
 }
 
-void Logger::error(const std::string& message)
+void Logger::warning(const string& message)
 {
-	write("ERROR : " + message);
+	write(PREFIX_WARNING + message);
+}
+
+void Logger::error(const string& message)
+{
+	write(PREFIX_ERROR + message);
 }
 
 /**
