@@ -6,8 +6,15 @@
 
 using namespace std;
 
-const bool QUIET_MODE = false; // If not in QUIET_MODE, write log in console too
+const int LOG_SEVERITY = 4;
+const int LOG_SEVERITY_CONSOLE = 4;
+
 const string LOG_DIR = ".\\logs\\";
+
+const int SEVERITY_DEBUG	= 4;
+const int SEVERITY_INFO		= 3;
+const int SEVERITY_WARNING	= 2;
+const int SEVERITY_ERROR	= 1;
 
 const string PREFIX_DEBUG	= "DEBUG : ";
 const string PREFIX_INFO	= "INFO  : ";
@@ -23,22 +30,22 @@ void Logger::setLogFile(const string& filename)
 
 void Logger::debug(const string& message)
 {
-	write(PREFIX_DEBUG + message);
+	write(SEVERITY_DEBUG, message);
 }
 
 void Logger::info(const string& message)
 {
-	write(PREFIX_INFO + message);
+	write(SEVERITY_INFO, message);
 }
 
 void Logger::warning(const string& message)
 {
-	write(PREFIX_WARNING + message);
+	write(SEVERITY_WARNING, message);
 }
 
 void Logger::error(const string& message)
 {
-	write(PREFIX_ERROR + message);
+	write(SEVERITY_ERROR, message);
 }
 
 /**
@@ -47,12 +54,28 @@ void Logger::error(const string& message)
  * Write in the file.
  * @param message The message to log.
  */
-void Logger::write(const string& message)
+void Logger::write(const int& severity, const string& message)
 {
+	string prefix = "";
+	if (severity == SEVERITY_DEBUG) {
+		prefix = PREFIX_DEBUG;
+
+	} else if (severity == SEVERITY_INFO) {
+		prefix = PREFIX_INFO;
+
+	} else if (severity == SEVERITY_WARNING) {
+		prefix = PREFIX_WARNING;
+
+	} else if (severity == SEVERITY_ERROR) {
+		prefix = PREFIX_ERROR;
+	}
+
 	try {
-		writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + message);
-		if (!QUIET_MODE) {
-			cout << message << endl;
+		if (severity <= LOG_SEVERITY) {
+			writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + prefix + message);
+		}
+		if (severity <= LOG_SEVERITY_CONSOLE) {
+			cout << prefix << message << endl;
 		}
 	} catch (const exception&) {
 		cerr << "Can not open the file '" << m_logFile << "' to write !" << endl;

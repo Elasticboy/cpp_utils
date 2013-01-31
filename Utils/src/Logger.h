@@ -16,6 +16,6 @@ public:
 private:
 	std::string m_logFile;
 
-	void write(const std::string& message);
+	void write(const int& severity, const std::string& message);
 	void writeInFile(const std::string& filename, const std::string& message);
 };
