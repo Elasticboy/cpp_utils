@@ -6,20 +6,20 @@
 
 using namespace std;
 
-const int LOG_SEVERITY = 4;
-const int LOG_SEVERITY_CONSOLE = 4;
+const int Logger::LOG_SEVERITY = 4;
+const int Logger::LOG_SEVERITY_CONSOLE = 4;
 
-const string LOG_DIR = ".\\logs\\";
+const string Logger::LOG_DIR = ".\\logs\\";
 
-const int SEVERITY_DEBUG	= 4;
-const int SEVERITY_INFO		= 3;
-const int SEVERITY_WARNING	= 2;
-const int SEVERITY_ERROR	= 1;
+const int Logger::SEVERITY_DEBUG	= 4;
+const int Logger::SEVERITY_INFO		= 3;
+const int Logger::SEVERITY_WARNING	= 2;
+const int Logger::SEVERITY_ERROR	= 1;
 
-const string PREFIX_DEBUG	= "DEBUG : ";
-const string PREFIX_INFO	= "INFO  : ";
-const string PREFIX_WARNING	= "WARN  : ";
-const string PREFIX_ERROR	= "ERROR : ";
+const string Logger::PREFIX_DEBUG	= "DEBUG : ";
+const string Logger::PREFIX_INFO	= "INFO  : ";
+const string Logger::PREFIX_WARNING	= "WARN  : ";
+const string Logger::PREFIX_ERROR	= "ERROR : ";
 
 Logger::Logger(const string& filename) : m_logFile(LOG_DIR + filename) { }
 
