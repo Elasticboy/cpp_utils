@@ -4,48 +4,79 @@
 #include "Timer.h"
 #include <stdio.h>
 
+#define LOG_DIR "logs\\"
+
 using namespace std;
 
-const int Logger::LOG_SEVERITY = 4;
-const int Logger::LOG_SEVERITY_CONSOLE = 4;
+const int DEFAULT_LOG_SEVERITY = 4;
+const int DEFAULT_LOG_SEVERITY_CONSOLE = 4;
 
-const string Logger::LOG_DIR = ".\\logs\\";
 
-const int SEVERITY_DEBUG	= 4;
-const int SEVERITY_INFO		= 3;
-const int SEVERITY_WARNING	= 2;
-const int SEVERITY_ERROR		= 1;
+const string Logger::PREFIX_DEBUG	= "DEBUG : ";
+const string Logger::PREFIX_INFO	= "INFO  : ";
+const string Logger::PREFIX_WARNING	= "WARN  : ";
+const string Logger::PREFIX_ERROR	= "ERROR : ";
 
-const string PREFIX_DEBUG	= "DEBUG : ";
-const string PREFIX_INFO	= "INFO  : ";
-const string PREFIX_WARNING	= "WARN  : ";
-const string PREFIX_ERROR	= "ERROR : ";
+const int Logger::SEVERITY_LVL_DEBUG	= 4;
+const int Logger::SEVERITY_LVL_INFO		= 3;
+const int Logger::SEVERITY_LVL_WARNING	= 2;
+const int Logger::SEVERITY_LVL_ERROR	= 1;
 
-Logger::Logger(const string& filename) : m_logFile(LOG_DIR + filename) { }
+Logger::Logger(const string& filename)
+{
+	setLogFile(filename);
+	m_logSeverity			= DEFAULT_LOG_SEVERITY;
+	m_logSeverityConsole	= DEFAULT_LOG_SEVERITY_CONSOLE;
+}
 
+
+const string Logger::getLogDir() {
+	return LOG_DIR;
+}
+
+/**
+ * Set the filename for file output.
+ * Directory is determine by LOG_DIR.
+ */
 void Logger::setLogFile(const string& filename)
 {
-	m_logFile = LOG_DIR + filename;
+	m_logFile = getLogDir() + filename;
+}
+
+/**
+ * Set the log severity for file output;
+ */
+void Logger::setLogSeverity(const int& logSeverity)
+{
+	m_logSeverity = logSeverity;
+}
+
+/**
+ * Set the log severity for console output;
+ */
+void Logger::setLogSeverityConsole(const int& logSeverity)
+{
+	m_logSeverityConsole = logSeverity;
 }
 
 void Logger::debug(const string& message)
 {
-	write(SEVERITY_DEBUG, message);
+	write(SEVERITY_LVL_DEBUG, message);
 }
 
 void Logger::info(const string& message)
 {
-	write(SEVERITY_INFO, message);
+	write(SEVERITY_LVL_INFO, message);
 }
 
 void Logger::warning(const string& message)
 {
-	write(SEVERITY_WARNING, message);
+	write(SEVERITY_LVL_WARNING, message);
 }
 
 void Logger::error(const string& message)
 {
-	write(SEVERITY_ERROR, message);
+	write(SEVERITY_LVL_ERROR, message);
 }
 
 /**
@@ -57,24 +88,24 @@ void Logger::error(const string& message)
 void Logger::write(const int& severity, const string& message)
 {
 	string prefix = "";
-	if (severity == SEVERITY_DEBUG) {
+	if (severity == SEVERITY_LVL_DEBUG) {
 		prefix = PREFIX_DEBUG;
 
-	} else if (severity == SEVERITY_INFO) {
+	} else if (severity == SEVERITY_LVL_INFO) {
 		prefix = PREFIX_INFO;
 
-	} else if (severity == SEVERITY_WARNING) {
+	} else if (severity == SEVERITY_LVL_WARNING) {
 		prefix = PREFIX_WARNING;
 
-	} else if (severity == SEVERITY_ERROR) {
+	} else if (severity == SEVERITY_LVL_ERROR) {
 		prefix = PREFIX_ERROR;
 	}
 
 	try {
-		if (severity <= LOG_SEVERITY) {
+		if (severity <= m_logSeverity) {
 			writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + prefix + message);
 		}
-		if (severity <= LOG_SEVERITY_CONSOLE) {
+		if (severity <= m_logSeverityConsole) {
 			cout << prefix << message << endl;
 		}
 	} catch (const exception&) {

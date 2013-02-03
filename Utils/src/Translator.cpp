@@ -67,17 +67,28 @@ void Translator::addLanguage(const string& languageKey, const string& dataFile)
 	Utils::getLogger()->debug("Translator::addLanguage(), Language \"" + languageKey + "\" added to the translator.");
 }
 
-string Translator::getString(const string& key)
+//TODO: use templates for arg != string (ex : int, double, ...) => type_traits
+template<typename T> string Translator::getString(const string& key, const T& arg)
 {
-	for (auto langFile : m_langFiles) {
-		if (langFile.first == m_languageKey) {
-			return langFile.second.getText(key);
-		}
+	if (typename is_arithmetic<T>::type() == true_type) {
+		return getInstance()->getStringWithArg(key, to_string(arg));
+
+	} else if (typename is_same<T, string>::type() == true_type) {
+		return getInstance()->getStringWithArg(key, arg);
 	}
-	return ""; // TODO: Throw exception here StringNotFound
+
+	// TODO: Throw (bad argument) an error here !
+	Utils::getLogger()->error("Translator::addLanguage(), Language \"" + languageKey + "\" added to the translator.");
+	throw invalid_argument;
 }
 
-string Translator::getString(const string& key, const string& arg)
+// TODO: to fix !
+string Translator::getString(const string& key)
+{
+	return getInstance()->getStringWithArg(key, "");
+}
+
+string Translator::getStringWithArg(const string& key, const string& arg)
 {
 	for (auto langFile : m_langFiles) {
 		if (langFile.first == m_languageKey) {
@@ -87,12 +98,13 @@ string Translator::getString(const string& key, const string& arg)
 	return ""; // TODO: Throw exception here StringNotFound
 }
 
-//TODO: use templates for arg != string (ex : int, double, ...) 
-//template<typename T> string Translator::GetString(const string& key, const T& arg)
-string Translator::getString(const std::string& key, const int& arg)
+// TODO: clean
+/*
+string Translator::getStringArgInt(const std::string& key, const int& arg)
 {
-	return getString(key, to_string(arg));
+	return getStringArgStr(key, to_string(arg));
 }
+*/
 
 /**
  * The translator is concidered initialized if at least on language is set.

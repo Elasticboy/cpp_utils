@@ -12,7 +12,7 @@ public:
 	
 	const std::string getFilename();
 	const std::map<std::string, std::string> getList();
-	const std::string getText(const std::string& key);
-	const std::string getText(const std::string& key, const std::string& arg);
+	//const std::string getText(const std::string& key);
+	const std::string getText(const std::string& key, const std::string& arg = "");
 };
 

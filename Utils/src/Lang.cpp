@@ -24,14 +24,19 @@ const map<string, string> Lang::getList()
 	return Properties::getList();
 }
 
+/**
 const string Lang::getText(const string& key)
 {
 	return Properties::getString(key);
-}
+}*/
 
 const string Lang::getText(const string& key, const string& arg)
 {
 	const auto str = Properties::getString(key);
+	if (arg == "") {
+		return str;
+	}
+
 	smatch match;
 	const regex r("\\$1");
 

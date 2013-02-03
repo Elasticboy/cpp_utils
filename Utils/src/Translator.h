@@ -12,15 +12,18 @@ public:
 	static Translator* getInstance();
 	static void freeInstance();
 
+	template<typename T> static std::string getString(const std::string& key, const T& arg = "");
+	static std::string getString(const std::string& key);
+
 	void setLanguage(const std::string& languageKey);
 	void addLanguage(const std::string& languageKey, const std::string& dataFile);
-	std::string getString(const std::string& key);
-	std::string getString(const std::string& key, const std::string& arg);
-	std::string getString(const std::string& key, const int& arg);
 	bool isInitialized();
 
 private:
 	static Translator* m_instance;
+	std::string getStringWithArg(const std::string& key, const std::string& arg = "");
+	// TODO: clean header
+	//std::string getStringArgInt(const std::string& key, const int& arg);
 	
 	Translator();
 	~Translator();
