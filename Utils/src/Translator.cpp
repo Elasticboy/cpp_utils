@@ -85,7 +85,7 @@ string Translator::getString(const string& key, const T& arg)
 	throw invalid_argument;
 }/**/
 
-/*/
+/**/
 string Translator::getString(const string& key, const string& arg)
 {
 	return getInstance()->getStringWithArg(key, arg);
