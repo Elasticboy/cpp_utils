@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FileUtils.h" />
     <ClInclude Include="src\Singleton.h" />
     <ClInclude Include="src\Lang.h" />
     <ClInclude Include="src\Logger.h" />
@@ -108,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="src\FileUtils.cpp" />
     <ClCompile Include="src\Singleton.cpp" />
     <ClCompile Include="src\Lang.cpp" />
     <ClCompile Include="src\Logger.cpp" />
