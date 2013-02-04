@@ -2,6 +2,7 @@
 #include "Translator.h"
 #include "Exception.h"
 #include "Utils.h"
+#include <type_traits>
 
 using namespace std;
 
@@ -68,7 +69,9 @@ void Translator::addLanguage(const string& languageKey, const string& dataFile)
 }
 
 //TODO: use templates for arg != string (ex : int, double, ...) => type_traits
-template<typename T> string Translator::getString(const string& key, const T& arg)
+/*/
+template<typename T>
+string Translator::getString(const string& key, const T& arg)
 {
 	if (typename is_arithmetic<T>::type() == true_type) {
 		return getInstance()->getStringWithArg(key, to_string(arg));
@@ -78,15 +81,29 @@ template<typename T> string Translator::getString(const string& key, const T& ar
 	}
 
 	// TODO: Throw (bad argument) an error here !
-	Utils::getLogger()->error("Translator::addLanguage(), Language \"" + languageKey + "\" added to the translator.");
+	Utils::getLogger()->error("Template getString(), bad argument.");
 	throw invalid_argument;
+}/**/
+
+/*/
+string Translator::getString(const string& key, const string& arg)
+{
+	return getInstance()->getStringWithArg(key, arg);
 }
 
+string Translator::getString(const string& key, const int& arg)
+{
+	return getInstance()->getStringWithArg(key, to_string(arg));
+}
+/**/
+
 // TODO: to fix !
+/*/
 string Translator::getString(const string& key)
 {
 	return getInstance()->getStringWithArg(key, "");
 }
+/**/
 
 string Translator::getStringWithArg(const string& key, const string& arg)
 {
