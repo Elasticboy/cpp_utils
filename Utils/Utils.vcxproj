@@ -20,14 +20,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CLRSupport>true</CLRSupport>
+    <CLRSupport>
+    </CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <CLRSupport>true</CLRSupport>
+    <CLRSupport>
+    </CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
@@ -54,8 +56,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalUsingDirectories>./lib</AdditionalUsingDirectories>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,8 +76,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalUsingDirectories>./lib</AdditionalUsingDirectories>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -102,13 +109,11 @@
     <ClInclude Include="src\Goemetry.h" />
     <ClInclude Include="src\Properties.h" />
     <ClInclude Include="src\StringUtils.h" />
-    <ClInclude Include="Stdafx.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\Translator.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="src\FileUtils.cpp" />
     <ClCompile Include="src\Singleton.cpp" />
     <ClCompile Include="src\Lang.cpp" />
@@ -120,10 +125,6 @@
     <ClCompile Include="src\Goemetry.cpp" />
     <ClCompile Include="src\Properties.cpp" />
     <ClCompile Include="src\StringUtils.cpp" />
-    <ClCompile Include="Stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Translator.cpp" />
     <ClCompile Include="src\Utils.cpp" />

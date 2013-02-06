@@ -1,6 +1,5 @@
-#include "stdafx.h"
-
 #include "Lang.h"
+
 #include "Utils.h"
 #include <regex>
 

@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "Logger.h"
+
 #include "FileHandler.h"
 #include "Timer.h"
 #include <stdio.h>

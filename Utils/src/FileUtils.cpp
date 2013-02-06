@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "FileUtils.h"
+
 #include "StringUtils.h"
 #include <string>
 #include <windows.h>
@@ -12,6 +12,16 @@ namespace FileUtils {
 		return (c == '/') || (c == '\\');
 	}
 
+	string current_path() {
+
+		char path[MAX_PATH];
+		if (GetCurrentDirectoryA(MAX_PATH, path)) {
+			return path;
+		}
+
+		throw exception("current_path(), Could'nt find the current path.");
+	}
+
 	/**
 	* List the file of the directory passed as parameter.
 	* @param directory The directory to explore.
@@ -19,16 +29,13 @@ namespace FileUtils {
 	*/
 	vector<File> list_files(const string& root, bool recursive, const string& filter)
 	{
-		
-		// TODO: use file separator variable for this function
-		// TODO: Clear "/" and "\" from root
-		string clearedRoot = StringUtils::clear_right(root, is_separator);
+		string clearedRoot = StringUtils::clear_right(root, is_separator) + file_separator;
 
 		// Prepare string to use FindFile function
 		// Add "\\*" to the end of the path.
-		string searchPath = clearedRoot + "\\*";
+		const string searchPath = clearedRoot + "*";
 
-		// Check wheather the path is longer than the maximum authorized size (MAX_PATH) 
+		// Check wheather the path is longer than thea maximum authorized size (MAX_PATH) 
 		if (searchPath.length() > MAX_PATH) {
 			throw exception("FileUtils::listFiles(), Path is too long.");
 		}
@@ -48,7 +55,7 @@ namespace FileUtils {
 
 		do {
 			File file;
-			file.name = clearedRoot + "\\" + fileData.cFileName;
+			file.name = current_path() + file_separator + clearedRoot + fileData.cFileName;
 
 			// file size in bytes
 			filesize.LowPart	= fileData.nFileSizeLow;
@@ -89,4 +96,25 @@ namespace FileUtils {
 
 		return fileList;
 	}
+	
+	/**
+	* Concatenate two pathes
+	*//*
+	std::string build_path(const std::string& path1, const std::string& path2)
+	{
+		if (path2.find(':') != string::npos) {
+			throw exception("Second path can't contains ':' character.");
+		}
+
+		string finalPath = path1;
+		while (StringUtils::starts_with ..\\)
+			remove(path2, ..\);
+		
+		if (path1 < )
+			remove (path1,..\\)
+
+		return finalPath;
+
+	}
+	*/
 }

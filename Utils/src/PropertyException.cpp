@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "PropertyException.h"
+
 #include <iostream>
 
 PropertyException::PropertyException(const std::string& message)

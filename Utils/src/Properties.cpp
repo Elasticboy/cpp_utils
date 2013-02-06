@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "Properties.h"
+
 #include "StringUtils.h"
 #include "Utils.h"
 #include <sstream>

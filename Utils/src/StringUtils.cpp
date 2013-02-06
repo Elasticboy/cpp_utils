@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "StringUtils.h"
+
 #include <regex>
 
 using namespace std;

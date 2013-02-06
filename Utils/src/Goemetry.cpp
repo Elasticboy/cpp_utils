@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "Goemetry.h"
+
 #include <iostream>
 
 using namespace std;

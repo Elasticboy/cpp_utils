@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Singleton.h"
 
 template <class T> T Singleton<T>::m_instance = nullptr;

@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "FileException.h"
+
 #include <iostream>
 
 FileException::FileException(std::string message)

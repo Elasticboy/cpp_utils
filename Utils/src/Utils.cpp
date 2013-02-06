@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Utils.h"
 
 Logger* Utils::m_logger = nullptr;

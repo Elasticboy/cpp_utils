@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "Translator.h"
+
 #include "Exception.h"
 #include "Utils.h"
 #include <type_traits>

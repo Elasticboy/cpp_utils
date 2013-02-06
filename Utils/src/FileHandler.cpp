@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "FileHandler.h"
 
 using namespace std;
