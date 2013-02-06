@@ -163,7 +163,7 @@ void Properties::loadProperties(const string& path)
 		while(getline(fh.getFile(), line)) {
 
 			// Ingnore empty lines and lines that begin with "#" (considered as comments)
-			if (line.empty() || StringUtils::startsWith(StringUtils::trim(line), "#")) {
+			if (line.empty() || StringUtils::starts_with(StringUtils::trim(line), "#")) {
 				continue;
 			}
 

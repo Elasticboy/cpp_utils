@@ -3,21 +3,21 @@
 #include <vector>
 #include <string>
 
-class File
-{
-public:
-	static const int TYPE_DIRECTORY	= 0;
-	static const int TYPE_FILE		= 1;
+namespace FileUtils {
 
-	std::string name;
-	int type;
-	long long size;
-};
+	class File
+	{
+	public:
+		static const int TYPE_DIRECTORY	= 0;
+		static const int TYPE_FILE		= 1;
 
-class FileUtils
-{
-public:
-	static std::vector<File> listFiles(const std::string& directory);
-	// TODO: fileExists
-};
+		std::string name;
+		int type;
+		long long size;
+	};
+	
+	bool is_separator(const char& c);
+	std::vector<File> list_files(const std::string& directory, bool recursive = false, const std::string& filter = "");
+	// TODO: static bool file_exists(const std::string& path);
 
+}
