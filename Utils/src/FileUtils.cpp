@@ -6,6 +6,39 @@
 
 using namespace std;
 namespace FileUtils {
+	// TODO: Unit test for these functions
+	Path::Path(const std::string& path)
+	{
+		levels = vector<string>();
+		string tempPath = path;
+
+		while(!tempPath.empty()) {
+			int nextSeparator = tempPath.find(file_separator);
+
+			// Add the last remaining element.
+			if (nextSeparator == string::npos) {
+				levels.push_back(tempPath);
+				break;
+			}
+
+			// Get first depth level of the temporary path and push it back to levels vector.
+			if (nextSeparator != 0) {
+				levels.push_back(tempPath.substr(0, nextSeparator));
+			}
+
+			// Remove element from the temporary path.
+			tempPath = tempPath.substr(nextSeparator + 1, tempPath.size());
+		}
+	}
+
+	string Path::getValue()
+	{
+		string value;
+		for (auto level : levels) {
+			value += level + file_separator;
+		}
+		return value;
+	}
 
 	bool is_separator(const char& c)
 	{
@@ -35,7 +68,7 @@ namespace FileUtils {
 		// Add "\\*" to the end of the path.
 		const string searchPath = clearedRoot + "*";
 
-		// Check wheather the path is longer than thea maximum authorized size (MAX_PATH) 
+		// Check wheather the path is longer than the maximum authorized size (MAX_PATH) 
 		if (searchPath.length() > MAX_PATH) {
 			throw exception("FileUtils::listFiles(), Path is too long.");
 		}
@@ -96,25 +129,31 @@ namespace FileUtils {
 
 		return fileList;
 	}
-	
+
 	/**
 	* Concatenate two pathes
-	*//*
-	std::string build_path(const std::string& path1, const std::string& path2)
+	*/
+	std::string build_path(const std::string& strPath1, const std::string& strPath2)
 	{
-		if (path2.find(':') != string::npos) {
+		if (strPath2.find(':') != string::npos) {
 			throw exception("Second path can't contains ':' character.");
 		}
 
-		string finalPath = path1;
-		while (StringUtils::starts_with ..\\)
-			remove(path2, ..\);
-		
-		if (path1 < )
-			remove (path1,..\\)
+		Path path1 = Path(strPath1);
+		Path path2 = Path(strPath2);
 
-		return finalPath;
+		bool concatenate = false;
+		for (auto level : path2.levels) {
+			if (level != "..") {
+				concatenate = true;
+			}
 
+			if (concatenate) {
+				path1.levels.push_back(level);
+			} else {
+				path1.levels.pop_back();
+			}
+		}
+		return path1.getValue();
 	}
-	*/
 }

@@ -76,24 +76,5 @@ template<typename T> std::string getString(const std::string& key, const T& arg 
 	return helperArithmetic(key, arg, std::is_arithmetic<T>::type());
 }
 
-/*/
-template<typename T> std::string getStringTemplate2(const std::string& key, const T& arg = "")
-{
-	if (std::is_arithmetic<T>::type()) {
-		return Translator::getInstance()->getStringWithArg(key, std::to_string(arg));
-		
-	} else if (std::is_literal_type<T>::type()) {
-		return Translator::getInstance()->getStringWithArg(key, arg);
-
-	} else if (std::is_same<T, std::string>::type()) {
-		return Translator::getInstance()->getStringWithArg(key, arg);
-	}
-
-	// TODO: Throw (bad argument) an error here !
-	//Utils::getLogger()->error("Template getString(), bad argument.");
-	throw invalid_argument("Translator::getString() does not accept argument type \"" + typeid(T).name() + "\".");
-}
-/**/
-
 
 	

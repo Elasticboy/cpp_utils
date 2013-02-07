@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// TODO: Add doc
 bool StringUtils::starts_with(const std::string& str, const std::string& prefix)
 {
 	if (str.length() < prefix.length()) {
@@ -13,6 +14,7 @@ bool StringUtils::starts_with(const std::string& str, const std::string& prefix)
 	return prefix == str.substr(0, prefix.length());
 }
 
+// TODO: Add doc
 bool StringUtils::ends_with(const std::string& str, const std::string& suffix)
 {
 	if (str.length() < suffix.length()) {
