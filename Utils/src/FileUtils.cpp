@@ -7,6 +7,50 @@
 
 using namespace std;
 namespace FileUtils {
+	File::File(const string& filepath) : m_filepath(filepath) { }
+
+	/**
+	* @return The filename without the path.
+	*/
+	string File::getFilename()
+	{
+		int pos;
+		if ((pos = m_filepath.find_last_of('/')) != string::npos) {
+			return m_filepath.substr(pos);
+		}
+
+		if ((pos = m_filepath.find_last_of('\\')) != string::npos) {
+			return m_filepath.substr(pos);
+		}
+
+		return m_filepath;
+	}
+	
+	/**
+	* @return the full path of the file (path and filename).
+	*/
+	string File::getFilepath()
+	{
+		return m_filepath;
+	}
+
+	/**
+	* @return The path without the name.
+	*/
+		string File::getPath()
+	{
+		int pos;
+		if ((pos = m_filepath.find_last_of('/')) != string::npos) {
+			return m_filepath.substr(0, pos);
+		}
+
+		if ((pos = m_filepath.find_last_of('\\')) != string::npos) {
+			return m_filepath.substr(0, pos);
+		}
+
+		return "";
+	}
+
 	// TODO: Unit test for these functions
 	Path::Path(const std::string& path)
 	{
@@ -91,8 +135,7 @@ namespace FileUtils {
 		auto fileList = vector<File>();
 
 		do {
-			File file;
-			file.name = clearedRoot + fileData.cFileName;
+			File file(clearedRoot + fileData.cFileName);
 
 			// file size in bytes
 			filesize.LowPart	= fileData.nFileSizeLow;
@@ -112,14 +155,14 @@ namespace FileUtils {
 
 				if (recursive) {
 					// List the files in the directory
-					auto directoryFiles = list_files(file.name, recursive, filter);
+					auto directoryFiles = list_files(file.getFilepath(), recursive, filter);
 					// Add to the and of the current vector
 					// TODO: check if insert is the better way to concatenate two vectors
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
 
 			} else { // If is a file
-				if (filter != "" && !regex_match(file.name, regexFilter)) {
+				if (filter != "" && !regex_match(file.getFilepath(), regexFilter)) {
 					continue;
 				}
 				file.type = File::TYPE_FILE;
@@ -142,6 +185,8 @@ namespace FileUtils {
 	*/
 	std::string build_path(const std::string& strPath1, const std::string& strPath2)
 	{
+		// TODO: Review this function 
+		// concate then clear path
 		if (strPath2.find(':') != string::npos) {
 			throw exception("Second path can't contains ':' character.");
 		}

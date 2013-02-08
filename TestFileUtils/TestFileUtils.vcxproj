@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{09FAD20E-A083-4B36-8D9E-82952B814A30}</ProjectGuid>
+    <ProjectGuid>{87C231CD-9D48-4911-BEF4-B3F0A4F9F058}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TestUtils</RootNamespace>
+    <RootNamespace>TestFileUtils</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -91,8 +91,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestStringUtils.cpp" />
+    <ClCompile Include="TestFile.cpp" />
     <ClCompile Include="TestFileUtils.cpp" />
+    <ClCompile Include="TestPath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">

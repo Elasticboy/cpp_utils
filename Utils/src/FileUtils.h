@@ -8,12 +8,19 @@ namespace FileUtils {
 	class File
 	{
 	public:
+		File(const std::string& filepath);
+		std::string getFilename();
+		std::string getFilepath();
+		std::string getPath();
+
 		static const int TYPE_DIRECTORY	= 0;
 		static const int TYPE_FILE		= 1;
-
-		std::string name;
 		int type;
 		long long size;
+
+	private:
+		std::string m_filepath;
+
 	};
 	
 	class Path
