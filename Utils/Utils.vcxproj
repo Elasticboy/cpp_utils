@@ -80,6 +80,7 @@
       </PrecompiledHeader>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

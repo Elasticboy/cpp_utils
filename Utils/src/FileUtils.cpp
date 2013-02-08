@@ -2,6 +2,7 @@
 
 #include "StringUtils.h"
 #include <string>
+#include <regex>
 #include <windows.h>
 
 using namespace std;
@@ -45,7 +46,7 @@ namespace FileUtils {
 		return (c == '/') || (c == '\\');
 	}
 
-	string current_path() {
+	string get_current_directory() {
 
 		char path[MAX_PATH];
 		if (GetCurrentDirectoryA(MAX_PATH, path)) {
@@ -55,6 +56,7 @@ namespace FileUtils {
 		throw exception("current_path(), Could'nt find the current path.");
 	}
 
+	// TODO: Update doc
 	/**
 	* List the file of the directory passed as parameter.
 	* @param directory The directory to explore.
@@ -63,6 +65,7 @@ namespace FileUtils {
 	vector<File> list_files(const string& root, bool recursive, const string& filter)
 	{
 		string clearedRoot = StringUtils::clear_right(root, is_separator) + file_separator;
+		// TODO: get full path function if root is relative
 
 		// Prepare string to use FindFile function
 		// Add "\\*" to the end of the path.
@@ -83,12 +86,13 @@ namespace FileUtils {
 		}
 
 		// List all the files in the directory and get some informations
+		const regex regexFilter(filter);
 		LARGE_INTEGER filesize;
 		auto fileList = vector<File>();
 
 		do {
 			File file;
-			file.name = current_path() + file_separator + clearedRoot + fileData.cFileName;
+			file.name = clearedRoot + fileData.cFileName;
 
 			// file size in bytes
 			filesize.LowPart	= fileData.nFileSizeLow;
@@ -115,6 +119,9 @@ namespace FileUtils {
 				}
 
 			} else { // If is a file
+				if (filter != "" && !regex_match(file.name, regexFilter)) {
+					continue;
+				}
 				file.type = File::TYPE_FILE;
 			}
 			fileList.push_back(file);
