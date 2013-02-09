@@ -32,5 +32,6 @@ private:
 	int m_logSeverityConsole;
 
 	void write(const int& severity, const std::string& message);
-	void writeInFile(const std::string& filename, const std::string& message);
 };
+
+void writeInFile(const std::string& filename, const std::string& message);

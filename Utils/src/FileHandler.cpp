@@ -15,15 +15,12 @@ FileHandler::FileHandler(const string& path, const int& openMode)
 	if (!m_file.is_open()) {
 		throw OpenFileException("File not found \"" + path + "\".");
 	}
-
-	//cout << "File " << path << " is open !" << endl;
 }
 
 FileHandler::~FileHandler()
 {
 	if (m_file.is_open()) {
 		m_file.close();
-		//cout << "File has been closed !" << endl;
 	}
 }
 

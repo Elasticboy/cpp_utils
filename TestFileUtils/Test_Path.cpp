@@ -4,7 +4,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TestFileUtils
 {
-	TEST_CLASS(TestPath)
+	TEST_CLASS(Test_Path)
 	{
 	public:
 		

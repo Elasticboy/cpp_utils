@@ -114,12 +114,13 @@ void Logger::write(const int& severity, const string& message)
 	}
 }
 
+// TODO: Move to FileHandler or FileWriter (create the class)
 /**
  * Write a maessage in a file.
  * @param logFilename the logfile name.
  * @param message The message to write in the file.
  */
-void Logger::writeInFile(const string& logFilename, const string& logMessage)
+void writeInFile(const string& logFilename, const string& logMessage)
 {	
 	FileHandler fwriter(logFilename, FileHandler::OPEN_MODE_APPEND);
 	fwriter.getFile() << logMessage << endl;
