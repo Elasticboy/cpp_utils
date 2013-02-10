@@ -91,9 +91,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestFile.cpp" />
-    <ClCompile Include="TestFileUtils.cpp" />
-    <ClCompile Include="TestPath.cpp" />
+    <ClCompile Include="Test_File.cpp" />
+    <ClCompile Include="Test_FileUtils_build_path.cpp" />
+    <ClCompile Include="Test_Path.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">

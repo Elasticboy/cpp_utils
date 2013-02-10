@@ -92,7 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestStringUtils.cpp" />
-    <ClCompile Include="TestFileUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">

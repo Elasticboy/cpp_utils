@@ -103,7 +103,7 @@ void Logger::write(const int& severity, const string& message)
 
 	try {
 		if (severity <= m_logSeverity) {
-			writeInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + prefix + message);
+			appendInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + prefix + message);
 		}
 		if (severity <= m_logSeverityConsole) {
 			cout << prefix << message << endl;
@@ -116,11 +116,11 @@ void Logger::write(const int& severity, const string& message)
 
 // TODO: Move to FileHandler or FileWriter (create the class)
 /**
- * Write a maessage in a file.
- * @param logFilename the logfile name.
+ * Append a message in a file.
+ * @param logFilename the logfile to log in.
  * @param message The message to write in the file.
  */
-void writeInFile(const string& logFilename, const string& logMessage)
+void appendInFile(const string& logFilename, const string& logMessage)
 {	
 	FileHandler fwriter(logFilename, FileHandler::OPEN_MODE_APPEND);
 	fwriter.getFile() << logMessage << endl;

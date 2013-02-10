@@ -1,12 +1,13 @@
 #include "FileUtils.h"
 
 #include "StringUtils.h"
-#include <string>
 #include <regex>
 #include <windows.h>
 
 using namespace std;
+
 namespace FileUtils {
+
 	File::File(const string& filepath) : m_filepath(filepath) { }
 
 	/**
@@ -14,22 +15,13 @@ namespace FileUtils {
 	*/
 	string File::getFilename()
 	{
-		int pos;
-		if ((pos = m_filepath.find_last_of('/')) != string::npos) {
-			return m_filepath.substr(pos);
-		}
-
-		if ((pos = m_filepath.find_last_of('\\')) != string::npos) {
-			return m_filepath.substr(pos);
-		}
-
-		return m_filepath;
+		return get_filename_only(m_filepath);
 	}
-	
+
 	/**
 	* @return the full path of the file (path and filename).
 	*/
-	string File::getFilepath()
+	string File::getfullPath()
 	{
 		return m_filepath;
 	}
@@ -37,21 +29,11 @@ namespace FileUtils {
 	/**
 	* @return The path without the name.
 	*/
-		string File::getPath()
+	string File::getPath()
 	{
-		int pos;
-		if ((pos = m_filepath.find_last_of('/')) != string::npos) {
-			return m_filepath.substr(0, pos);
-		}
-
-		if ((pos = m_filepath.find_last_of('\\')) != string::npos) {
-			return m_filepath.substr(0, pos);
-		}
-
-		return "";
+		return get_filepath_only(m_filepath);
 	}
 
-	// TODO: Unit test for these functions
 	Path::Path(const std::string& path)
 	{
 		levels = vector<string>();
@@ -74,6 +56,11 @@ namespace FileUtils {
 			// Remove element from the temporary path.
 			tempPath = tempPath.substr(nextSeparator + 1, tempPath.size());
 		}
+	}
+	
+	Path::Path(const vector<string>& pathLevels)
+	{
+		levels = pathLevels;
 	}
 
 	string Path::getValue()
@@ -99,12 +86,47 @@ namespace FileUtils {
 
 		throw exception("current_path(), Could'nt find the current path.");
 	}
+	
+	/**
+	* @return The path without the name of the file.
+	*/
+	string get_filepath_only(const string& filename)
+	{
+		int pos;
+		if ((pos = filename.find_last_of('/')) != string::npos) {
+			return filename.substr(0, pos + 1);
+		}
 
-	// TODO: Update doc
+		if ((pos = filename.find_last_of('\\')) != string::npos) {
+			return filename.substr(0, pos + 1);
+		}
+
+		return "";
+	}
+	
+	/**
+	* @return The filename without the path.
+	*/
+	string get_filename_only(const string& filename)
+	{
+		int pos;
+		if ((pos = filename.find_last_of('/')) != string::npos) {
+			return filename.substr(pos + 1);
+		}
+
+		if ((pos = filename.find_last_of('\\')) != string::npos) {
+			return filename.substr(pos + 1);
+		}
+
+		return filename;
+	}
+
 	/**
 	* List the file of the directory passed as parameter.
-	* @param directory The directory to explore.
-	* @return A vector containing File objects.
+	* @param root The root directory to explore.
+	* @param recursive True if the search should be recusive. False otherwise.
+	* @param filter A string that will be turn into a regexp to select special files or directory.
+	* @return A vector containing the File find by the function.
 	*/
 	vector<File> list_files(const string& root, bool recursive, const string& filter)
 	{
@@ -155,14 +177,13 @@ namespace FileUtils {
 
 				if (recursive) {
 					// List the files in the directory
-					auto directoryFiles = list_files(file.getFilepath(), recursive, filter);
-					// Add to the and of the current vector
-					// TODO: check if insert is the better way to concatenate two vectors
+					auto directoryFiles = list_files(file.getfullPath(), recursive, filter);
+					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
 
 			} else { // If is a file
-				if (filter != "" && !regex_match(file.getFilepath(), regexFilter)) {
+				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
 					continue;
 				}
 				file.type = File::TYPE_FILE;
@@ -181,12 +202,10 @@ namespace FileUtils {
 	}
 
 	/**
-	* Concatenate two pathes
+	* Concatenate two pathes and simplify the result.
 	*/
 	std::string build_path(const std::string& strPath1, const std::string& strPath2)
 	{
-		// TODO: Review this function 
-		// concate then clear path
 		if (strPath2.find(':') != string::npos) {
 			throw exception("Second path can't contains ':' character.");
 		}
@@ -194,18 +213,29 @@ namespace FileUtils {
 		Path path1 = Path(strPath1);
 		Path path2 = Path(strPath2);
 
-		bool concatenate = false;
-		for (auto level : path2.levels) {
-			if (level != "..") {
-				concatenate = true;
+		// Concatenate the two pathes
+		vector<string> concatenation = vector<string>();
+		concatenation.insert(concatenation.end(), path1.levels.begin(), path1.levels.end());
+		concatenation.insert(concatenation.end(), path2.levels.begin(), path2.levels.end());
+
+		// Create the new path
+		vector<string> newPath = vector<string>();
+		for (auto element : concatenation) {
+			if (newPath.size() == 0) {
+				newPath.push_back(element);
+				continue;
 			}
 
-			if (concatenate) {
-				path1.levels.push_back(level);
-			} else {
-				path1.levels.pop_back();
+			const string lastAdded = newPath.back();
+			if (element == file_back_element && !lastAdded.empty() && lastAdded != file_back_element) {
+				newPath.pop_back();
+				continue;
 			}
+			newPath.push_back(element);
 		}
+
+		path1.levels = newPath;
+
 		return path1.getValue();
 	}
 }

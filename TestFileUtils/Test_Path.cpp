@@ -1,6 +1,11 @@
 #include "CppUnitTest.h"
+#include "..\Utils\src\FileUtils.h"
+#include <string>
+#include <vector>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace FileUtils;
+using namespace std;
 
 namespace TestFileUtils
 {
@@ -8,9 +13,36 @@ namespace TestFileUtils
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		/**
+		* Tests the Build a Path from a string.
+		*/
+		TEST_METHOD(Test_Path_from_string)
 		{
-			// TODO: Your test code here
+			const string pathAsString = "C:\\toto\\titi\\tata\\";
+			Path pathFromString(pathAsString);
+			
+			const string expected	= pathAsString;
+			const string actual		= pathFromString.getValue();
+
+			Assert::AreEqual(expected, actual, L"PathAsString is not as expected.", LINE_INFO());
+		}
+
+		/**
+		* Tests the Build a Path from a vector.
+		*/
+		TEST_METHOD(Test_Path_from_vector)
+		{
+			vector<string> pathLevels = vector<string>();
+			pathLevels.push_back("C:");
+			pathLevels.push_back("toto");
+			pathLevels.push_back("titi");
+			pathLevels.push_back("tata");
+			Path pathFromLevel(pathLevels);
+
+			const string expected	= "C:\\toto\\titi\\tata\\";
+			const string actual		= pathFromLevel.getValue();
+
+			Assert::AreEqual(expected, actual, L"pathFromLevel is not as expected.", LINE_INFO());
 		}
 
 	};

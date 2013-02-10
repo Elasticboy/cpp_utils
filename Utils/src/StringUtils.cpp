@@ -4,7 +4,12 @@
 
 using namespace std;
 
-// TODO: Add doc
+/**
+* Test if a string begins by a given substring.
+* @param str The string to test.
+* @param prefix The string to be expected at the begining of the tested string.
+* @return True if the string starts with the given prefix. False otherwise.
+*/
 bool StringUtils::starts_with(const std::string& str, const std::string& prefix)
 {
 	if (str.length() < prefix.length()) {
@@ -14,7 +19,12 @@ bool StringUtils::starts_with(const std::string& str, const std::string& prefix)
 	return prefix == str.substr(0, prefix.length());
 }
 
-// TODO: Add doc
+/**
+* Test if a string ends by a given substring.
+* @param str The string to test.
+* @param suffix The string to be expected at the end of the tested string.
+* @return True if the string ends with the given suffix. Flase otherwise.
+*/
 bool StringUtils::ends_with(const std::string& str, const std::string& suffix)
 {
 	if (str.length() < suffix.length()) {

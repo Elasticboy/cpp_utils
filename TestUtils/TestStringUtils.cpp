@@ -1,10 +1,14 @@
 #include "CppUnitTest.h"
 
 #include "..\Utils\src\StringUtils.h"
+#include "..\Utils\src\FileUtils.h"
 #include <string>
 #include <iostream>
+#include <vector>
+#include <regex>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace FileUtils;
 using namespace std;
 
 namespace TestUtils
@@ -13,27 +17,49 @@ namespace TestUtils
 	{
 	public:
 
-		TEST_METHOD(FileUtils_build_path1)
+		TEST_METHOD(Test_regex_todo)
+		{
+			regex r(".*(\\\\*|//|\\*).*(TODO).*");
+			string str1 = "qsdqs /* sldkjfsmlkfj mslkdjf TODO bla bla";
+			string str2 = "/* sldkjfsmlkfj mslkdjf TODO bla bla";
+			string str3 = "qsd q * TODO sldkjfsmlkfj mslkdjf TODO bla bla";
+			string str4 = "* TODO sldkjfsmlkfj mslkdjf TODO bla bla";
+			string str5 = "qsd q // TODO sldkjfsmlkfj mslkdjf TODO bla bla";
+			string str6 = "// TODO sldkjfsmlkfj mslkdjf TODO bla bla";
+			string str7 = "sldkjfsmlkfj mslkdjf bla bla";
+			string str8 = "qsdq sldkjfsmlkfj mslkdjf TODO bla bla";
+
+			Assert::IsTrue(regex_search(str1, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsTrue(regex_search(str2, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsTrue(regex_search(str3, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsTrue(regex_search(str4, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsTrue(regex_search(str5, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsTrue(regex_search(str6, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsFalse(regex_search(str7, r), L"FullPath is not as expected.", LINE_INFO());
+			Assert::IsFalse(regex_search(str8, r), L"FullPath is not as expected.", LINE_INFO());
+
+		}
+			TEST_METHOD(FileUtils_build_path1)
 		{
 			cout << "Simple search" << endl;
 			vector<File> files = list_files(".\\");
 			for (auto file : files) {
-			cout << file.name << endl;
+				cout << file.getfullPath() << endl;
 			}
-			
-			string path1 = current_path();
+
+			string path1 = get_current_directory();
 			string path2 = "..\\..\\";
 
 			cout << "path1 : " << path1 << endl;
 			cout << "path2 : " << path2 << endl;
 			cout << "Concatenation " << build_path(path1, path2) << endl; 
-			
+
 			cout << "Recursive search" << endl;
 			vector<File> filesRec = list_files(".\\", true);
 			for (auto file : filesRec) {
-			cout << file.name << endl;
+				cout << file.getfullPath() << endl;
 			}
-			
+
 			string str1 = "       bla, bla, bla     ";
 			cout << "Before \"" << str1 << "\"" << endl;
 			cout << "After  \"" << StringUtils::trim(str1) << "\"" << endl;
