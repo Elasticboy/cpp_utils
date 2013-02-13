@@ -84,6 +84,7 @@ namespace FileUtils {
 			return path;
 		}
 
+		// TODO: Transform to FileException
 		throw exception("current_path(), Could'nt find the current path.");
 	}
 	
@@ -93,14 +94,16 @@ namespace FileUtils {
 	string get_filepath_only(const string& filename)
 	{
 		int pos;
-		if ((pos = filename.find_last_of('/')) != string::npos) {
-			return filename.substr(0, pos + 1);
-		}
-
+		
 		if ((pos = filename.find_last_of('\\')) != string::npos) {
 			return filename.substr(0, pos + 1);
 		}
 
+		if ((pos = filename.find_last_of('/')) != string::npos) {
+			return filename.substr(0, pos + 1);
+		}
+
+		
 		return "";
 	}
 	
@@ -110,13 +113,16 @@ namespace FileUtils {
 	string get_filename_only(const string& filename)
 	{
 		int pos;
-		if ((pos = filename.find_last_of('/')) != string::npos) {
-			return filename.substr(pos + 1);
-		}
 
 		if ((pos = filename.find_last_of('\\')) != string::npos) {
 			return filename.substr(pos + 1);
 		}
+		
+		if ((pos = filename.find_last_of('/')) != string::npos) {
+			return filename.substr(pos + 1);
+		}
+
+		
 
 		return filename;
 	}
@@ -139,6 +145,7 @@ namespace FileUtils {
 
 		// Check wheather the path is longer than the maximum authorized size (MAX_PATH) 
 		if (searchPath.length() > MAX_PATH) {
+			// TODO: Transform to FileException
 			throw exception("FileUtils::listFiles(), Path is too long.");
 		}
 
@@ -148,6 +155,7 @@ namespace FileUtils {
 
 		hFind = FindFirstFileA(searchPath.c_str(), &fileData);
 		if (hFind == INVALID_HANDLE_VALUE) {
+			// TODO: Transform to FileException
 			throw exception("FileUtils::listFiles(), Invalid handler value.");
 		}
 
@@ -167,15 +175,14 @@ namespace FileUtils {
 			// It is a directory
 			if (fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 
-				// Skip directories ".", ".." and "$RECYCLE.BIN"
+				// Skip directories "." and "$RECYCLE.BIN"
 				if (strcmp(fileData.cFileName, ".") == 0 ||
-					strcmp(fileData.cFileName, "..") == 0 ||
 					strcmp(fileData.cFileName, "$RECYCLE.BIN") == 0 ) {
 						continue;
 				}
 				file.type = File::TYPE_DIRECTORY;
 
-				if (recursive) {
+				if (recursive && strcmp(fileData.cFileName, "..") != 0) {
 					// List the files in the directory
 					auto directoryFiles = list_files(file.getfullPath(), recursive, filter);
 					// Add to the end of the current vector
@@ -191,13 +198,15 @@ namespace FileUtils {
 			fileList.push_back(file);
 
 		} while (FindNextFileA(hFind, &fileData) != 0);
+		
+		FindClose(hFind);
 
 		auto error = GetLastError();
 		if (error != ERROR_NO_MORE_FILES) {
 			string msg = "FindNextFile error : " + to_string(error);
+			// TODO: Transform to FileException
 			throw exception(msg.c_str());
 		}
-
 		return fileList;
 	}
 
@@ -207,6 +216,7 @@ namespace FileUtils {
 	std::string build_path(const std::string& strPath1, const std::string& strPath2)
 	{
 		if (strPath2.find(':') != string::npos) {
+			// TODO: Transform to FileException
 			throw exception("Second path can't contains ':' character.");
 		}
 
