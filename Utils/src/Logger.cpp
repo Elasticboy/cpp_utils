@@ -11,22 +11,21 @@ using namespace std;
 const int DEFAULT_LOG_SEVERITY = 4;
 const int DEFAULT_LOG_SEVERITY_CONSOLE = 4;
 
+const int Logger::SEVERITY_LVL_DEBUG	= 4;
+const int Logger::SEVERITY_LVL_INFO		= 3;
+const int Logger::SEVERITY_LVL_WARNING	= 2;
+const int Logger::SEVERITY_LVL_ERROR	= 1;
+const int Logger::SEVERITY_LVL_NOLOG	= 0;
 
 const string Logger::PREFIX_DEBUG	= "DEBUG : ";
 const string Logger::PREFIX_INFO	= "INFO  : ";
 const string Logger::PREFIX_WARNING	= "WARN  : ";
 const string Logger::PREFIX_ERROR	= "ERROR : ";
 
-const int Logger::SEVERITY_LVL_DEBUG	= 4;
-const int Logger::SEVERITY_LVL_INFO		= 3;
-const int Logger::SEVERITY_LVL_WARNING	= 2;
-const int Logger::SEVERITY_LVL_ERROR	= 1;
-
-Logger::Logger(const string& filename)
+Logger::Logger(const string& filename) :
+	m_logSeverity(DEFAULT_LOG_SEVERITY), m_logSeverityConsole(DEFAULT_LOG_SEVERITY_CONSOLE)
 {
 	setLogFile(filename);
-	m_logSeverity			= DEFAULT_LOG_SEVERITY;
-	m_logSeverityConsole	= DEFAULT_LOG_SEVERITY_CONSOLE;
 }
 
 

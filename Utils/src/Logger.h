@@ -16,16 +16,18 @@ public:
 	void warning(const std::string& message);
 	void error(const std::string& message);
 
+	static const int SEVERITY_LVL_DEBUG;
+	static const int SEVERITY_LVL_INFO;
+	static const int SEVERITY_LVL_WARNING;
+	static const int SEVERITY_LVL_ERROR;
+	static const int SEVERITY_LVL_NOLOG;
+
 private:
 	static const std::string PREFIX_DEBUG;
 	static const std::string PREFIX_INFO;
 	static const std::string PREFIX_WARNING;
 	static const std::string PREFIX_ERROR;
 
-	static const int SEVERITY_LVL_DEBUG;
-	static const int SEVERITY_LVL_INFO;
-	static const int SEVERITY_LVL_WARNING;
-	static const int SEVERITY_LVL_ERROR;
 
 	std::string m_logFile;
 	int m_logSeverity;
