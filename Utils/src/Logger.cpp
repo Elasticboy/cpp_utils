@@ -2,7 +2,7 @@
 
 #include "FileHandler.h"
 #include "Timer.h"
-#include <stdio.h>
+#include <cstdio>
 
 #define LOG_DIR "logs\\"
 
