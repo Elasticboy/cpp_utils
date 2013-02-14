@@ -12,6 +12,7 @@ namespace FileUtils {
 		std::string getFilename();
 		std::string getfullPath();
 		std::string getPath();
+		bool isDirectory();
 
 		static const int TYPE_DIRECTORY	= 0;
 		static const int TYPE_FILE		= 1;

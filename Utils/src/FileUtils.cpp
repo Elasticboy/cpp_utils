@@ -33,6 +33,11 @@ namespace FileUtils {
 	{
 		return get_filepath_only(m_filepath);
 	}
+	
+	bool File::isDirectory()
+	{
+		return type == TYPE_DIRECTORY;
+	}
 
 	Path::Path(const std::string& path)
 	{
