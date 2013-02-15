@@ -19,7 +19,7 @@ namespace TestUtils
 
 		TEST_METHOD(Test_regex_todo)
 		{
-			regex r(".*(\\\\*|//|\\*).*(TODO).*");
+			regex r(".*(\\\\\\*|//|\\*).*TODO.*");
 			string str1 = "qsdqs /* sldkjfsmlkfj mslkdjf TODO bla bla";
 			string str2 = "/* sldkjfsmlkfj mslkdjf TODO bla bla";
 			string str3 = "qsd q * TODO sldkjfsmlkfj mslkdjf TODO bla bla";
@@ -29,16 +29,36 @@ namespace TestUtils
 			string str7 = "sldkjfsmlkfj mslkdjf bla bla";
 			string str8 = "qsdq sldkjfsmlkfj mslkdjf TODO bla bla";
 
-			Assert::IsTrue(regex_search(str1, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsTrue(regex_search(str2, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsTrue(regex_search(str3, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsTrue(regex_search(str4, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsTrue(regex_search(str5, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsTrue(regex_search(str6, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsFalse(regex_search(str7, r), L"FullPath is not as expected.", LINE_INFO());
-			Assert::IsFalse(regex_search(str8, r), L"FullPath is not as expected.", LINE_INFO());
-
+			Assert::IsTrue(regex_search(str1, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str2, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str3, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str4, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str5, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str6, r), L"Regex should match.", LINE_INFO());
+			Assert::IsFalse(regex_search(str7, r), L"Regex should NOT match.", LINE_INFO());
+			Assert::IsFalse(regex_search(str8, r), L"Regex should NOT match.", LINE_INFO());
 		}
+		
+		TEST_METHOD(Test_regex_extension)
+		{
+			regex r(".*(\\.lang)$");
+			string str1 = "en.lang";
+			string str2 = "toto\\en.lang";
+			string str3 = "toto/en.lang";
+			
+			string str4 = "toto/en.langqs";
+			string str5 = "toto\\lang\\hello";
+			string str6 = "lang\\..";
+
+			Assert::IsTrue(regex_search(str1, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str2, r), L"Regex should match.", LINE_INFO());
+			Assert::IsTrue(regex_search(str3, r), L"Regex should match.", LINE_INFO());
+
+			Assert::IsFalse(regex_search(str4, r), L"Regex should NOT match.", LINE_INFO());
+			Assert::IsFalse(regex_search(str5, r), L"Regex should NOT match.", LINE_INFO());
+			Assert::IsFalse(regex_search(str6, r), L"Regex should NOT match.", LINE_INFO());
+		}
+
 			TEST_METHOD(FileUtils_build_path1)
 		{
 			cout << "Simple search" << endl;
