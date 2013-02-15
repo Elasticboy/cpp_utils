@@ -107,7 +107,6 @@ namespace FileUtils {
 		if ((pos = filename.find_last_of('/')) != string::npos) {
 			return filename.substr(0, pos + 1);
 		}
-
 		
 		return "";
 	}
@@ -127,7 +126,19 @@ namespace FileUtils {
 			return filename.substr(pos + 1);
 		}
 
-		
+		return filename;
+	}
+
+	/**
+	* @return The filename without the extension.
+	*/
+	string trunc_extension(const string& filename)
+	{
+		int pos;
+
+		if ((pos = filename.find_last_of('.')) != string::npos) {
+			return filename.substr(0, pos);
+		}
 
 		return filename;
 	}
