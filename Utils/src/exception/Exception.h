@@ -9,12 +9,13 @@
 class Exception : public std::exception
 {
 public:
-	Exception(std::string message) throw();
+	Exception(const std::string& type, const std::string& source, const std::string& message) throw();
 	virtual const char* what() const throw();
-	virtual std::string nestedMessage() const throw();
+	const std::string simpleMessage() const throw();
 
-protected:
+private:
+	std::string m_type;
+	std::string m_source;
 	std::string m_message;
-	std::string m_nestedMessage;
 };
 

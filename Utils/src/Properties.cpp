@@ -1,8 +1,10 @@
 #include "Properties.h"
 
+#include <sstream>
+
 #include "StringUtils.h"
 #include "Utils.h"
-#include <sstream>
+#include "exception\PropertyException.h"
 
 using namespace std;
 
@@ -28,7 +30,7 @@ const string Properties::getString(const string& key)
 	}
 
 	Utils::getLogger()->warning("Properties::getString(" + key + ") : Key \"" + key + "\" not found in file \"" + m_filePath + "\".");
-	throw ReadPropertyException("Key \"" + key + "\" not found in file \"" + m_filePath + "\".");
+	throw ReadPropertyException("Properties::getString()", "Key \"" + key + "\" not found in file \"" + m_filePath + "\".");
 }
 
 /**
@@ -117,7 +119,7 @@ const bool Properties::getBool(const string& key)
 		return false;
 	}
 
-	throw ReadPropertyException("Can not convert \"" + stringProperty + "\" to a boolean in file \"" + m_filePath + "\".");
+	throw ReadPropertyException("Properties::getBool()", "Can not convert \"" + stringProperty + "\" to a boolean in file \"" + m_filePath + "\".");
 }
 
 /**
@@ -155,7 +157,7 @@ void Properties::loadProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_MODE_READ);
 	if (!fh.getFile()) {
-		throw LoadPropertyException("Can not open the file \"" + path + "\" to read !");
+		throw LoadPropertyException("Properties::loadProperties()", "Can not open the file \"" + path + "\" to read !");
 	}
 
 	try {
@@ -175,7 +177,7 @@ void Properties::loadProperties(const string& path)
 			}
 		}
 	} catch (const exception& e) {
-		throw LoadPropertyException("An error occured while parsing the property file \"" + path + "\" : " + e.what());
+		throw LoadPropertyException("Properties::loadProperties()", "An error occured while parsing the property file \"" + path + "\" : " + e.what());
 	}
 }
 
@@ -183,7 +185,7 @@ void Properties::saveProperties(const string& path)
 {
 	FileHandler fh(path, FileHandler::OPEN_MODE_WRITE);
 	if (!fh.getFile()) {
-		throw SavePropertyException("Can not open the file \"" + path + "\" to write !");
+		throw SavePropertyException("Properties::saveProperties()", "Can not open the file \"" + path + "\" to write !");
 	}
 
 	try {
@@ -191,7 +193,7 @@ void Properties::saveProperties(const string& path)
 			fh.getFile() << prop.first << "=" << prop.second << endl;
 		}
 	} catch(const exception&) {
-		throw SavePropertyException("Error while saving the properties in the file \"" + path + "\".");
+		throw SavePropertyException("Properties::saveProperties()", "Error while saving the properties in the file \"" + path + "\".");
 	}
 }
 

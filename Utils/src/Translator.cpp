@@ -1,8 +1,9 @@
 #include "Translator.h"
 
-#include "Exception.h"
-#include "Utils.h"
 #include <type_traits>
+
+#include "exception\ConfigException.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ void Translator::setLanguage(const string& languageKey)
 	}
 
 	Utils::getLogger()->debug("Translator::setLanguage(" + languageKey + ")");
-	throw Exception("Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
+	throw ConfigurationException("Translator::setLanguage()", "Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
 }
 
 /**

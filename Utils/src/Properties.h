@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include "FileHandler.h"
-#include "PropertyException.h"
 
 class Properties
 {

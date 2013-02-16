@@ -1,8 +1,9 @@
 #include "Logger.h"
 
+#include <iostream>
+
 #include "FileHandler.h"
 #include "Timer.h"
-#include <cstdio>
 
 #define LOG_DIR "logs\\"
 

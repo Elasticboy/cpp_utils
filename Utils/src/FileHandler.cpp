@@ -1,5 +1,7 @@
 #include "FileHandler.h"
 
+#include "exception\FileException.h"
+
 using namespace std;
 
 FileHandler::FileHandler(const string& path, const int& openMode)
@@ -9,11 +11,11 @@ FileHandler::FileHandler(const string& path, const int& openMode)
 	try {
 		m_file.open(path.c_str(), mode);
 	} catch (const exception& e) {
-		throw OpenFileException("Error while openning \"" + path + "\" : " + e.what() + ".");
+		throw OpenFileException("FileHandler::FileHandler", "Error while openning \"" + path + "\" : " + e.what() + ".");
 	}
 
 	if (!m_file.is_open()) {
-		throw OpenFileException("File not found \"" + path + "\".");
+		throw OpenFileException("FileHandler::FileHandler", "File not found \"" + path + "\".");
 	}
 }
 
@@ -47,5 +49,5 @@ ios_base::openmode FileHandler::getOpenMode(const int& openMode)
 		return ios_base::app;
 	}
 	
-	throw OpenFileException("Openning mode \"" + to_string(openMode) + "\" is not supported.");
+	throw OpenFileException("FileHandler::getOpenMode()", "Openning mode \"" + to_string(openMode) + "\" is not supported.");
 }
