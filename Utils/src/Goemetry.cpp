@@ -1,8 +1,6 @@
 #include "Goemetry.h"
 
-#include <iostream>
-
-using namespace std;
+#include "Utils.h"
 
 /////////////////////////////////////////////////////////
 // PointF
@@ -15,10 +13,10 @@ PointF::PointF(POINT point) :  x((float)point.x), y((float)point.y)
 {
 }
 
-void PointF::display(string _name)
+void PointF::display(std::string name)
 {
-	cout << "Displaying " << _name.c_str() << endl;
-	cout << "(" << x << "; " << y	<< ")" << endl << endl;
+	Utils::getLogger()->debug("Displaying " + name);
+	Utils::getLogger()->debug("(" + std::to_string(x) + "; " + std::to_string(y) + ")");
 }
 
 /////////////////////////////////////////////////////////
@@ -32,12 +30,15 @@ Rect::Rect(RECT rect) : left(rect.left), top(rect.top), right(rect.right), botto
 {
 }
 
-void Rect::display(string _name)
+void Rect::display(std::string name)
 {
-	cout << "Displaying " << _name.c_str() << endl;
-	cout << " - Position : "	<< left	<< ", "	<< top << ", ";
-	cout << right << ", "	<< bottom << endl;
-	cout << " - Dimensions : "	<< getWidth() << "x" << getHeight() << endl << endl;
+	Utils::getLogger()->debug("Displaying " + name);
+	Utils::getLogger()->debug(" - Position : "
+		+ std::to_string(left) + ", "
+		+ std::to_string(top) + ", "
+		+ std::to_string(right) + ", "
+		+ std::to_string(bottom));
+	Utils::getLogger()->debug(" - Dimensions : " + std::to_string(getWidth()) + "x" + std::to_string(getHeight()));
 }
 
 int Rect::getWidth()
@@ -45,9 +46,9 @@ int Rect::getWidth()
 	return right - left;
 }
 
-void Rect::setWidth(int _width)
+void Rect::setWidth(int width)
 {
-	right = left + _width;
+	right = left + width;
 }
 
 int Rect::getHeight()
@@ -55,7 +56,7 @@ int Rect::getHeight()
 	return bottom - top;
 }
 
-void Rect::setHeight(int _height)
+void Rect::setHeight(int height)
 {
-	bottom = top + _height;
+	bottom = top + height;
 }
