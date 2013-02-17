@@ -5,13 +5,10 @@
 
 using namespace std;
 
-Lang::Lang(const string& configFile) : Properties(configFile)
-{
-}
+Lang::Lang(const string& configFile)
+	: Properties(configFile) { }
 
-Lang::~Lang(void)
-{
-}
+Lang::~Lang(void) { }
 
 const string Lang::getFilename()
 {
