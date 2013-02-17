@@ -5,8 +5,6 @@
 #include <ctime>
 #include <string>
 
-using namespace std;
-
 /**
  * %a	Abbreviated weekday name		=> Thu
  * %A	Full weekday name				=> Thursday
@@ -31,7 +29,7 @@ using namespace std;
  * %Z	Timezone name or abbreviation	=> CDT
  * %%	A % sign						=> %
  */
-const string Timer::getTime(const string& format)
+const std::string Timer::getTime(const std::string& format)
 {
 	time_t now = time(nullptr);
 	tm timeinfo;
@@ -42,7 +40,7 @@ const string Timer::getTime(const string& format)
 
 	strftime(buffer, buffSize, format.c_str(), &timeinfo);
 
-	return string(buffer);
+	return std::string(buffer);
 }
 
 const long long Timer::counter()
