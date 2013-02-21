@@ -55,6 +55,22 @@ bstr_t StringUtils::string_to_bstr(const string& str)
 	return bstr;
 }
 
+/**
+* Convert a std::string into a std::wstring
+*/
+wstring StringUtils::string_to_wstring(const string& str)
+{
+	return wstring(str.begin(), str.end());
+}
+
+/**
+* Convert a std::wstring into a std::string
+*/
+string StringUtils::wstring_to_string(const wstring& wstr)
+{
+	return string(wstr.begin(), wstr.end());
+}
+
 bool StringUtils::is_whitespace(const char& c)
 {
 	return (c == ' ') || (c == '\t');
