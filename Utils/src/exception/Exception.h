@@ -11,6 +11,7 @@ class Exception : public std::exception
 public:
 	Exception(const std::string& type, const std::string& source, const std::string& message) throw();
 	virtual const char* what() const throw();
+	const std::string whatAsString() const throw();
 	const std::string simpleMessage() const throw();
 
 private:

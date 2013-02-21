@@ -3,14 +3,18 @@
 #include <iostream>
 
 Exception::Exception(const std::string& type, const std::string& source, const std::string& message) throw()
-	: m_source(source), m_message(message) 
+	: m_type(type), m_source(source), m_message(message) 
 {
 }
 
 const char* Exception::what() const throw()
 {
-	std::string message = m_type + " : " + m_source + ", " + m_message;
-	return message.c_str();
+	return whatAsString().c_str();
+}
+
+const std::string Exception::whatAsString() const throw()
+{
+	return m_type + " : " + m_source + ", " + m_message;
 }
 
 const std::string Exception::simpleMessage() const throw()
