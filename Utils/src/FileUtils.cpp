@@ -1,8 +1,10 @@
 #include "FileUtils.h"
 
-#include "StringUtils.h"
 #include <regex>
 #include <windows.h>
+
+#include "StringUtils.h"
+#include "exception\FileException.h"
 
 using namespace std;
 
@@ -89,8 +91,7 @@ namespace FileUtils {
 			return path;
 		}
 
-		// TODO: Transform to FileException
-		throw exception("current_path(), Could'nt find the current path.");
+		throw FileException("FileUtils::current_path", "Could'nt find the current path.");
 	}
 	
 	/**
@@ -144,13 +145,13 @@ namespace FileUtils {
 	}
 
 	/**
-	* List the file of the directory passed as parameter.
+	* List files and directories of the directory passed as parameter.
 	* @param root The root directory to explore.
 	* @param recursive True if the search should be recusive. False otherwise.
 	* @param filter A string that will be turn into a regexp to select special files or directory.
 	* @return A vector containing the File find by the function.
 	*/
-	vector<File> list_files(const string& root, bool recursive, const string& filter)
+	vector<File> list_files(const string& root, bool recursive, const string& filter, bool filesOnly)
 	{
 		string clearedRoot = StringUtils::clear_right(root, is_separator) + file_separator;
 		// TODO: get full path function if root is relative
@@ -161,8 +162,7 @@ namespace FileUtils {
 
 		// Check wheather the path is longer than the maximum authorized size (MAX_PATH) 
 		if (searchPath.length() > MAX_PATH) {
-			// TODO: Transform to FileException
-			throw exception("FileUtils::listFiles(), Path is too long.");
+			throw FileException("FileUtils::list_files", "Path is too long.");
 		}
 
 		// Search for the first file of the directory.
@@ -171,8 +171,7 @@ namespace FileUtils {
 
 		hFind = FindFirstFileA(searchPath.c_str(), &fileData);
 		if (hFind == INVALID_HANDLE_VALUE) {
-			// TODO: Transform to FileException
-			throw exception("FileUtils::listFiles(), Invalid handler value.");
+			throw FileException("FileUtils::list_files", "Invalid handler value.");
 		}
 
 		// List all the files in the directory and get some informations
@@ -200,7 +199,7 @@ namespace FileUtils {
 
 				if (recursive && strcmp(fileData.cFileName, "..") != 0) {
 					// List the files in the directory
-					auto directoryFiles = list_files(file.getfullPath(), recursive, filter);
+					auto directoryFiles = list_files(file.getfullPath(), recursive, filter, filesOnly);
 					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
@@ -211,6 +210,11 @@ namespace FileUtils {
 				}
 				file.type = File::TYPE_FILE;
 			}
+
+			if (filesOnly && file.isDirectory()) {
+				continue;
+			}
+			// Add the file or directory to the list
 			fileList.push_back(file);
 
 		} while (FindNextFileA(hFind, &fileData) != 0);
@@ -220,8 +224,7 @@ namespace FileUtils {
 		auto error = GetLastError();
 		if (error != ERROR_NO_MORE_FILES) {
 			string msg = "FindNextFile error : " + to_string(error);
-			// TODO: Transform to FileException
-			throw exception(msg.c_str());
+			throw FileException("FileUtils::list_files", msg.c_str());
 		}
 		return fileList;
 	}
@@ -232,8 +235,7 @@ namespace FileUtils {
 	std::string build_path(const std::string& strPath1, const std::string& strPath2)
 	{
 		if (strPath2.find(':') != string::npos) {
-			// TODO: Transform to FileException
-			throw exception("Second path can't contains ':' character.");
+			throw FileException("FileUtils::build_path", "Second path can't contains ':' character.");
 		}
 
 		Path path1 = Path(strPath1);

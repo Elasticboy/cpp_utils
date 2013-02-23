@@ -42,7 +42,7 @@ namespace FileUtils {
 	std::string get_filepath_only(const std::string& filename);
 	std::string get_filename_only(const std::string& filename);
 	std::string trunc_extension(const std::string& filename);
-	std::vector<File> list_files(const std::string& root, bool recursive = false, const std::string& filter = "");
+	std::vector<File> list_files(const std::string& root, bool recursive = false, const std::string& filter = "", bool filesOnly = false);
 	std::string build_path(const std::string& path1, const std::string& path2);
 	// TODO: static bool file_exists(const std::string& path);
 

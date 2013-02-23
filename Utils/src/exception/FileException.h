@@ -6,26 +6,32 @@
  * File Exceptions classes
  */
 
+class FileException : public Exception
+{
+public:
+	FileException(const std::string& source, const std::string& message);
+};
+
 class OpenFileException : public Exception
 {
 public:
-	OpenFileException(const std::string& source, const std::string& message);// = "Error while opening file.");
+	OpenFileException(const std::string& source, const std::string& message);
 };
 
 class CloseFileException : public Exception
 {
 public:
-	CloseFileException(const std::string& source, const std::string& message);// = "Error while closing file.");
+	CloseFileException(const std::string& source, const std::string& message);
 };
 
 class ReadFileException : public Exception
 {
 public:
-	ReadFileException(const std::string& source, const std::string& message);// = "Error while reading file.");
+	ReadFileException(const std::string& source, const std::string& message);
 };
 
 class WriteFileException : public Exception
 {
 public:
-	WriteFileException(const std::string& source, const std::string& message);// = "Error while writting file.");
+	WriteFileException(const std::string& source, const std::string& message);
 };

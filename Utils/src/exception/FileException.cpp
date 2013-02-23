@@ -1,5 +1,8 @@
 #include "FileException.h"
 
+FileException::FileException(const std::string& source, const std::string& message)
+	: Exception("FileException", source, message)	{ }
+
 OpenFileException::OpenFileException(const std::string& source, const std::string& message)
 	: Exception("OpenFileException", source, message)	{ }
 
