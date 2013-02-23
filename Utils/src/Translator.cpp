@@ -46,7 +46,6 @@ void Translator::setLanguage(const string& languageKey)
 		return;
 	}
 
-	Utils::getLogger()->debug("Translator::setLanguage(" + languageKey + ")");
 	throw ConfigurationException("Translator::setLanguage()", "Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
 }
 
@@ -69,60 +68,17 @@ void Translator::addLanguage(const string& languageKey, const string& dataFile)
 	Utils::getLogger()->debug("Translator::addLanguage(), Language \"" + languageKey + "\" added to the translator.");
 }
 
-//TODO: use templates for arg != string (ex : int, double, ...) => type_traits
-/*/
-template<typename T>
-string Translator::getString(const string& key, const T& arg)
-{
-	if (typename is_arithmetic<T>::type() == true_type) {
-		return getInstance()->getStringWithArg(key, to_string(arg));
-
-	} else if (typename is_same<T, string>::type() == true_type) {
-		return getInstance()->getStringWithArg(key, arg);
-	}
-
-	// TODO: Throw (bad argument) an error here !
-	Utils::getLogger()->error("Template getString(), bad argument.");
-	throw invalid_argument;
-}/**/
-
 /**/
 string Translator::getString(const string& key, const string& arg)
 {
-	return getInstance()->getStringWithArg(key, arg);
-}
-
-string Translator::getString(const string& key, const int& arg)
-{
-	return getInstance()->getStringWithArg(key, to_string(arg));
-}
-/**/
-
-// TODO: to fix !
-/*/
-string Translator::getString(const string& key)
-{
-	return getInstance()->getStringWithArg(key, "");
-}
-/**/
-
-string Translator::getStringWithArg(const string& key, const string& arg)
-{
-	for (auto langFile : m_langFiles) {
-		if (langFile.first == m_languageKey) {
+	for (auto langFile : m_instance->m_langFiles) {
+		if (langFile.first == m_instance->m_languageKey) {
 			return langFile.second.getText(key, arg);
 		}
 	}
-	return ""; // TODO: Throw exception here StringNotFound
-}
 
-// TODO: clean
-/*
-string Translator::getStringArgInt(const std::string& key, const int& arg)
-{
-	return getStringArgStr(key, to_string(arg));
+	throw ConfigurationException("Translator::get_string()", "There is no Key \"" + key + "\" is the file.");
 }
-*/
 
 /**
  * The translator is concidered initialized if at least on language is set.
