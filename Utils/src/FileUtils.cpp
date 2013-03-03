@@ -5,8 +5,10 @@
 
 #include "StringUtils.h"
 #include "exception\FileException.h"
+#include "boost\filesystem.hpp"
 
 using namespace std;
+namespace fs = boost::filesystem;
 
 namespace FileUtils {
 
@@ -35,7 +37,7 @@ namespace FileUtils {
 	{
 		return get_filepath_only(m_filepath);
 	}
-	
+
 	bool File::isDirectory()
 	{
 		return type == TYPE_DIRECTORY;
@@ -64,7 +66,7 @@ namespace FileUtils {
 			tempPath = tempPath.substr(nextSeparator + 1, tempPath.size());
 		}
 	}
-	
+
 	Path::Path(const vector<string>& pathLevels)
 	{
 		levels = pathLevels;
@@ -93,14 +95,14 @@ namespace FileUtils {
 
 		throw FileException("FileUtils::current_path", "Could'nt find the current path.");
 	}
-	
+
 	/**
 	* @return The path without the name of the file.
 	*/
 	string get_filepath_only(const string& filename)
 	{
 		int pos;
-		
+
 		if ((pos = filename.find_last_of('\\')) != string::npos) {
 			return filename.substr(0, pos + 1);
 		}
@@ -108,10 +110,10 @@ namespace FileUtils {
 		if ((pos = filename.find_last_of('/')) != string::npos) {
 			return filename.substr(0, pos + 1);
 		}
-		
+
 		return "";
 	}
-	
+
 	/**
 	* @return The filename without the path.
 	*/
@@ -122,7 +124,7 @@ namespace FileUtils {
 		if ((pos = filename.find_last_of('\\')) != string::npos) {
 			return filename.substr(pos + 1);
 		}
-		
+
 		if ((pos = filename.find_last_of('/')) != string::npos) {
 			return filename.substr(pos + 1);
 		}
@@ -153,6 +155,16 @@ namespace FileUtils {
 	*/
 	vector<File> list_files(const string& root, bool recursive, const string& filter, bool filesOnly)
 	{
+		fs::path rootPath(root);
+		if (!fs::exists(rootPath)) {
+			throw FileException("FileUtils::list_files", "rootPath does not exist");
+		}
+		if (!fs::is_directory(rootPath)) {
+			throw FileException("FileUtils::list_files", "rootPath is not a directory.");
+		}
+
+		// TODO: Implement boost for the rest of the function.
+
 		string clearedRoot = StringUtils::clear_right(root, is_separator) + file_separator;
 		// TODO: get full path function if root is relative
 
@@ -218,7 +230,7 @@ namespace FileUtils {
 			fileList.push_back(file);
 
 		} while (FindNextFileA(hFind, &fileData) != 0);
-		
+
 		FindClose(hFind);
 
 		auto error = GetLastError();
