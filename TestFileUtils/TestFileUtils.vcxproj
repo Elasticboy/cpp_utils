@@ -45,9 +45,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>.\lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>.\lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Test_File.cpp" />
     <ClCompile Include="Test_FileUtils_build_path.cpp" />
+    <ClCompile Include="Test_FileUtils_list_files.cpp" />
     <ClCompile Include="Test_Path.cpp" />
   </ItemGroup>
   <ItemGroup>
