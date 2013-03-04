@@ -8,7 +8,6 @@
 #include "boost\filesystem.hpp"
 
 using namespace std;
-namespace fs = boost::filesystem;
 
 namespace FileUtils {
 
@@ -153,9 +152,12 @@ namespace FileUtils {
 	* @param filter A string that will be turn into a regexp to select special files or directory.
 	* @return A vector containing the File find by the function.
 	*/
-	vector<File> list_files(const string& root, bool recursive, const string& filter, bool filesOnly)
+	vector<File> list_files_boost(const string& root, bool recursive, const string& filter, bool filesOnly)
 	{
+		namespace fs = boost::filesystem;
 		fs::path rootPath(root);
+
+		// Throw exception if path doesn't exist or isn't a directory.
 		if (!fs::exists(rootPath)) {
 			throw FileException("FileUtils::list_files", "rootPath does not exist");
 		}
@@ -163,6 +165,62 @@ namespace FileUtils {
 			throw FileException("FileUtils::list_files", "rootPath is not a directory.");
 		}
 
+		// List all the files in the directory and get some informations
+		const regex regexFilter(filter);
+		auto fileList = vector<File>();
+
+		fs::directory_iterator end_itr;
+		for( fs::directory_iterator it(rootPath); it != end_itr; ++it) {
+	
+			File file(it->path().string());
+			file.size = fs::file_size(it->path());
+
+			// For a directory
+			if (fs::is_directory(it->status())) {
+
+				// Skip directories "." and "$RECYCLE.BIN"
+				if (it->path() == "." || it->path() == "$RECYCLE.BIN") {
+						continue;
+				}
+				file.type = File::TYPE_DIRECTORY;
+
+				if (recursive && it->path().string() != "..") {
+					// List the files in the directory
+					auto directoryFiles = list_files_boost(file.getfullPath(), recursive, filter, filesOnly);
+					// Add to the end of the current vector
+					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
+				}
+
+			} else if (fs::is_regular_file(it->status())) { // For a regular file
+				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
+					continue;
+				}
+				file.type = File::TYPE_FILE;
+
+			} else {
+				// TODO: throw an error
+			}
+
+			if (filesOnly && !fs::is_directory(it->status())) {
+				continue;
+			}
+			
+			// Add the file or directory to the list
+			fileList.push_back(file);
+		}
+
+		return fileList;
+	}
+
+	/**
+	* List files and directories of the directory passed as parameter.
+	* @param root The root directory to explore.
+	* @param recursive True if the search should be recusive. False otherwise.
+	* @param filter A string that will be turn into a regexp to select special files or directory.
+	* @return A vector containing the File find by the function.
+	*/
+	vector<File> list_files(const string& root, bool recursive, const string& filter, bool filesOnly)
+	{
 		// TODO: Implement boost for the rest of the function.
 
 		string clearedRoot = StringUtils::clear_right(root, is_separator) + file_separator;
