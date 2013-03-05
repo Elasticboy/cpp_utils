@@ -1,10 +1,15 @@
 #include "CppUnitTest.h"
 
+#ifndef BOOST_FILESYSTEM_NO_DEPRECATED
+#define BOOST_FILESYSTEM_NO_DEPRECATED
+#endif
+
 #include "..\Utils\src\FileUtils.h"
 #include <string>
 #include <functional>
 
 #include <iostream>
+
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
