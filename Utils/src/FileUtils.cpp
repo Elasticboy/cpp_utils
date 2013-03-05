@@ -42,7 +42,7 @@ namespace FileUtils {
 	{
 		return type == FileUtils::file_type::directory_file;
 	}
-	
+
 	/** @return True if the file is a regular file. */
 	bool File::is_regular_file()
 	{
@@ -178,16 +178,15 @@ namespace FileUtils {
 
 		fs::directory_iterator end_itr;
 		for( fs::directory_iterator it(rootPath); it != end_itr; ++it) {
-	
+
 			File file(it->path().string());
-			file.size = fs::file_size(it->path());
 
 			// For a directory
 			if (fs::is_directory(it->status())) {
 
 				// Skip directories "." and "$RECYCLE.BIN"
 				if (it->path() == "." || it->path() == "$RECYCLE.BIN") {
-						continue;
+					continue;
 				}
 				file.type = file_type::directory_file;
 
@@ -202,6 +201,7 @@ namespace FileUtils {
 				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
 					continue;
 				}
+				file.size = fs::file_size(it->path());
 				file.type = file_type::regular_file;
 
 			} else {
@@ -211,7 +211,7 @@ namespace FileUtils {
 			if (filesOnly && !fs::is_directory(it->status())) {
 				continue;
 			}
-			
+
 			// Add the file or directory to the list
 			fileList.push_back(file);
 		}

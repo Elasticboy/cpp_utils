@@ -25,15 +25,25 @@ namespace TestFileUtils
 			const string dir = FileUtils::get_current_directory();
 			const string root = "C:\\DevSpaces\\VSProjects\\CppUtils\\TestFileUtils\\test";
 
+			// TODO: Record elapsed time
 			auto filesWinAPI	= FileUtils::list_files(root); 
 			auto filesBoost		= FileUtils::list_files_boost(root);
 			
-			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
-
-			for (int i = 0; i < filesWinAPI.size(); i++) {
-				// TODO: Compare
+			for (auto file : filesWinAPI) {
+				cout << file.getfullPath() << endl;
 			}
-			//Assert::AreEqual(expected, actual, L"", LINE_INFO());
+
+			cout << endl;
+
+			for (auto file : filesBoost) {
+				cout << file.getfullPath() << endl;
+			}
+			
+			Assert::AreEqual(filesWinAPI.size(), filesBoost.size()+1, L"The sizes of the vectors are not equal.", LINE_INFO());
+
+			for (int i = 0; i < filesBoost.size(); i++) {
+				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i+1].getFilename(), L"Filenames do not match.", LINE_INFO());
+			}
 		}
 	};
 }
