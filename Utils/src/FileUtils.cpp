@@ -37,9 +37,16 @@ namespace FileUtils {
 		return get_filepath_only(m_filepath);
 	}
 
-	bool File::isDirectory()
+	/** @return True if the file is a directory. */
+	bool File::is_directory()
 	{
-		return type == TYPE_DIRECTORY;
+		return type == FileUtils::file_type::directory_file;
+	}
+	
+	/** @return True if the file is a regular file. */
+	bool File::is_regular_file()
+	{
+		return type == FileUtils::file_type::regular_file;
 	}
 
 	Path::Path(const std::string& path)
@@ -182,7 +189,7 @@ namespace FileUtils {
 				if (it->path() == "." || it->path() == "$RECYCLE.BIN") {
 						continue;
 				}
-				file.type = File::TYPE_DIRECTORY;
+				file.type = file_type::directory_file;
 
 				if (recursive && it->path().string() != "..") {
 					// List the files in the directory
@@ -195,7 +202,7 @@ namespace FileUtils {
 				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
 					continue;
 				}
-				file.type = File::TYPE_FILE;
+				file.type = file_type::regular_file;
 
 			} else {
 				// TODO: throw an error
@@ -265,7 +272,7 @@ namespace FileUtils {
 					strcmp(fileData.cFileName, "$RECYCLE.BIN") == 0 ) {
 						continue;
 				}
-				file.type = File::TYPE_DIRECTORY;
+				file.type = file_type::directory_file;
 
 				if (recursive && strcmp(fileData.cFileName, "..") != 0) {
 					// List the files in the directory
@@ -278,12 +285,13 @@ namespace FileUtils {
 				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
 					continue;
 				}
-				file.type = File::TYPE_FILE;
+				file.type = file_type::regular_file;
 			}
 
-			if (filesOnly && file.isDirectory()) {
+			if (filesOnly && file.is_directory()) {
 				continue;
 			}
+
 			// Add the file or directory to the list
 			fileList.push_back(file);
 

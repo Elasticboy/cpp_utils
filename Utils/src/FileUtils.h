@@ -5,6 +5,14 @@
 
 namespace FileUtils {
 
+	enum file_type
+	{ 
+		status_error,
+		file_not_found,
+		regular_file,
+		directory_file
+	};
+
 	class File
 	{
 	public:
@@ -12,17 +20,16 @@ namespace FileUtils {
 		std::string getFilename();
 		std::string getfullPath();
 		std::string getPath();
-		bool isDirectory();
+		bool is_directory();
+		bool is_regular_file();
 
-		static const int TYPE_DIRECTORY	= 0;
-		static const int TYPE_FILE		= 1;
-		int type;
+		file_type type;
 		long long size;
 
 	private:
 		std::string m_filepath;
 	};
-	
+
 	class Path
 	{
 	public:
@@ -32,7 +39,7 @@ namespace FileUtils {
 
 		std::vector<std::string> levels;
 	};
-	
+
 	const std::string file_separator = "\\";
 	const std::string file_current_element = ".";
 	const std::string file_back_element = "..";
