@@ -40,9 +40,9 @@ namespace FileUtils {
 		std::vector<std::string> levels;
 	};
 
-	const std::string file_separator = "\\";
-	const std::string file_current_element = ".";
-	const std::string file_back_element = "..";
+	const std::string file_separator		= "\\";
+	const std::string file_current_element	= ".";
+	const std::string file_back_element		= "..";
 
 	bool is_separator(const char& c);
 	std::string get_current_directory();

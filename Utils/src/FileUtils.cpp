@@ -43,7 +43,7 @@ namespace FileUtils {
 		return type == FileUtils::file_type::directory_file;
 	}
 
-	/** @return True if the file is a regular file. */
+	/** @return True if the file is a regular file. False otherwise. */
 	bool File::is_regular_file()
 	{
 		return type == FileUtils::file_type::regular_file;
@@ -92,13 +92,16 @@ namespace FileUtils {
 		return (c == '/') || (c == '\\');
 	}
 
+	/**
+	* @return the current directory.
+	*/
 	string get_current_directory() {
 
+		// TODO: Remove plate-forme dependant API (get_current_directory)
 		char path[MAX_PATH];
 		if (GetCurrentDirectoryA(MAX_PATH, path)) {
 			return path;
 		}
-
 		throw FileException("FileUtils::current_path", "Could'nt find the current path.");
 	}
 
@@ -184,13 +187,16 @@ namespace FileUtils {
 			// For a directory
 			if (fs::is_directory(it->status())) {
 
-				// Skip directories "." and "$RECYCLE.BIN"
-				if (it->path() == "." || it->path() == "$RECYCLE.BIN") {
-					continue;
+				// Skip directories file_current_element and "$RECYCLE.BIN"
+				if (it->path() == file_current_element ||
+					it->path() == file_back_element ||
+					it->path() == "$Recycle.Bin" ||
+					it->path() == "$RECYCLE.BIN") {
+						continue;
 				}
 				file.type = file_type::directory_file;
 
-				if (recursive && it->path().string() != "..") {
+				if (recursive && it->path().string() != file_back_element) {
 					// List the files in the directory
 					auto directoryFiles = list_files_boost(file.getfullPath(), recursive, filter, filesOnly);
 					// Add to the end of the current vector
@@ -201,7 +207,13 @@ namespace FileUtils {
 				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
 					continue;
 				}
-				file.size = fs::file_size(it->path());
+
+				try {
+					file.size = fs::file_size(it->path());			
+				} catch (const boost::filesystem::filesystem_error& e) {
+					throw FileException("FileUtils::list_files", e.what());
+				}
+
 				file.type = file_type::regular_file;
 
 			} else {
@@ -267,14 +279,16 @@ namespace FileUtils {
 			// It is a directory
 			if (fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 
-				// Skip directories "." and "$RECYCLE.BIN"
-				if (strcmp(fileData.cFileName, ".") == 0 ||
+				// Skip directories file_current_element and "$RECYCLE.BIN"
+				if (strcmp(fileData.cFileName, file_current_element.c_str()) == 0 ||
+					strcmp(fileData.cFileName, file_back_element.c_str()) == 0 ||
+					strcmp(fileData.cFileName, "$Recycle.Bin") == 0 ||
 					strcmp(fileData.cFileName, "$RECYCLE.BIN") == 0 ) {
 						continue;
 				}
 				file.type = file_type::directory_file;
 
-				if (recursive && strcmp(fileData.cFileName, "..") != 0) {
+				if (recursive && strcmp(fileData.cFileName, file_back_element.c_str()) != 0) {
 					// List the files in the directory
 					auto directoryFiles = list_files(file.getfullPath(), recursive, filter, filesOnly);
 					// Add to the end of the current vector
