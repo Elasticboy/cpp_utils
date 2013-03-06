@@ -162,7 +162,7 @@ namespace FileUtils {
 	* @param filter A string that will be turn into a regexp to select special files or directory.
 	* @return A vector containing the File find by the function.
 	*/
-	vector<File> list_files_boost(const string& root, bool recursive, const string& filter, bool filesOnly)
+	vector<File> list_files(const string& root, bool recursive, const string& filter, bool regularFilesOnly)
 	{
 		namespace fs = boost::filesystem;
 		fs::path rootPath(root);
@@ -198,7 +198,7 @@ namespace FileUtils {
 
 				if (recursive && it->path().string() != file_back_element) {
 					// List the files in the directory
-					auto directoryFiles = list_files_boost(file.getfullPath(), recursive, filter, filesOnly);
+					auto directoryFiles = list_files(file.getfullPath(), recursive, filter, regularFilesOnly);
 					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
@@ -218,9 +218,10 @@ namespace FileUtils {
 
 			} else {
 				// TODO: throw an error
+				file.type = file_type::unknown;
 			}
 
-			if (filesOnly && !fs::is_directory(it->status())) {
+			if (regularFilesOnly && !file.is_regular_file()) {
 				continue;
 			}
 
@@ -238,7 +239,7 @@ namespace FileUtils {
 	* @param filter A string that will be turn into a regexp to select special files or directory.
 	* @return A vector containing the File find by the function.
 	*/
-	vector<File> list_files(const string& root, bool recursive, const string& filter, bool filesOnly)
+	vector<File> list_files_old(const string& root, bool recursive, const string& filter, bool regularFilesOnly)
 	{
 		// TODO: Implement boost for the rest of the function.
 
@@ -290,7 +291,7 @@ namespace FileUtils {
 
 				if (recursive && strcmp(fileData.cFileName, file_back_element.c_str()) != 0) {
 					// List the files in the directory
-					auto directoryFiles = list_files(file.getfullPath(), recursive, filter, filesOnly);
+					auto directoryFiles = list_files_old(file.getfullPath(), recursive, filter, regularFilesOnly);
 					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
@@ -302,7 +303,7 @@ namespace FileUtils {
 				file.type = file_type::regular_file;
 			}
 
-			if (filesOnly && file.is_directory()) {
+			if (regularFilesOnly && !file.is_regular_file()) {
 				continue;
 			}
 

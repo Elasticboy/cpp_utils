@@ -20,14 +20,89 @@ namespace TestFileUtils
 	{
 	public:
 
+		/**
+		* List files with 1 argument :
+		* - path
+		*/
 		TEST_METHOD(Test_FileUtils_list_files1)
 		{
-			const string dir = FileUtils::get_current_directory();
-			const string root = "C:/";
+			const string root = "C:/DevSpaces/VSProjects/CppUtils/TestFileUtils/test";
 
 			// TODO: Record elapsed time
-			auto filesWinAPI	= FileUtils::list_files(root); 
-			auto filesBoost		= FileUtils::list_files_boost(root);
+			auto filesWinAPI	= FileUtils::list_files_old(root); 
+			auto filesBoost		= FileUtils::list_files(root);
+			
+			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
+			
+			const int size(filesBoost.size());
+			for (int i = 0; i < size; i++) {
+				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+			}
+		}
+
+		/**
+		* List files with 2 arguments :
+		* - path
+		* - recursive
+		*/
+		TEST_METHOD(Test_FileUtils_list_files2)
+		{
+			const string root		= "C:/DevSpaces/VSProjects/CppUtils/TestFileUtils/test";
+			const bool recursive	= true;
+
+			// TODO: Record elapsed time
+			auto filesWinAPI	= FileUtils::list_files_old(root, recursive); 
+			auto filesBoost		= FileUtils::list_files(root, recursive);
+			
+			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
+			
+			const int size(filesBoost.size());
+			for (int i = 0; i < size; i++) {
+				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+			}
+		}
+		
+		/**
+		* List files with 3 arguments :
+		* - path
+		* - recursive
+		* - filter
+		*/
+		TEST_METHOD(Test_FileUtils_list_files3)
+		{
+			const string root		= "C:/DevSpaces/VSProjects/CppUtils/TestFileUtils/test";
+			const bool recursive	= true;
+			const string filter		= ".*test.*";
+
+			// TODO: Record elapsed time
+			auto filesWinAPI	= FileUtils::list_files_old(root, recursive, filter); 
+			auto filesBoost		= FileUtils::list_files(root, recursive, filter);
+			
+			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
+			
+			const int size(filesBoost.size());
+			for (int i = 0; i < size; i++) {
+				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+			}
+		}
+		
+		/**
+		* List files with 4 arguments :
+		* - path
+		* - recursive
+		* - filter
+		* - regularOnly
+		*/
+		TEST_METHOD(Test_FileUtils_list_files4)
+		{
+			const string root		= "C:/DevSpaces/VSProjects/CppUtils/TestFileUtils/test";
+			const bool recursive	= true;
+			const string filter		= ".*test.*";
+			const bool regularOnly	= true;
+
+			// TODO: Record elapsed time
+			auto filesWinAPI	= FileUtils::list_files_old(root, recursive, filter, regularOnly); 
+			auto filesBoost		= FileUtils::list_files(root, recursive, filter, regularOnly);
 			
 			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
 			
