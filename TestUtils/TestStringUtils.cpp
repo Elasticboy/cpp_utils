@@ -1,14 +1,14 @@
 #include "CppUnitTest.h"
 
 #include "..\Utils\src\StringUtils.h"
-#include "..\Utils\src\FileUtils.h"
+#include "..\Utils\src\fs_utils.h"
 #include <string>
 #include <iostream>
 #include <vector>
 #include <regex>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace FileUtils;
+using namespace fs_utils;
 using namespace std;
 
 namespace TestUtils

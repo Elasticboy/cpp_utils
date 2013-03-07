@@ -1,6 +1,6 @@
 #include "CppUnitTest.h"
 
-#include "..\Utils\src\FileUtils.h"
+#include "..\Utils\src\fs_utils.h"
 #include <string>
 #include <functional>
 
@@ -20,7 +20,7 @@ namespace TestFileUtils
 			string path2 = "..\\..\\";
 
 			string expected	= "C:\\toto\\";
-			string actual	= FileUtils::build_path(path1, path2); 
+			string actual	= fs_utils::build_path(path1, path2); 
 
 			Assert::AreEqual(expected, actual, L"", LINE_INFO());
 		}
@@ -32,7 +32,7 @@ namespace TestFileUtils
 			string path2 = "C:\\toto\\titi\\tata\\";
 
 			try {
-				FileUtils::build_path(path1, path2);
+				fs_utils::build_path(path1, path2);
 				Assert::Fail(L"Should raise an exception.", LINE_INFO());
 
 			} catch (const exception) {
@@ -47,7 +47,7 @@ namespace TestFileUtils
 			string path2 = "..\\..\\";
 
 			string expected	= "..\\..\\";
-			string actual		= FileUtils::build_path(path1, path2); 
+			string actual	= fs_utils::build_path(path1, path2); 
 
 			Assert::AreEqual(expected, actual, L"", LINE_INFO());
 		}
@@ -59,7 +59,7 @@ namespace TestFileUtils
 			string path2 = "..\\";
 
 			string expected	= "..\\..\\..\\..\\";
-			string actual		= FileUtils::build_path(path1, path2); 
+			string actual	= fs_utils::build_path(path1, path2); 
 
 			Assert::AreEqual(expected, actual, L"", LINE_INFO());
 		}
@@ -71,7 +71,7 @@ namespace TestFileUtils
 			string path2 = "D:\\tata\\titi\\toto\\";
 
 			try {
-				FileUtils::build_path(path1, path2);
+				fs_utils::build_path(path1, path2);
 				Assert::Fail(L"Should raise an exception.", LINE_INFO());
 
 			} catch (const exception) {

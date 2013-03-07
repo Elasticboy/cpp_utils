@@ -4,7 +4,7 @@
 #define BOOST_FILESYSTEM_NO_DEPRECATED
 #endif
 
-#include "..\Utils\src\FileUtils.h"
+#include "..\Utils\src\fs_utils.h"
 #include <string>
 #include <functional>
 
@@ -29,8 +29,8 @@ namespace TestFileUtils
 			const string root = "C:/DevSpaces/VSProjects/CppUtils/TestFileUtils/test";
 
 			// TODO: Record elapsed time
-			auto filesWinAPI	= FileUtils::list_files_old(root); 
-			auto filesBoost		= FileUtils::list_files(root);
+			auto filesWinAPI	= fs_utils::list_files_old(root); 
+			auto filesBoost		= fs_utils::list_files(root);
 			
 			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
 			
@@ -51,8 +51,8 @@ namespace TestFileUtils
 			const bool recursive	= true;
 
 			// TODO: Record elapsed time
-			auto filesWinAPI	= FileUtils::list_files_old(root, recursive); 
-			auto filesBoost		= FileUtils::list_files(root, recursive);
+			auto filesWinAPI	= fs_utils::list_files_old(root, recursive); 
+			auto filesBoost		= fs_utils::list_files(root, recursive);
 			
 			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
 			
@@ -75,8 +75,8 @@ namespace TestFileUtils
 			const string filter		= ".*test.*";
 
 			// TODO: Record elapsed time
-			auto filesWinAPI	= FileUtils::list_files_old(root, recursive, filter); 
-			auto filesBoost		= FileUtils::list_files(root, recursive, filter);
+			auto filesWinAPI	= fs_utils::list_files_old(root, recursive, filter); 
+			auto filesBoost		= fs_utils::list_files(root, recursive, filter);
 			
 			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
 			
@@ -101,8 +101,8 @@ namespace TestFileUtils
 			const bool regularOnly	= true;
 
 			// TODO: Record elapsed time
-			auto filesWinAPI	= FileUtils::list_files_old(root, recursive, filter, regularOnly); 
-			auto filesBoost		= FileUtils::list_files(root, recursive, filter, regularOnly);
+			auto filesWinAPI	= fs_utils::list_files_old(root, recursive, filter, regularOnly); 
+			auto filesBoost		= fs_utils::list_files(root, recursive, filter, regularOnly);
 			
 			Assert::AreEqual(filesWinAPI.size(), filesBoost.size(), L"The sizes of the vectors are not equal.", LINE_INFO());
 			

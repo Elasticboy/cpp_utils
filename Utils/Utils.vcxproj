@@ -103,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\exception\PropertyException.h" />
-    <ClInclude Include="src\FileUtils.h" />
+    <ClInclude Include="src\fs_utils.h" />
     <ClInclude Include="src\Singleton.h" />
     <ClInclude Include="src\Lang.h" />
     <ClInclude Include="src\Logger.h" />
@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\exception\PropertyException.cpp" />
-    <ClCompile Include="src\FileUtils.cpp" />
+    <ClCompile Include="src\fs_utils.cpp" />
     <ClCompile Include="src\Singleton.cpp" />
     <ClCompile Include="src\Lang.cpp" />
     <ClCompile Include="src\Logger.cpp" />
