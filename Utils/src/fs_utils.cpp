@@ -106,7 +106,7 @@ namespace fs_utils {
 		if (GetCurrentDirectoryA(MAX_PATH, path)) {
 			return path;
 		}
-		throw FileException("FileUtils::current_path", "Could'nt find the current path.");
+		throw FileException("fs_utils::current_path", "Could'nt find the current path.");
 	}
 
 	/**
@@ -173,10 +173,10 @@ namespace fs_utils {
 
 		// Throw exception if path doesn't exist or isn't a directory.
 		if (!fs::exists(rootPath)) {
-			throw FileException("FileUtils::list_files", "rootPath does not exist");
+			throw FileException("fs_utils::list_files", "rootPath does not exist");
 		}
 		if (!fs::is_directory(rootPath)) {
-			throw FileException("FileUtils::list_files", "rootPath is not a directory.");
+			throw FileException("fs_utils::list_files", "rootPath is not a directory.");
 		}
 
 		// List all the files in the directory and get some informations
@@ -215,7 +215,7 @@ namespace fs_utils {
 				try {
 					file.size = fs::file_size(it->path());			
 				} catch (const boost::filesystem::filesystem_error& e) {
-					throw FileException("FileUtils::list_files", string(e.what()));
+					throw FileException("fs_utils::list_files", string(e.what()));
 				}
 
 				file.type = file_type::regular_file;
@@ -256,7 +256,7 @@ namespace fs_utils {
 
 		// Check wheather the path is longer than the maximum authorized size (MAX_PATH) 
 		if (searchPath.length() > MAX_PATH) {
-			throw FileException("FileUtils::list_files", "Path is too long.");
+			throw FileException("fs_utils::list_files", "Path is too long.");
 		}
 
 		// Search for the first file of the directory.
@@ -265,7 +265,7 @@ namespace fs_utils {
 
 		hFind = FindFirstFileA(searchPath.c_str(), &fileData);
 		if (hFind == INVALID_HANDLE_VALUE) {
-			throw FileException("FileUtils::list_files", "Invalid handler value.");
+			throw FileException("fs_utils::list_files", "Invalid handler value.");
 		}
 
 		// List all the files in the directory and get some informations
@@ -321,7 +321,7 @@ namespace fs_utils {
 		auto error = GetLastError();
 		if (error != ERROR_NO_MORE_FILES) {
 			const string msg = "FindNextFile error : " + std::to_string(error);
-			throw FileException("FileUtils::list_files", msg);
+			throw FileException("fs_utils::list_files", msg);
 		}
 		return fileList;
 	}
@@ -332,7 +332,7 @@ namespace fs_utils {
 	std::string build_path(const std::string& strPath1, const std::string& strPath2)
 	{
 		if (strPath2.find(':') != string::npos) {
-			throw FileException("FileUtils::build_path", "Second path can't contains ':' character.");
+			throw FileException("fs_utils::build_path", "Second path can't contains ':' character.");
 		}
 
 		Path path1 = Path(strPath1);
@@ -365,6 +365,10 @@ namespace fs_utils {
 	}
 
 	bool create_directory(const string& dirPath) {
-		return boost::filesystem::create_directory(boost::filesystem::path(dirPath));
+		try {
+			return boost::filesystem::create_directory(boost::filesystem::path(dirPath));
+		} catch (const boost::filesystem::filesystem_error& e) {
+			throw FileException("fs_utils::create_directory", string(e.what()));
+		}
 	}
 }
