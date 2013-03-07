@@ -15,30 +15,30 @@ namespace fs_utils {
 
 	using std::string;
 
-	File::File(const string& filepath) : m_filepath(filepath) { }
+	File::File(const string& filepath) : m_path(filepath) { }
 
 	/**
 	* @return The filename without the path.
 	*/
-	string File::getFilename()
+	string File::filename()
 	{
-		return get_filename_only(m_filepath);
+		return get_filename_only(m_path);
 	}
 
 	/**
 	* @return the full path of the file (path and filename).
 	*/
-	string File::getfullPath()
+	string File::path()
 	{
-		return m_filepath;
+		return m_path;
 	}
 
 	/**
 	* @return The path without the name.
 	*/
-	string File::getPath()
+	string File::parent_path()
 	{
-		return get_filepath_only(m_filepath);
+		return get_filepath_only(m_path);
 	}
 
 	/** @return True if the file is a directory. */
@@ -202,13 +202,13 @@ namespace fs_utils {
 
 				if (recursive && it->path().string() != file_back_element) {
 					// List the files in the directory
-					auto directoryFiles = list_files(file.getfullPath(), recursive, filter, regularFilesOnly);
+					auto directoryFiles = list_files(file.path(), recursive, filter, regularFilesOnly);
 					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
 
 			} else if (fs::is_regular_file(it->status())) { // For a regular file
-				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
+				if (filter != "" && !regex_match(file.path(), regexFilter)) {
 					continue;
 				}
 
@@ -295,13 +295,13 @@ namespace fs_utils {
 
 				if (recursive && strcmp(fileData.cFileName, file_back_element.c_str()) != 0) {
 					// List the files in the directory
-					auto directoryFiles = list_files_old(file.getfullPath(), recursive, filter, regularFilesOnly);
+					auto directoryFiles = list_files_old(file.path(), recursive, filter, regularFilesOnly);
 					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
 
 			} else { // If is a file
-				if (filter != "" && !regex_match(file.getfullPath(), regexFilter)) {
+				if (filter != "" && !regex_match(file.path(), regexFilter)) {
 					continue;
 				}
 				file.type = file_type::regular_file;

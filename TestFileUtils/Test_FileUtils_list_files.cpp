@@ -36,7 +36,7 @@ namespace TestFileUtils
 			
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(filesBoost[i].filename(), filesWinAPI[i].filename(), L"Filenames do not match.", LINE_INFO());
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace TestFileUtils
 			
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(filesBoost[i].filename(), filesWinAPI[i].filename(), L"Filenames do not match.", LINE_INFO());
 			}
 		}
 		
@@ -82,7 +82,7 @@ namespace TestFileUtils
 			
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(filesBoost[i].filename(), filesWinAPI[i].filename(), L"Filenames do not match.", LINE_INFO());
 			}
 		}
 		
@@ -108,7 +108,7 @@ namespace TestFileUtils
 			
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].getFilename(), filesWinAPI[i].getFilename(), L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(filesBoost[i].filename(), filesWinAPI[i].filename(), L"Filenames do not match.", LINE_INFO());
 			}
 		}
 	};

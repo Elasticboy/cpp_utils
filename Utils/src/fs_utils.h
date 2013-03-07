@@ -16,9 +16,9 @@ namespace fs_utils {
 	{
 	public:
 		File(const std::string& filepath);
-		std::string getFilename();
-		std::string getfullPath();
-		std::string getPath();
+		std::string filename();
+		std::string path();
+		std::string parent_path();
 		bool is_directory();
 		bool is_regular_file();
 
@@ -26,7 +26,7 @@ namespace fs_utils {
 		long long size;
 
 	private:
-		std::string m_filepath;
+		std::string m_path;
 	};
 
 	class Path

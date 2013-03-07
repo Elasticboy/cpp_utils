@@ -64,7 +64,7 @@ namespace TestUtils
 			cout << "Simple search" << endl;
 			vector<File> files = list_files(".\\");
 			for (auto file : files) {
-				cout << file.getfullPath() << endl;
+				cout << file.path() << endl;
 			}
 
 			string path1 = get_current_directory();
@@ -77,7 +77,7 @@ namespace TestUtils
 			cout << "Recursive search" << endl;
 			vector<File> filesRec = list_files(".\\", true);
 			for (auto file : filesRec) {
-				cout << file.getfullPath() << endl;
+				cout << file.path() << endl;
 			}
 
 			string str1 = "       bla, bla, bla     ";

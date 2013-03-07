@@ -11,30 +11,30 @@ namespace TestFileUtils
 	{
 	public:
 
-		TEST_METHOD(Test_File_getFilename)
+		TEST_METHOD(Test_File_filename)
 		{
 			fs_utils::File file("C:\\toto\\titi\\tata\\bla.exe");
 
 			const string expectedFilename = "bla.exe";
-			auto actualFilename	= file.getFilename();
+			auto actualFilename	= file.filename();
 			Assert::AreEqual(expectedFilename, actualFilename, L"Filename is not as expected.", LINE_INFO());
 		}
 
-		TEST_METHOD(Test_File_getfullPath)
+		TEST_METHOD(Test_File_path)
 		{
 			fs_utils::File file("C:\\toto\\titi\\tata\\bla.exe");
 
 			const string expectedFullPath = "C:\\toto\\titi\\tata\\bla.exe";
-			auto actualFullPath	= file.getfullPath(); 
+			auto actualFullPath	= file.path(); 
 			Assert::AreEqual(expectedFullPath, actualFullPath, L"FullPath is not as expected.", LINE_INFO());
 		}
 
-		TEST_METHOD(Test_File_getPath)
+		TEST_METHOD(Test_File_parent_path)
 		{
 			fs_utils::File file("C:\\toto\\titi\\tata\\bla.exe");
 
 			const string expectedPath = "C:\\toto\\titi\\tata\\";
-			auto actualPath	= file.getPath(); 
+			auto actualPath	= file.parent_path(); 
 			Assert::AreEqual(expectedPath, actualPath, L"Path is not as expected.", LINE_INFO());
 		}
 
