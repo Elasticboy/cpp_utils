@@ -192,6 +192,7 @@ namespace fs_utils {
 		fs::directory_iterator end_itr;
 		for( fs::directory_iterator it(rootPath); it != end_itr; ++it) {
 
+			// TODO: REPLACE BY CORRECT FUNCTION !!!
 			File file(it->path().string());
 
 			// For a directory
