@@ -1,8 +1,8 @@
-#include "Logger.h"
+#include "logger.h"
 
 #include <iostream>
 
-#include "FileHandler.h"
+#include "file_handler.h"
 #include "Timer.h"
 
 #define LOG_DIR "logs\\"
@@ -12,25 +12,25 @@ using namespace std;
 const int DEFAULT_LOG_SEVERITY = 4;
 const int DEFAULT_LOG_SEVERITY_CONSOLE = 4;
 
-const int Logger::SEVERITY_LVL_DEBUG	= 4;
-const int Logger::SEVERITY_LVL_INFO		= 3;
-const int Logger::SEVERITY_LVL_WARNING	= 2;
-const int Logger::SEVERITY_LVL_ERROR	= 1;
-const int Logger::SEVERITY_LVL_NOLOG	= 0;
+const int logger::SEVERITY_LVL_DEBUG	= 4;
+const int logger::SEVERITY_LVL_INFO		= 3;
+const int logger::SEVERITY_LVL_WARNING	= 2;
+const int logger::SEVERITY_LVL_ERROR	= 1;
+const int logger::SEVERITY_LVL_NOLOG	= 0;
 
-const string Logger::PREFIX_DEBUG	= "DEBUG : ";
-const string Logger::PREFIX_INFO	= "INFO  : ";
-const string Logger::PREFIX_WARNING	= "WARN  : ";
-const string Logger::PREFIX_ERROR	= "ERROR : ";
+const string logger::PREFIX_DEBUG	= "DEBUG : ";
+const string logger::PREFIX_INFO	= "INFO  : ";
+const string logger::PREFIX_WARNING	= "WARN  : ";
+const string logger::PREFIX_ERROR	= "ERROR : ";
 
-Logger::Logger(const string& filename) :
+logger::logger(const string& filename) :
 	m_logSeverity(DEFAULT_LOG_SEVERITY), m_logSeverityConsole(DEFAULT_LOG_SEVERITY_CONSOLE)
 {
 	setLogFile(filename);
 }
 
 
-const string Logger::getLogDir() {
+const string logger::getLogDir() {
 	return LOG_DIR;
 }
 
@@ -38,7 +38,7 @@ const string Logger::getLogDir() {
  * Set the filename for file output.
  * Directory is determine by LOG_DIR.
  */
-void Logger::setLogFile(const string& filename)
+void logger::setLogFile(const string& filename)
 {
 	m_logFile = getLogDir() + filename;
 }
@@ -46,7 +46,7 @@ void Logger::setLogFile(const string& filename)
 /**
  * Set the log severity for file output;
  */
-void Logger::setLogSeverity(const int& logSeverity)
+void logger::setLogSeverity(const int& logSeverity)
 {
 	m_logSeverity = logSeverity;
 }
@@ -54,27 +54,27 @@ void Logger::setLogSeverity(const int& logSeverity)
 /**
  * Set the log severity for console output;
  */
-void Logger::setLogSeverityConsole(const int& logSeverity)
+void logger::setLogSeverityConsole(const int& logSeverity)
 {
 	m_logSeverityConsole = logSeverity;
 }
 
-void Logger::debug(const string& message)
+void logger::debug(const string& message)
 {
 	write(SEVERITY_LVL_DEBUG, message);
 }
 
-void Logger::info(const string& message)
+void logger::info(const string& message)
 {
 	write(SEVERITY_LVL_INFO, message);
 }
 
-void Logger::warning(const string& message)
+void logger::warning(const string& message)
 {
 	write(SEVERITY_LVL_WARNING, message);
 }
 
-void Logger::error(const string& message)
+void logger::error(const string& message)
 {
 	write(SEVERITY_LVL_ERROR, message);
 }
@@ -85,7 +85,7 @@ void Logger::error(const string& message)
  * Write in the file.
  * @param message The message to log.
  */
-void Logger::write(const int& severity, const string& message)
+void logger::write(const int& severity, const string& message)
 {
 	string prefix = "";
 	if (severity == SEVERITY_LVL_DEBUG) {
@@ -114,7 +114,7 @@ void Logger::write(const int& severity, const string& message)
 	}
 }
 
-// TODO: Move to FileHandler or FileWriter (create the class)
+// TODO: Move to file_handler or FileWriter (create the class)
 /**
  * Append a message in a file.
  * @param logFilename the logfile to log in.
@@ -122,6 +122,6 @@ void Logger::write(const int& severity, const string& message)
  */
 void appendInFile(const string& logFilename, const string& logMessage)
 {	
-	FileHandler fwriter(logFilename, FileHandler::OPEN_MODE_APPEND);
+	file_handler fwriter(logFilename, file_handler::open_mode::append);
 	fwriter.getFile() << logMessage << endl;
 }

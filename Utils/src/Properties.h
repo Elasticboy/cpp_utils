@@ -2,7 +2,7 @@
 
 #include <string>
 #include <map>
-#include "FileHandler.h"
+#include "file_handler.h"
 
 class Properties
 {

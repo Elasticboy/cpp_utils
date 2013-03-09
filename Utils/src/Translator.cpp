@@ -1,8 +1,6 @@
 #include "Translator.h"
 
-#include <type_traits>
-
-#include "exception\ConfigException.h"
+#include "exception\config_exception.h"
 #include "Utils.h"
 
 using namespace std;
@@ -46,7 +44,7 @@ void Translator::setLanguage(const string& languageKey)
 		return;
 	}
 
-	throw ConfigurationException("Translator::setLanguage()", "Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
+	throw config_exception("Translator::setLanguage()", "Language \"" + languageKey + "\" is not part of the list. Translator has perhaps not been properly initialized.");
 }
 
 /**
@@ -77,7 +75,7 @@ string Translator::getString(const string& key, const string& arg)
 		}
 	}
 
-	throw ConfigurationException("Translator::get_string()", "There is no Key \"" + key + "\" is the file.");
+	throw config_exception("Translator::get_string()", "There is no Key \"" + key + "\" is the file.");
 }
 
 /**

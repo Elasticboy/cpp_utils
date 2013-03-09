@@ -1,4 +1,4 @@
-#include "StringUtils.h"
+#include "string_utils.h"
 
 #include <regex>
 
@@ -10,7 +10,7 @@ using namespace std;
 * @param prefix The string to be expected at the begining of the tested string.
 * @return True if the string starts with the given prefix. False otherwise.
 */
-bool StringUtils::starts_with(const std::string& str, const std::string& prefix)
+bool string_utils::starts_with(const std::string& str, const std::string& prefix)
 {
 	if (str.length() < prefix.length()) {
 		return false;
@@ -25,7 +25,7 @@ bool StringUtils::starts_with(const std::string& str, const std::string& prefix)
 * @param suffix The string to be expected at the end of the tested string.
 * @return True if the string ends with the given suffix. Flase otherwise.
 */
-bool StringUtils::ends_with(const std::string& str, const std::string& suffix)
+bool string_utils::ends_with(const std::string& str, const std::string& suffix)
 {
 	if (str.length() < suffix.length()) {
 		return false;
@@ -38,7 +38,7 @@ bool StringUtils::ends_with(const std::string& str, const std::string& suffix)
 * Clear a char* buffer.
 * @param _buffer The buffer to clear.
 */
-void StringUtils::clear_buffer(char* buffer)
+void string_utils::clear_buffer(char* buffer)
 {
 	memset(buffer, 0, sizeof(buffer));
 	//memset(_buffer, '\0', sizeof(buffer));
@@ -49,7 +49,7 @@ void StringUtils::clear_buffer(char* buffer)
 * @param str The string to convert.
 * @return The converted string.
 */
-bstr_t StringUtils::string_to_bstr(const string& str)
+bstr_t string_utils::string_to_bstr(const string& str)
 {
 	bstr_t bstr(str.c_str());
 	return bstr;
@@ -58,7 +58,7 @@ bstr_t StringUtils::string_to_bstr(const string& str)
 /**
 * Convert a std::string into a std::wstring
 */
-wstring StringUtils::string_to_wstring(const string& str)
+wstring string_utils::string_to_wstring(const string& str)
 {
 	return wstring(str.begin(), str.end());
 }
@@ -66,12 +66,12 @@ wstring StringUtils::string_to_wstring(const string& str)
 /**
 * Convert a std::wstring into a std::string
 */
-string StringUtils::wstring_to_string(const wstring& wstr)
+string string_utils::wstring_to_string(const wstring& wstr)
 {
 	return string(wstr.begin(), wstr.end());
 }
 
-bool StringUtils::is_whitespace(const char& c)
+bool string_utils::is_whitespace(const char& c)
 {
 	return (c == ' ') || (c == '\t');
 }
@@ -82,7 +82,7 @@ bool StringUtils::is_whitespace(const char& c)
 * @param filter The filter function.
 * @return The left cleared string.
 */
-const string StringUtils::clear_left(const string& str, bool (*filter)(const char& c))
+const string string_utils::clear_left(const string& str, bool (*filter)(const char& c))
 {
 	string trimmedStr = str;
 	while(filter(trimmedStr.at(0))) {
@@ -97,7 +97,7 @@ const string StringUtils::clear_left(const string& str, bool (*filter)(const cha
 * @param filter The filter function.
 * @return The right cleared string.
 */
-const string StringUtils::clear_right(const string& str, bool (*filter)(const char& c))
+const string string_utils::clear_right(const string& str, bool (*filter)(const char& c))
 {
 	string trimmedStr = str;
 	while(filter(trimmedStr.at(trimmedStr.length() -1))) {
@@ -111,23 +111,23 @@ const string StringUtils::clear_right(const string& str, bool (*filter)(const ch
 * @param str The string to trim.
 * @return The trimmed string.
 */
-const string StringUtils::trim(const string& str)
+const string string_utils::trim(const string& str)
 {
 	return clear_left(clear_right(str, is_whitespace), is_whitespace);
 }
 
-const string StringUtils::replace_string(const string& str, const string& pattern, const string& arg)
+const string string_utils::replace_string(const string& str, const string& pattern, const string& arg)
 {
 	const regex r(pattern);
 	return regex_replace(str, r, arg);
 }
 
-const string StringUtils::replace_string(const string& str, const string& pattern, const int& arg)
+const string string_utils::replace_string(const string& str, const string& pattern, const int& arg)
 {
 	return replace_string_template(str, pattern, arg);
 }
 
-template<typename T> const string StringUtils::replace_string_template(const string& str, const string& pattern, const T& arg)
+template<typename T> const string string_utils::replace_string_template(const string& str, const string& pattern, const T& arg)
 {
 	return replace_string(str, pattern, to_string(arg));
 }

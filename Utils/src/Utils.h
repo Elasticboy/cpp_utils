@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Logger.h"
+#include "logger.h"
 
 class Utils
 {
 public:
-	static Logger* getLogger();
+	static logger* getLogger();
 
 private:
-	static Logger* m_logger;
+	static logger* m_logger;
 };
 

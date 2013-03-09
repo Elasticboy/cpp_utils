@@ -2,11 +2,11 @@
 
 #include <string>
 
-class Logger
+class logger
 {
 public:
 	static const std::string getLogDir();
-	Logger(const std::string& filename);
+	logger(const std::string& filename);
 	
 	void setLogFile(const std::string& filename);
 	void setLogSeverity(const int& logSeverity);

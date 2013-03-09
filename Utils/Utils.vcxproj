@@ -102,36 +102,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\exception\PropertyException.h" />
+    <ClInclude Include="src\exception\property_exception.h" />
     <ClInclude Include="src\fs_utils.h" />
     <ClInclude Include="src\Singleton.h" />
     <ClInclude Include="src\Lang.h" />
-    <ClInclude Include="src\Logger.h" />
-    <ClInclude Include="src\exception\FileException.h" />
-    <ClInclude Include="src\exception\ConfigException.h" />
+    <ClInclude Include="src\logger.h" />
+    <ClInclude Include="src\exception\file_exception.h" />
+    <ClInclude Include="src\exception\config_exception.h" />
     <ClInclude Include="src\exception\Exception.h" />
-    <ClInclude Include="src\FileHandler.h" />
+    <ClInclude Include="src\file_handler.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Goemetry.h" />
     <ClInclude Include="src\Properties.h" />
-    <ClInclude Include="src\StringUtils.h" />
+    <ClInclude Include="src\string_utils.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\Translator.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\exception\PropertyException.cpp" />
+    <ClCompile Include="src\exception\property_exception.cpp" />
     <ClCompile Include="src\fs_utils.cpp" />
     <ClCompile Include="src\Singleton.cpp" />
     <ClCompile Include="src\Lang.cpp" />
-    <ClCompile Include="src\Logger.cpp" />
-    <ClCompile Include="src\exception\FileException.cpp" />
-    <ClCompile Include="src\exception\ConfigException.cpp" />
+    <ClCompile Include="src\logger.cpp" />
+    <ClCompile Include="src\exception\file_exception.cpp" />
+    <ClCompile Include="src\exception\config_exception.cpp" />
     <ClCompile Include="src\exception\Exception.cpp" />
-    <ClCompile Include="src\FileHandler.cpp" />
+    <ClCompile Include="src\file_handler.cpp" />
     <ClCompile Include="src\Goemetry.cpp" />
     <ClCompile Include="src\Properties.cpp" />
-    <ClCompile Include="src\StringUtils.cpp" />
+    <ClCompile Include="src\string_utils.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Translator.cpp" />
     <ClCompile Include="src\Utils.cpp" />
