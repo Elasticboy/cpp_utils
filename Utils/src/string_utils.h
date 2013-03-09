@@ -13,6 +13,8 @@ public:
 	static const std::string clear_left(const std::string& str, bool (*filter)(const char& c));
 	static const std::string clear_right(const std::string& str, bool (*filter)(const char& c));
 	static void clear_buffer(char* buffer);
+
+	// conversion
 	static bstr_t string_to_bstr(const std::string& str);
 	static std::wstring string_to_wstring(const std::string& str);
 	static std::string wstring_to_string(const std::wstring& wstr);

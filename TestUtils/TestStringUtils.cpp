@@ -1,6 +1,6 @@
 #include "CppUnitTest.h"
 
-#include "..\Utils\src\StringUtils.h"
+#include "..\Utils\src\string_utils.h"
 #include "..\Utils\src\fs_utils.h"
 #include <string>
 #include <iostream>
@@ -38,14 +38,14 @@ namespace TestUtils
 			Assert::IsFalse(regex_search(str7, r), L"Regex should NOT match.", LINE_INFO());
 			Assert::IsFalse(regex_search(str8, r), L"Regex should NOT match.", LINE_INFO());
 		}
-		
+
 		TEST_METHOD(Test_regex_extension)
 		{
 			regex r(".*(\\.lang)$");
 			string str1 = "en.lang";
 			string str2 = "toto\\en.lang";
 			string str3 = "toto/en.lang";
-			
+
 			string str4 = "toto/en.langqs";
 			string str5 = "toto\\lang\\hello";
 			string str6 = "lang\\..";
@@ -59,7 +59,7 @@ namespace TestUtils
 			Assert::IsFalse(regex_search(str6, r), L"Regex should NOT match.", LINE_INFO());
 		}
 
-			TEST_METHOD(FileUtils_build_path1)
+		TEST_METHOD(FileUtils_build_path1)
 		{
 			cout << "Simple search" << endl;
 			vector<File> files = list_files(".\\");
@@ -82,19 +82,19 @@ namespace TestUtils
 
 			string str1 = "       bla, bla, bla     ";
 			cout << "Before \"" << str1 << "\"" << endl;
-			cout << "After  \"" << StringUtils::trim(str1) << "\"" << endl;
+			cout << "After  \"" << string_utils::trim(str1) << "\"" << endl;
 
 			cout << endl;
 
-			string str2 = "Mon fichier/bla/bla//";
+			/*string str2 = "Mon fichier/bla/bla//";
 			cout << "Before \"" << str2 << "\"" << endl;
-			cout << "After  \"" << StringUtils::clear_right(str2, is_separator) << "\"" << endl;
+			cout << "After  \"" << string_utils::clear_right(str2, is_separator) << "\"" << endl;
 
 			cout << endl;
 
 			string str3 = "Mon fichier\\bla\\bla\\";
 			cout << "Before \"" << str3 << "\"" << endl;
-			cout << "After  \"" << StringUtils::clear_right(str3, is_separator) << "\"" << endl;
+			cout << "After  \"" << string_utils::clear_right(str3, is_separator) << "\"" << endl;*/
 		}
 
 	};

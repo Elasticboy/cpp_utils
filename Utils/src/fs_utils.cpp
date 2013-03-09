@@ -40,6 +40,17 @@ namespace fs_utils {
 	{
 		return get_filepath_only(m_path);
 	}
+	
+	/**
+	* @return The size of the file.
+	*/
+	uintmax_t File::size()
+	{
+		if (is_regular_file()) {
+			return boost::filesystem::file_size(boost::filesystem::path(m_path));
+		}
+		return uintmax_t(0);
+	}
 
 	/** @return True if the file is a directory. */
 	bool File::is_directory()
@@ -89,11 +100,6 @@ namespace fs_utils {
 			value += level + file_separator;
 		}
 		return value;
-	}
-
-	bool is_separator(const char& c)
-	{
-		return (c == '/') || (c == '\\');
 	}
 
 	/**
@@ -211,13 +217,6 @@ namespace fs_utils {
 				if (filter != "" && !regex_match(file.path(), regexFilter)) {
 					continue;
 				}
-
-				try {
-					file.size = fs::file_size(it->path());			
-				} catch (const boost::filesystem::filesystem_error& e) {
-					throw file_exception("fs_utils::list_files", string(e.what()));
-				}
-
 				file.type = file_type::regular_file;
 
 			} else {
@@ -233,96 +232,6 @@ namespace fs_utils {
 			fileList.push_back(file);
 		}
 
-		return fileList;
-	}
-
-	/**
-	* List files and directories of the directory passed as parameter.
-	* @param root The root directory to explore.
-	* @param recursive True if the search should be recusive. False otherwise.
-	* @param filter A string that will be turn into a regexp to select special files or directory.
-	* @return A vector containing the File find by the function.
-	*/
-	std::vector<File> list_files_old(const string& root, bool recursive, const string& filter, bool regularFilesOnly)
-	{
-		// TODO: Implement boost for the rest of the function.
-
-		string clearedRoot = string_utils::clear_right(root, is_separator) + file_separator;
-		// TODO: get full path function if root is relative
-
-		// Prepare string to use FindFile function
-		// Add "\\*" to the end of the path.
-		const string searchPath = clearedRoot + "*";
-
-		// Check wheather the path is longer than the maximum authorized size (MAX_PATH) 
-		if (searchPath.length() > MAX_PATH) {
-			throw file_exception("fs_utils::list_files", "Path is too long.");
-		}
-
-		// Search for the first file of the directory.
-		WIN32_FIND_DATAA fileData;
-		HANDLE hFind = INVALID_HANDLE_VALUE;
-
-		hFind = FindFirstFileA(searchPath.c_str(), &fileData);
-		if (hFind == INVALID_HANDLE_VALUE) {
-			throw file_exception("fs_utils::list_files", "Invalid handler value.");
-		}
-
-		// List all the files in the directory and get some informations
-		const std::regex regexFilter(filter);
-		LARGE_INTEGER filesize;
-		auto fileList = std::vector<File>();
-
-		do {
-			File file(clearedRoot + fileData.cFileName);
-
-			// file size in bytes
-			filesize.LowPart	= fileData.nFileSizeLow;
-			filesize.HighPart	= fileData.nFileSizeHigh;
-			file.size = filesize.QuadPart;
-
-			// It is a directory
-			if (fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-
-				// Skip directories file_current_element and "$RECYCLE.BIN"
-				if (strcmp(fileData.cFileName, file_current_element.c_str()) == 0 ||
-					strcmp(fileData.cFileName, file_back_element.c_str()) == 0 ||
-					strcmp(fileData.cFileName, "$Recycle.Bin") == 0 ||
-					strcmp(fileData.cFileName, "$RECYCLE.BIN") == 0 ) {
-						continue;
-				}
-				file.type = file_type::directory_file;
-
-				if (recursive && strcmp(fileData.cFileName, file_back_element.c_str()) != 0) {
-					// List the files in the directory
-					auto directoryFiles = list_files_old(file.path(), recursive, filter, regularFilesOnly);
-					// Add to the end of the current vector
-					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
-				}
-
-			} else { // If is a file
-				if (filter != "" && !regex_match(file.path(), regexFilter)) {
-					continue;
-				}
-				file.type = file_type::regular_file;
-			}
-
-			if (regularFilesOnly && !file.is_regular_file()) {
-				continue;
-			}
-
-			// Add the file or directory to the list
-			fileList.push_back(file);
-
-		} while (FindNextFileA(hFind, &fileData) != 0);
-
-		FindClose(hFind);
-
-		auto error = GetLastError();
-		if (error != ERROR_NO_MORE_FILES) {
-			const string msg = "FindNextFile error : " + std::to_string(error);
-			throw file_exception("fs_utils::list_files", msg);
-		}
 		return fileList;
 	}
 
