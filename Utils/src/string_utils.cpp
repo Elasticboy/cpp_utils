@@ -60,6 +60,8 @@ bstr_t string_utils::string_to_bstr(const string& str)
 */
 wstring string_utils::string_to_wstring(const string& str)
 {
+	// TODO: write Unit Test
+	// TODO: Modif for non ASCII characters
 	return wstring(str.begin(), str.end());
 }
 
@@ -68,6 +70,8 @@ wstring string_utils::string_to_wstring(const string& str)
 */
 string string_utils::wstring_to_string(const wstring& wstr)
 {
+	// TODO: write Unit Test
+	// TODO: Modif for non ASCII characters
 	return string(wstr.begin(), wstr.end());
 }
 
