@@ -18,12 +18,6 @@ using namespace std;
 
 namespace TestFileUtils
 {
-	
-	bool is_separator(const char& c)
-	{
-		return (c == '/') || (c == '\\');
-	}
-
 	TEST_CLASS(Test_FileUtils_list_files)
 	{
 	public:
@@ -44,9 +38,15 @@ namespace TestFileUtils
 
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].filename(),		filesWinAPI[i].filename(),		L"Filenames do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].path(),			filesWinAPI[i].path(),			L"Pathes do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].parent_path(),	filesWinAPI[i].parent_path(),	L"Filenames do not match.", LINE_INFO());
+				const string fnameBoost		= filesBoost[i].filename();
+				const string fnameWinAPI	= filesWinAPI[i].filename();
+				const string pathBoost		= filesBoost[i].path();
+				const string pathWinAPI		= filesWinAPI[i].path();
+				const string parentBoost	= filesBoost[i].parent_path();
+				const string parentWinAPI	= filesWinAPI[i].parent_path();
+				Assert::AreEqual(fnameBoost,	fnameWinAPI,	L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(pathBoost,		pathWinAPI,		L"Pathes do not match.", LINE_INFO());
+				Assert::AreEqual(parentBoost,	parentWinAPI,	L"Filenames do not match.", LINE_INFO());
 			}
 		}
 
@@ -68,9 +68,15 @@ namespace TestFileUtils
 
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].filename(),		filesWinAPI[i].filename(),		L"Filenames do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].path(),			filesWinAPI[i].path(),			L"Pathes do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].parent_path(),	filesWinAPI[i].parent_path(),	L"Filenames do not match.", LINE_INFO());
+				const string fnameBoost		= filesBoost[i].filename();
+				const string fnameWinAPI	= filesWinAPI[i].filename();
+				const string pathBoost		= filesBoost[i].path();
+				const string pathWinAPI		= filesWinAPI[i].path();
+				const string parentBoost	= filesBoost[i].parent_path();
+				const string parentWinAPI	= filesWinAPI[i].parent_path();
+				Assert::AreEqual(fnameBoost,	fnameWinAPI,	L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(pathBoost,		pathWinAPI,		L"Pathes do not match.", LINE_INFO());
+				Assert::AreEqual(parentBoost,	parentWinAPI,	L"Filenames do not match.", LINE_INFO());
 			}
 		}
 
@@ -94,9 +100,15 @@ namespace TestFileUtils
 
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].filename(),		filesWinAPI[i].filename(),		L"Filenames do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].path(),			filesWinAPI[i].path(),			L"Pathes do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].parent_path(),	filesWinAPI[i].parent_path(),	L"Filenames do not match.", LINE_INFO());
+				const string fnameBoost		= filesBoost[i].filename();
+				const string fnameWinAPI	= filesWinAPI[i].filename();
+				const string pathBoost		= filesBoost[i].path();
+				const string pathWinAPI		= filesWinAPI[i].path();
+				const string parentBoost	= filesBoost[i].parent_path();
+				const string parentWinAPI	= filesWinAPI[i].parent_path();
+				Assert::AreEqual(fnameBoost,	fnameWinAPI,	L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(pathBoost,		pathWinAPI,		L"Pathes do not match.", LINE_INFO());
+				Assert::AreEqual(parentBoost,	parentWinAPI,	L"Filenames do not match.", LINE_INFO());
 			}
 		}
 
@@ -122,9 +134,15 @@ namespace TestFileUtils
 
 			const int size(filesBoost.size());
 			for (int i = 0; i < size; i++) {
-				Assert::AreEqual(filesBoost[i].filename(),		filesWinAPI[i].filename(),		L"Filenames do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].path(),			filesWinAPI[i].path(),			L"Pathes do not match.", LINE_INFO());
-				Assert::AreEqual(filesBoost[i].parent_path(),	filesWinAPI[i].parent_path(),	L"Filenames do not match.", LINE_INFO());
+				const string fnameBoost		= filesBoost[i].filename();
+				const string fnameWinAPI	= filesWinAPI[i].filename();
+				const string pathBoost		= filesBoost[i].path();
+				const string pathWinAPI		= filesWinAPI[i].path();
+				const string parentBoost	= filesBoost[i].parent_path();
+				const string parentWinAPI	= filesWinAPI[i].parent_path();
+				Assert::AreEqual(fnameBoost,	fnameWinAPI,	L"Filenames do not match.", LINE_INFO());
+				Assert::AreEqual(pathBoost,		pathWinAPI,		L"Pathes do not match.", LINE_INFO());
+				Assert::AreEqual(parentBoost,	parentWinAPI,	L"Filenames do not match.", LINE_INFO());
 			}
 		}
 	};
@@ -140,7 +158,7 @@ namespace TestFileUtils
 	{
 		// TODO: Implement boost for the rest of the function.
 		replace(root.begin(), root.end(), '/', '\\');
-		string clearedRoot = string_utils::clear_right(root, is_separator) + fs_utils::file_separator;
+		string clearedRoot = string_utils::clear_right(root, fs_utils::is_separator) + fs_utils::file_separator;
 		// TODO: get full path function if root is relative
 
 		// Prepare string to use FindFile function

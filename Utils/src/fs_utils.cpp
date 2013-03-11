@@ -40,7 +40,7 @@ namespace fs_utils {
 	{
 		return get_filepath_only(m_path);
 	}
-	
+
 	/**
 	* @return The size of the file.
 	*/
@@ -100,6 +100,11 @@ namespace fs_utils {
 			value += level + file_separator;
 		}
 		return value;
+	}
+
+	bool is_separator(const char& c)
+	{
+		return (c == '/') || (c == '\\');
 	}
 
 	/**
@@ -175,7 +180,10 @@ namespace fs_utils {
 	std::vector<File> list_files(const string& root, bool recursive, const string& filter, bool regularFilesOnly)
 	{
 		namespace fs = boost::filesystem;
-		fs::path rootPath(root);
+		// Error if root is like "C:" => "C:/"
+		const string clearedRoot = string_utils::clear_right(root, is_separator) + fs_utils::file_separator;
+		
+		fs::path rootPath(clearedRoot);
 
 		// Throw exception if path doesn't exist or isn't a directory.
 		if (!fs::exists(rootPath)) {
@@ -199,10 +207,10 @@ namespace fs_utils {
 			if (fs::is_directory(it->status())) {
 
 				// Skip directories file_current_element and "$RECYCLE.BIN"
-				if (it->path() == file_current_element ||
-					it->path() == file_back_element ||
-					it->path() == "$Recycle.Bin" ||
-					it->path() == "$RECYCLE.BIN") {
+				if (it->path().filename() == file_current_element ||
+					it->path().filename() == file_back_element ||
+					it->path().filename() == "$Recycle.Bin" ||
+					it->path().filename() == "$RECYCLE.BIN") {
 						continue;
 				}
 				file.type = file_type::directory_file;
