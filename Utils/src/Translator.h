@@ -30,46 +30,52 @@ private:
 
 };
 
-namespace trad {
-	/** string */
-	template<typename T> std::string helperString(const std::string& key, const T& arg, std::true_type)
-	{
-		return Translator::getString(key, arg);
-	}
+namespace traduction_helper {
+	///** string */
+	//template<typename T> std::string helperString(const std::string& key, const T& arg, std::true_type)
+	//{
+	//	return Translator::getString(key, arg);
+	//}
 
-	/** NOT string => fail */
-	template<typename T> std::string helperString(const std::string& key, const T& arg, std::false_type)
-	{
-		throw invalid_argument("Translator::getString() does not accept argument type \"" + typeid(T).name() + "\".");
-	}
+	///** NOT string => fail */
+	//template<typename T> std::string helperString(const std::string& key, const T& arg, std::false_type)
+	//{
+	//	throw invalid_argument("Translator::getString() does not accept argument type \"" + typeid(T).name() + "\".");
+	//}
 
-	/** literal */
-	template<typename T> std::string helperLiteral(const std::string& key, const T& arg, std::true_type)
-	{
-		return Translator::getString(key, std::string(arg));
-	}
+	///** literal */
+	//template<typename T> std::string helperLiteral(const std::string& key, const T& arg, std::true_type)
+	//{
+	//	return Translator::getString(key, std::string(arg));
+	//}
 
-	/** NOT literal */
-	template<typename T> std::string helperLiteral(const std::string& key, const T& arg, std::false_type)
-	{
-		return helperString(key, arg, std::is_same<T, std::string>::type());;
-	}
+	///** NOT literal */
+	//template<typename T> std::string helperLiteral(const std::string& key, const T& arg, std::false_type)
+	//{
+	//	return helperString(key, arg, std::is_same<T, std::string>::type());;
+	//}
 
 	/** Arithmetic */
-	template<typename T> std::string helperArithmetic(const std::string& key, const T& arg, std::true_type)
+	template<typename T> std::string helper_arithmetic(const std::string& key, const T& arg, std::true_type)
 	{
 		return Translator::getString(key, std::to_string(arg));
 	}
 
-	/** NOT Arithmetic => test literal*/
-	template<typename T> std::string helperArithmetic(const std::string& key, const T& arg, std::false_type)
+	/** NOT Arithmetic */
+	template<typename T> std::string helper_arithmetic(const std::string& key, const T& arg, std::false_type)
 	{
-		return helperLiteral(key, arg, std::is_literal_type<T>::type());
+		return Translator::getString(key, arg);
 	}
+}
 
-	template<typename T> std::string get_string(const std::string& key, const T& arg = "")
+namespace trad {
+	//std::string get_string(const std::string& key)
+	//{
+	//	return Translator::getString(key);
+	//}
+
+	template<typename T> std::string get_string(const std::string& key, const T& arg)
 	{
-		return helperArithmetic(key, arg, std::is_arithmetic<T>::type());
+		return traduction_helper::helper_arithmetic(key, arg, std::is_arithmetic<T>::type());
 	}
-
 }
