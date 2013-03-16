@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1363453671 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/exception/config_exception.cpp
+	"config_exception.h"
+
+1363453671 /home/cyril/cpp_Projects/CppUtils/Utils/src/exception/config_exception.h
+	"Exception.h"
+
+1363453671 /home/cyril/cpp_Projects/CppUtils/Utils/src/exception/Exception.h
+	<string>
+	<exception>
+
+1363453671 /home/cyril/cpp_Projects/CppUtils/Utils/src/exception
+
+1363453671 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/exception/Exception.cpp
+	"Exception.h"
+	<iostream>
+
+1363373013 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/exception/file_exception.cpp
+	"file_exception.h"
+
+1363373013 /home/cyril/cpp_Projects/CppUtils/Utils/src/exception/file_exception.h
+	"Exception.h"
+
+1363373013 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/exception/property_exception.cpp
+	"property_exception.h"
+
+1363373013 /home/cyril/cpp_Projects/CppUtils/Utils/src/exception/property_exception.h
+	"Exception.h"
+
