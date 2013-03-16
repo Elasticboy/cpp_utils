@@ -3,9 +3,9 @@
 #include <iostream>
 
 Exception::Exception(const std::string& type, const std::string& source, const std::string& message) throw()
-	: m_type(type), m_source(source), m_message(message) 
-{
-}
+	: m_type(type), m_source(source), m_message(message) { }
+
+Exception::~Exception() throw() { }
 
 const char* Exception::what() const throw()
 {
