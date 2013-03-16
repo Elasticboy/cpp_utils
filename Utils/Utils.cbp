@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Utils" />
+		<Option pch_mode="2" />
+		<Option compiler="msvc10" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="libUtils" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option type="2" />
+				<Option compiler="msvc10" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add directory="$(SolutionDir)lib/$(Configuration)" />
+					<Add directory="$(LibraryPath)" />
+				</Linker>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="libUtils" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option type="2" />
+				<Option compiler="msvc10" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add directory="$(SolutionDir)lib/$(Configuration)" />
+					<Add directory="$(LibraryPath)" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="./include" />
+			<Add directory="./src" />
+			<Add directory="C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/include" />
+			<Add directory="C:/Program Files (x86)/Windows Kits/8.0/Include/shared" />
+			<Add directory="C:/Program Files (x86)/Windows Kits/8.0/Include/um" />
+		</Compiler>
+		<Linker>
+			<Add directory="C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/lib" />
+		</Linker>
+		<Unit filename="ReadMe.txt" />
+		<Unit filename="app.ico" />
+		<Unit filename="app.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="resource.h" />
+		<Unit filename="src/Goemetry.cpp" />
+		<Unit filename="src/Goemetry.h" />
+		<Unit filename="src/Lang.cpp" />
+		<Unit filename="src/Lang.h" />
+		<Unit filename="src/Properties.cpp" />
+		<Unit filename="src/Properties.h" />
+		<Unit filename="src/Singleton.cpp" />
+		<Unit filename="src/Singleton.h" />
+		<Unit filename="src/Timer.cpp" />
+		<Unit filename="src/Timer.h" />
+		<Unit filename="src/Translator.cpp" />
+		<Unit filename="src/Translator.h" />
+		<Unit filename="src/Utils.cpp" />
+		<Unit filename="src/Utils.h" />
+		<Unit filename="src/exception/Exception.cpp" />
+		<Unit filename="src/exception/Exception.h" />
+		<Unit filename="src/exception/config_exception.cpp" />
+		<Unit filename="src/exception/config_exception.h" />
+		<Unit filename="src/exception/file_exception.cpp" />
+		<Unit filename="src/exception/file_exception.h" />
+		<Unit filename="src/exception/property_exception.cpp" />
+		<Unit filename="src/exception/property_exception.h" />
+		<Unit filename="src/file_handler.cpp" />
+		<Unit filename="src/file_handler.h" />
+		<Unit filename="src/fs_utils.cpp" />
+		<Unit filename="src/fs_utils.h" />
+		<Unit filename="src/logger.cpp" />
+		<Unit filename="src/logger.h" />
+		<Unit filename="src/string_utils.cpp" />
+		<Unit filename="src/string_utils.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
