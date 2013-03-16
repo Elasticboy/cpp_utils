@@ -1,10 +1,10 @@
 #include "file_handler.h"
 
-#include "exception\file_exception.h"
+#include "exception/file_exception.h"
 
-file_handler::file_handler(const std::string& path, const int& openMode)
+file_handler::file_handler(const std::string& path, const fh_open_mode::open_mode& open_mode)
 {
-	std::ios_base::openmode mode = getOpenMode(openMode);
+	std::ios_base::openmode mode = get_open_mode(open_mode);
 
 	try {
 		m_file.open(path.c_str(), mode);
@@ -30,22 +30,22 @@ std::fstream& file_handler::getFile()
 }
 
 /**
- * Get the ios_base::openmode corresponding to the internal openMode value.
- * @param openMode The mode of openning to translate.
- * @return The ios_base::openmode corresponding to the internal openMode value.
- * @throws An open_file_exception if the given openMode is not supported.
+ * Get the ios_base::openmode corresponding to the internal open_mode value.
+ * @param open_mode The mode of openning to translate.
+ * @return The ios_base::openmode corresponding to the internal open_mode value.
+ * @throws An open_file_exception if the given open_mode is not supported.
  */
-std::ios_base::openmode file_handler::getOpenMode(const int& openMode)
+std::ios_base::openmode file_handler::get_open_mode(const fh_open_mode::open_mode& open_mode)
 {
-	if (openMode == open_mode::read) {
+	if (open_mode == fh_open_mode::read) {
 		return std::ios_base::in;
-		
-	} else if (openMode == open_mode::write) {
+
+	} else if (open_mode == fh_open_mode::write) {
 		return std::ios_base::out;
 
-	} else if (openMode == open_mode::append) {
+	} else if (open_mode == fh_open_mode::append) {
 		return std::ios_base::app;
 	}
-	
-	throw open_file_exception("file_handler::getOpenMode()", "Openning mode \"" + std::to_string(openMode) + "\" is not supported.");
+
+	throw open_file_exception("file_handler::get_open_mode()", "Openning mode \"" + std::to_string(open_mode) + "\" is not supported.");
 }
