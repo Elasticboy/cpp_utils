@@ -19,3 +19,12 @@ class software_exception : public Exception
 public:
 	software_exception(const std::string& source, const std::string& message) throw();
 };
+
+/**
+ * Platform exception : Occurs when a function is not defined for the current OS.
+ */
+class platform_exception : public Exception
+{
+public:
+	platform_exception(const std::string& source) throw();
+};

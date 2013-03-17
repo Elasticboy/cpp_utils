@@ -58,7 +58,7 @@ const long long Timer::counter()
 	// TODO: Code Linux function for Timer::counter()
 	//return clock_gettime(CLOCK_REALTIME_HR);
 # endif
-	throw software_exception("Timer::counter()", "Function not supported on this Operating System");
+	throw platform_exception("Timer::counter()");
 }
 
 const long long Timer::frequency()
@@ -71,7 +71,7 @@ const long long Timer::frequency()
 	// TODO: Code Linux function for Timer::frequency()
 	//return clock_gettime(CLOCK_REALTIME_HR);
 # endif
-	throw software_exception("Timer::frequency()", "Function not supported on this Operating System");
+	throw platform_exception("Timer::frequency()");
 }
 
 const double Timer::getElapsedTimeMs(long long start, long long finish)
