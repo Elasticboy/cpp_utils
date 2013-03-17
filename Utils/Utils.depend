@@ -27,3 +27,11 @@
 1363373013 /home/cyril/cpp_Projects/CppUtils/Utils/src/exception/property_exception.h
 	"Exception.h"
 
+1363459545 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/file_handler.cpp
+	"file_handler.h"
+	"exception/file_exception.h"
+
+1363459399 /home/cyril/cpp_Projects/CppUtils/Utils/src/file_handler.h
+	<string>
+	<fstream>
+
