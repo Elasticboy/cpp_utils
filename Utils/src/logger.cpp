@@ -122,6 +122,6 @@ void logger::write(const int& severity, const string& message)
  */
 void appendInFile(const string& logFilename, const string& logMessage)
 {	
-	file_handler fwriter(logFilename, file_handler::open_mode::append);
+	file_handler fwriter(logFilename, fh_open_mode::open_mode::append);
 	fwriter.getFile() << logMessage << endl;
 }

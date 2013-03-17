@@ -155,7 +155,7 @@ void Properties::setBool(const string& key, const bool& value)
  */
 void Properties::loadProperties(const string& path)
 {
-	file_handler fh(path, file_handler::open_mode::read);
+	file_handler fh(path, fh_open_mode::open_mode::read);
 	if (!fh.getFile()) {
 		throw load_property_exception("Properties::loadProperties()", "Can not open the file \"" + path + "\" to read !");
 	}
@@ -183,7 +183,7 @@ void Properties::loadProperties(const string& path)
 
 void Properties::saveProperties(const string& path)
 {
-	file_handler fh(path, file_handler::open_mode::write);
+	file_handler fh(path, fh_open_mode::open_mode::write);
 	if (!fh.getFile()) {
 		throw save_property_exception("Properties::saveProperties()", "Can not open the file \"" + path + "\" to write !");
 	}

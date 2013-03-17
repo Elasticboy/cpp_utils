@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "platform_config.h"
 
+#include "platform_config.h"
 # if defined(WINDOWS_PLATFORM)
 #	include <windows.h>
 # endif
