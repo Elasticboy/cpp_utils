@@ -77,6 +77,7 @@
 		<Unit filename="src/fs_utils.h" />
 		<Unit filename="src/logger.cpp" />
 		<Unit filename="src/logger.h" />
+		<Unit filename="src/platform_config.h" />
 		<Unit filename="src/string_utils.cpp" />
 		<Unit filename="src/string_utils.h" />
 		<Extensions>

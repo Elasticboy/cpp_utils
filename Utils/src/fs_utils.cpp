@@ -4,8 +4,6 @@
 #define BOOST_FILESYSTEM_NO_DEPRECATED
 
 #include <regex>
-// TODO: remove windows header
-#include <windows.h>
 #include <boost\filesystem.hpp>
 
 #include "string_utils.h"
@@ -111,13 +109,11 @@ namespace fs_utils {
 	* @return the current directory.
 	*/
 	string get_current_directory() {
-
-		// TODO: Remove plate-forme dependant API (get_current_directory)
-		char path[MAX_PATH];
-		if (GetCurrentDirectoryA(MAX_PATH, path)) {
-			return path;
+		try {
+			return boost::filesystem::current_path().string();
+		} catch (const boost::filesystem::filesystem_error& e) {
+			throw file_exception("fs_utils::current_path", string(e.what()));
 		}
-		throw file_exception("fs_utils::current_path", "Could'nt find the current path.");
 	}
 
 	/**
@@ -182,7 +178,7 @@ namespace fs_utils {
 		namespace fs = boost::filesystem;
 		// Error if root is like "C:" => "C:/"
 		const string clearedRoot = string_utils::clear_right(root, is_separator) + fs_utils::file_separator;
-		
+
 		fs::path rootPath(clearedRoot);
 
 		// Throw exception if path doesn't exist or isn't a directory.

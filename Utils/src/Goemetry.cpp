@@ -9,9 +9,11 @@ PointF::PointF(float _x, float _y) : x(_x), y(_y)
 {
 }
 
+# if defined(WINDOWS_PLATFORM)
 PointF::PointF(POINT point) :  x((float)point.x), y((float)point.y)
 {
 }
+# endif
 
 void PointF::display(std::string name)
 {
@@ -26,9 +28,11 @@ Rect::Rect(int _left, int _top, int _right, int _bottom) : left(_left), top(_top
 {
 }
 
+# if defined(WINDOWS_PLATFORM)
 Rect::Rect(RECT rect) : left(rect.left), top(rect.top), right(rect.right), bottom(rect.bottom)
 {
 }
+# endif
 
 void Rect::display(std::string name)
 {

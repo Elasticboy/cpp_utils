@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClInclude Include="src\exception\property_exception.h" />
     <ClInclude Include="src\fs_utils.h" />
+    <ClInclude Include="src\platform_config.h" />
     <ClInclude Include="src\Singleton.h" />
     <ClInclude Include="src\Lang.h" />
     <ClInclude Include="src\logger.h" />

@@ -45,5 +45,15 @@ namespace TestFileUtils
 			Assert::AreEqual(expected, actual, L"pathFromLevel is not as expected.", LINE_INFO());
 		}
 
+		/**
+		* Tests the Build a Path from a vector.
+		*/
+		TEST_METHOD(Test_get_current_path)
+		{
+			std::string path = get_current_directory();
+			
+			Assert::AreEqual(path, path, L"pathFromLevel is not as expected.", LINE_INFO());
+		}
+
 	};
 }
