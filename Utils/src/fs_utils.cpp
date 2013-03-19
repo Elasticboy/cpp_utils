@@ -4,10 +4,10 @@
 #define BOOST_FILESYSTEM_NO_DEPRECATED
 
 #include <regex>
-#include <boost\filesystem.hpp>
+#include <boost/filesystem.hpp>
 
 #include "string_utils.h"
-#include "exception\file_exception.h"
+#include "exception/file_exception.h"
 
 namespace fs_utils {
 
