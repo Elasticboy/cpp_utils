@@ -5,7 +5,7 @@
 
 #include "platform_config.h"
 # if defined(WINDOWS_PLATFORM)
-#include <comdef.h>
+#	include <comdef.h>
 # endif
 
 class string_utils

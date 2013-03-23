@@ -60,8 +60,8 @@
 		<Unit filename="src/Properties.h" />
 		<Unit filename="src/Singleton.cpp" />
 		<Unit filename="src/Singleton.h" />
-		<Unit filename="src/Timer.cpp" />
-		<Unit filename="src/Timer.h" />
+		<Unit filename="src/timer.cpp" />
+		<Unit filename="src/timer.h" />
 		<Unit filename="src/Translator.cpp" />
 		<Unit filename="src/Translator.h" />
 		<Unit filename="src/Utils.cpp" />
