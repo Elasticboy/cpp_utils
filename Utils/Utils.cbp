@@ -39,6 +39,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add directory="./include" />
 			<Add directory="./src" />
 			<Add directory="C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/include" />
@@ -47,6 +48,7 @@
 		</Compiler>
 		<Linker>
 			<Add directory="C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/lib" />
+			<Add directory="./lib" />
 		</Linker>
 		<Unit filename="ReadMe.txt" />
 		<Unit filename="resource.h" />

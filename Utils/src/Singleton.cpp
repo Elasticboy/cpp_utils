@@ -1,4 +1,4 @@
-#include "Singleton.h"
+/*#include "Singleton.h"
 
 template <class T> T Singleton<T>::m_instance = nullptr;
 
@@ -25,4 +25,4 @@ template <class T> Singleton<T>::Singleton ()
 
 template <class T> Singleton<T>::~Singleton()
 {
-}
+}*/

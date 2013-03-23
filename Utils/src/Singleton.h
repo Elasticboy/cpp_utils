@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 template <typename T>
 
@@ -18,4 +18,5 @@ private:
 	Singleton(const Singleton<T>&);
 	Singleton& operator= (const Singleton<T>&);
 };
+*/
 

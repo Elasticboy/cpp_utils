@@ -36,14 +36,20 @@
 */
 const std::string Timer::getTime(const std::string& format)
 {
-	time_t now = time(nullptr);
+const int buffSize = 80;
+char buffer[buffSize];
+
+# if defined(WINDOWS_PLATFORM)
+    time_t now = time(nullptr);
 	tm timeinfo;
+
 	localtime_s(&timeinfo, &now);
-
-	const int buffSize = 80;
-	char buffer[buffSize];
-
 	strftime(buffer, buffSize, format.c_str(), &timeinfo);
+# else
+    const time_t now = time(nullptr);
+	tm* timeinfo = localtime(&now);
+	strftime(buffer, buffSize, format.c_str(), timeinfo);
+# endif
 
 	return std::string(buffer);
 }

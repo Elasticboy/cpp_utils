@@ -34,16 +34,18 @@ bool string_utils::ends_with(const std::string& str, const std::string& suffix)
 	return suffix == str.substr(str.length() - suffix.length());
 }
 
-/** 
+/**
 * Clear a char* buffer.
 * @param _buffer The buffer to clear.
 */
 void string_utils::clear_buffer(char* buffer)
 {
-	memset(buffer, 0, sizeof(buffer));
+    buffer = '\0';
+    //memset(buffer, 0, sizeof(buffer));
 	//memset(_buffer, '\0', sizeof(buffer));
 }
 
+# if defined(WINDOWS_PLATFORM)
 /**
 * Convert string to bstr_t.
 * @param str The string to convert.
@@ -54,6 +56,7 @@ bstr_t string_utils::string_to_bstr(const string& str)
 	bstr_t bstr(str.c_str());
 	return bstr;
 }
+# endif
 
 /**
 * Convert a std::string into a std::wstring
@@ -92,7 +95,7 @@ const string string_utils::clear_left(const string& str, bool (*filter)(const ch
 	while(filter(trimmedStr.at(0))) {
 		trimmedStr = trimmedStr.substr(1);
 	}
-	return trimmedStr; 
+	return trimmedStr;
 }
 
 /**
@@ -107,7 +110,7 @@ const string string_utils::clear_right(const string& str, bool (*filter)(const c
 	while(filter(trimmedStr.at(trimmedStr.length() -1))) {
 		trimmedStr = trimmedStr.substr(0, trimmedStr.length() -1);
 	}
-	return trimmedStr; 
+	return trimmedStr;
 }
 
 /**

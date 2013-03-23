@@ -4,7 +4,7 @@
 
 #include "string_utils.h"
 #include "Utils.h"
-#include "exception\property_exception.h"
+#include "exception/property_exception.h"
 
 using namespace std;
 
@@ -63,7 +63,7 @@ void Properties::setString(const string& key, const string& value)
 			return;
 		}
 	}
-	
+
 	Utils::getLogger()->warning("Properties::setString(), The key \"" + key + "\" does not exist in file \"" + m_filePath + "\".");
 }
 

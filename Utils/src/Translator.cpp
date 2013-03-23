@@ -1,6 +1,6 @@
 #include "Translator.h"
 
-#include "exception\config_exception.h"
+#include "exception/config_exception.h"
 #include "Utils.h"
 
 using namespace std;

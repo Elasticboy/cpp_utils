@@ -19,7 +19,9 @@ public:
 	static void clear_buffer(char* buffer);
 
 	// conversion
+# if defined(WINDOWS_PLATFORM)
 	static bstr_t string_to_bstr(const std::string& str);
+# endif
 	static std::wstring string_to_wstring(const std::string& str);
 	static std::string wstring_to_string(const std::wstring& wstr);
 
