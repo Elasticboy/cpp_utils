@@ -3,9 +3,9 @@
 #include <iostream>
 
 #include "file_handler.h"
-#include "Timer.h"
+#include "timer.h"
 
-#define LOG_DIR "logs\\"
+#define LOG_DIR "logs/"
 
 using namespace std;
 
@@ -121,7 +121,7 @@ void logger::write(const int& severity, const string& message)
  * @param message The message to write in the file.
  */
 void appendInFile(const string& logFilename, const string& logMessage)
-{	
+{
 	file_handler fwriter(logFilename, fh_open_mode::open_mode::append);
 	fwriter.getFile() << logMessage << endl;
 }

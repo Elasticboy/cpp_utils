@@ -2126,7 +2126,7 @@
 1364028321 /home/cyril/cpp_Projects/CppUtils/Utils/include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp
 	<boost/smart_ptr/detail/yield_k.hpp>
 
-1364031086 /home/cyril/cpp_Projects/CppUtils/Utils/include/boost/smart_ptr/detail/yield_k.hpp
+1364122057 /home/cyril/cpp_Projects/CppUtils/Utils/include/boost/smart_ptr/detail/yield_k.hpp
 	<boost/config.hpp>
 	<windows.h>
 	<sched.h>
@@ -2348,7 +2348,7 @@
 	<boost/config/abi_prefix.hpp>
 	<boost/config/abi_suffix.hpp>
 
-1364020831 /home/cyril/cpp_Projects/CppUtils/Utils/src/string_utils.h
+1364068966 /home/cyril/cpp_Projects/CppUtils/Utils/src/string_utils.h
 	<iostream>
 	<string>
 	"platform_config.h"
@@ -2386,11 +2386,11 @@
 	<map>
 	"file_handler.h"
 
-1363554444 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/logger.cpp
+1364114829 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/logger.cpp
 	"logger.h"
 	<iostream>
 	"file_handler.h"
-	"Timer.h"
+	"timer.h"
 
 1363373013 /home/cyril/cpp_Projects/CppUtils/Utils/src/Timer.h
 	<string>
@@ -2404,7 +2404,7 @@
 
 1364023804 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/Singleton.cpp
 
-1364024218 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/string_utils.cpp
+1364068966 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/string_utils.cpp
 	"string_utils.h"
 	<regex>
 
@@ -2430,4 +2430,16 @@
 
 1363373013 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/Utils.cpp
 	"Utils.h"
+
+1363373013 /home/cyril/cpp_Projects/CppUtils/Utils/src/timer.h
+	<string>
+
+1364068966 source:/home/cyril/cpp_Projects/CppUtils/Utils/src/timer.cpp
+	"timer.h"
+	<cstdio>
+	<ctime>
+	<string>
+	"exception/config_exception.h"
+	"platform_config.h"
+	<windows.h>
 
