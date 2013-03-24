@@ -9,5 +9,6 @@ ipch
 *.user
 *.filters
 *.log
+*.layout
 .directory
 .objs
