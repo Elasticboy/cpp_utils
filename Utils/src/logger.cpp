@@ -24,13 +24,14 @@ const string logger::PREFIX_WARNING	= "WARN  : ";
 const string logger::PREFIX_ERROR	= "ERROR : ";
 
 logger::logger(const string& filename) :
-	m_logSeverity(DEFAULT_LOG_SEVERITY), m_logSeverityConsole(DEFAULT_LOG_SEVERITY_CONSOLE)
+	log_severity_(DEFAULT_LOG_SEVERITY),
+	log_severity_console_(DEFAULT_LOG_SEVERITY_CONSOLE)
 {
-	setLogFile(filename);
+	set_log_file(filename);
 }
 
 
-const string logger::getLogDir() {
+const string logger::log_dir() {
 	return LOG_DIR;
 }
 
@@ -38,25 +39,25 @@ const string logger::getLogDir() {
  * Set the filename for file output.
  * Directory is determine by LOG_DIR.
  */
-void logger::setLogFile(const string& filename)
+void logger::set_log_file(const string& filename)
 {
-	m_logFile = getLogDir() + filename;
+	log_file_ = log_dir() + filename;
 }
 
 /**
  * Set the log severity for file output;
  */
-void logger::setLogSeverity(const int& logSeverity)
+void logger::set_log_severity(const int& log_severity)
 {
-	m_logSeverity = logSeverity;
+	log_severity_ = log_severity;
 }
 
 /**
  * Set the log severity for console output;
  */
-void logger::setLogSeverityConsole(const int& logSeverity)
+void logger::set_log_severity_console(const int& logSeverity)
 {
-	m_logSeverityConsole = logSeverity;
+	log_severity_console_ = logSeverity;
 }
 
 void logger::debug(const string& message)
@@ -102,14 +103,14 @@ void logger::write(const int& severity, const string& message)
 	}
 
 	try {
-		if (severity <= m_logSeverity) {
-			appendInFile(m_logFile, Timer::getTime("%Y-%m-%d %H:%M:%S") + " - " + prefix + message);
+		if (severity <= log_severity_) {
+			append_in_file(log_file_, timer::current_time("%Y-%m-%d %H:%M:%S") + " - " + prefix + message);
 		}
-		if (severity <= m_logSeverityConsole) {
+		if (severity <= log_severity_console_) {
 			cout << prefix << message << endl;
 		}
 	} catch (const exception&) {
-		cerr << "Can not open the file '" << m_logFile << "' to write !" << endl;
+		cerr << "Can not open the file '" << log_file_ << "' to write !" << endl;
 		cout << message << endl;
 	}
 }
@@ -120,8 +121,8 @@ void logger::write(const int& severity, const string& message)
  * @param logFilename the logfile to log in.
  * @param message The message to write in the file.
  */
-void appendInFile(const string& logFilename, const string& logMessage)
+void append_in_file(const string& logFilename, const string& logMessage)
 {
 	file_handler fwriter(logFilename, fh_open_mode::open_mode::append);
-	fwriter.getFile() << logMessage << endl;
+	fwriter.get_file() << logMessage << endl;
 }

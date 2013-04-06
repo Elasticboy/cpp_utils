@@ -7,26 +7,26 @@ file_handler::file_handler(const std::string& path, const fh_open_mode::open_mod
 	std::ios_base::openmode mode = get_open_mode(open_mode);
 
 	try {
-		m_file.open(path.c_str(), mode);
+		file_.open(path.c_str(), mode);
 	} catch (const std::exception& e) {
 		throw open_file_exception("file_handler::file_handler", "Error while openning \"" + path + "\" : " + e.what() + ".");
 	}
 
-	if (!m_file.is_open()) {
+	if (!file_.is_open()) {
 		throw open_file_exception("file_handler::file_handler", "File not found \"" + path + "\".");
 	}
 }
 
 file_handler::~file_handler()
 {
-	if (m_file.is_open()) {
-		m_file.close();
+	if (file_.is_open()) {
+		file_.close();
 	}
 }
 
-std::fstream& file_handler::getFile()
+std::fstream& file_handler::get_file()
 {
-	return m_file;
+	return file_;
 }
 
 /**

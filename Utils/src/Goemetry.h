@@ -7,31 +7,33 @@
 #	include <windows.h>
 # endif
 
-class PointF
+class pointf
 {
 public:
-	PointF(float x = 0, float y = 0);
+	pointf(float x = 0, float y = 0);
 # if defined(WINDOWS_PLATFORM)
-	PointF(POINT point);
+	pointf(POINT point);
 # endif
+
 	void display(std::string name);
 
 	float x;
 	float y;
 };
 
-class Rect
+class rect
 {
 public:
-	Rect(int left = 0, int top = 0, int right = 0, int bottom = 0);
+	rect(int left = 0, int top = 0, int right = 0, int bottom = 0);
 # if defined(WINDOWS_PLATFORM)
-	Rect(RECT rect);
+	rect(RECT rect);
 # endif
+
 	void display(std::string name);
-	int getWidth();
-	void setWidth(int width);
-	int getHeight();
-	void setHeight(int height);
+	int get_width() const;
+	void set_width(int width);
+	int get_height() const;
+	void set_height(int height);
 
 	int left;
 	int top;

@@ -13,29 +13,29 @@ namespace fs_utils {
 		unknown
 	};
 
-	class File
+	class file
 	{
 	public:
-		File(const std::string& filepath);
-		std::string filename();
-		std::string path();
-		std::string parent_path();
-		uintmax_t size();
-		bool is_directory();
-		bool is_regular_file();
+		file(const std::string& filepath);
+		std::string filename() const;
+		std::string path() const;
+		std::string parent_path() const;
+		uintmax_t size() const;
+		bool is_directory() const;
+		bool is_regular_file() const;
 
 		file_type type;
 
 	private:
-		std::string m_path;
+		std::string path_;
 	};
 
-	class Path
+	class path
 	{
 	public:
-		Path(const std::string& path);
-		Path(const std::vector<std::string>& pathLevels);
-		std::string getValue();
+		path(const std::string& path);
+		path(const std::vector<std::string>& path_levels);
+		std::string to_string();
 
 		std::vector<std::string> levels;
 	};
@@ -51,8 +51,8 @@ namespace fs_utils {
 	std::string get_filepath_only(const std::string& filename);
 	std::string get_filename_only(const std::string& filename);
 	std::string trunc_extension(const std::string& filename);
-	std::vector<File> list_files(const std::string& root, bool recursive = false, const std::string& filter = "", bool regularFilesOnly = false);
+	std::vector<file> list_files(const std::string& root, bool recursive = false, const std::string& filter = "", bool regular_files_only = false);
 	std::string build_path(const std::string& path1, const std::string& path2);
 	// TODO: bool file_exists(const std::string& path);
-	bool create_directory(const std::string& dirPath);
+	bool create_directory(const std::string& dir_path);
 }

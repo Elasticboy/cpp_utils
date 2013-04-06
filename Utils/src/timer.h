@@ -2,12 +2,12 @@
 
 #include <string>
 
-class Timer
+namespace timer
 {
-public:
-	static const std::string getTime(const std::string& format);
-	static const long long counter();
-	static const long long frequency();
-	static const double getElapsedTimeMs(long long start, long long finish);
-};
 
+	const std::string current_time(const std::string& format);
+	const long long counter();
+	const long long frequency();
+	const double elapsed_time_ms(long long start, long long finish);
+
+}

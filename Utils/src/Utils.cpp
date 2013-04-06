@@ -1,14 +1,14 @@
 #include "Utils.h"
 
-logger* Utils::m_logger = nullptr;
+logger* Utils::logger_ = nullptr;
 
-logger* Utils::getLogger()
+logger* Utils::get_logger()
 {
-	if (m_logger == nullptr) {
-		m_logger = new logger("default.log");
+	if (logger_ == nullptr) {
+		logger_ = new logger("default.log");
 	}
 
-	return m_logger;
+	return logger_;
 }
 
 // TODO: To Implement
@@ -17,7 +17,7 @@ logger* Utils::getLogger()
 //
 //std::shared_ptr<logger> Utils::m_logger = nullptr;
 //
-//std::shared_ptr<logger> Utils::getLogger()
+//std::shared_ptr<logger> Utils::get_logger()
 //{
 //	if (m_logger == nullptr) {
 //		m_logger = std::make_shared<logger>("default.log");

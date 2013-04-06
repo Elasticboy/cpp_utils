@@ -5,12 +5,12 @@
 class logger
 {
 public:
-	static const std::string getLogDir();
+	static const std::string log_dir();
 	logger(const std::string& filename);
 	
-	void setLogFile(const std::string& filename);
-	void setLogSeverity(const int& logSeverity);
-	void setLogSeverityConsole(const int& logSeverity);
+	void set_log_file(const std::string& filename);
+	void set_log_severity(const int& log_severity);
+	void set_log_severity_console(const int& log_severity);
 	void debug(const std::string& message);
 	void info(const std::string& message);
 	void warning(const std::string& message);
@@ -28,12 +28,11 @@ private:
 	static const std::string PREFIX_WARNING;
 	static const std::string PREFIX_ERROR;
 
-
-	std::string m_logFile;
-	int m_logSeverity;
-	int m_logSeverityConsole;
+	std::string log_file_;
+	int log_severity_;
+	int log_severity_console_;
 
 	void write(const int& severity, const std::string& message);
 };
 
-void appendInFile(const std::string& filename, const std::string& message);
+void append_in_file(const std::string& filename, const std::string& message);

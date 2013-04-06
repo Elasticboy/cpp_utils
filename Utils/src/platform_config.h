@@ -8,5 +8,5 @@
 # if defined(_WIN32) || defined(__CYGWIN__) // Windows default, including MinGW and Cygwin
 #   define WINDOWS_PLATFORM
 # else
-#   define LINUX_PLATFORM
+#   define UNIX_PLATFORM
 # endif

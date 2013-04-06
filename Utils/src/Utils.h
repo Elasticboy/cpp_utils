@@ -5,11 +5,11 @@
 class Utils
 {
 public:
-	static logger* getLogger();
-	//static std::shared_ptr<logger> getLogger();
+	static logger* get_logger();
+	//static std::shared_ptr<logger> get_logger();
 
 private:
-	static logger* m_logger;
+	static logger* logger_;
 	//static std::shared_ptr<logger> m_logger;
 };
 

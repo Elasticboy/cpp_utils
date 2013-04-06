@@ -13,56 +13,56 @@ namespace fs_utils {
 
 	using std::string;
 
-	File::File(const string& filepath) : m_path(filepath) { }
+	file::file(const string& filepath) : path_(filepath) { }
 
 	/**
 	* @return The filename without the path.
 	*/
-	string File::filename()
+	string file::filename() const
 	{
-		return get_filename_only(m_path);
+		return get_filename_only(path_);
 	}
 
 	/**
 	* @return the full path of the file (path and filename).
 	*/
-	string File::path()
+	string file::path() const
 	{
-		return m_path;
+		return path_;
 	}
 
 	/**
 	* @return The path without the name.
 	*/
-	string File::parent_path()
+	string file::parent_path() const
 	{
-		return get_filepath_only(m_path);
+		return get_filepath_only(path_);
 	}
 
 	/**
 	* @return The size of the file.
 	*/
-	uintmax_t File::size()
+	uintmax_t file::size() const
 	{
 		if (is_regular_file()) {
-			return boost::filesystem::file_size(boost::filesystem::path(m_path));
+			return boost::filesystem::file_size(boost::filesystem::path(path_));
 		}
 		return uintmax_t(0);
 	}
 
 	/** @return True if the file is a directory. */
-	bool File::is_directory()
+	bool file::is_directory() const
 	{
 		return type == file_type::directory_file;
 	}
 
 	/** @return True if the file is a regular file. False otherwise. */
-	bool File::is_regular_file()
+	bool file::is_regular_file() const
 	{
 		return type == file_type::regular_file;
 	}
 
-	Path::Path(const std::string& path)
+	path::path(const std::string& path)
 	{
 		levels = std::vector<string>();
 		string tempPath = path;
@@ -86,18 +86,18 @@ namespace fs_utils {
 		}
 	}
 
-	Path::Path(const std::vector<string>& pathLevels)
+	path::path(const std::vector<string>& path_levels)
 	{
-		levels = pathLevels;
+		levels = path_levels;
 	}
 
-	string Path::getValue()
+	string path::to_string()
 	{
-		string value;
+		string path_as_string;
 		for (auto level : levels) {
-			value += level + file_separator;
+			path_as_string += level + file_separator;
 		}
-		return value;
+		return path_as_string;
 	}
 
 	bool is_separator(const char& c)
@@ -173,7 +173,7 @@ namespace fs_utils {
 	* @param filter A string that will be turn into a regexp to select special files or directory.
 	* @return A vector containing the File find by the function.
 	*/
-	std::vector<File> list_files(const string& root, bool recursive, const string& filter, bool regularFilesOnly)
+	std::vector<file> list_files(const string& root, bool recursive, const string& filter, bool regular_files_only)
 	{
 		namespace fs = boost::filesystem;
 		// Error if root is like "C:" => "C:/"
@@ -191,13 +191,13 @@ namespace fs_utils {
 
 		// List all the files in the directory and get some informations
 		const std::regex regexFilter(filter);
-		auto fileList = std::vector<File>();
+		auto fileList = std::vector<file>();
 
 		fs::directory_iterator end_itr;
 		for( fs::directory_iterator it(rootPath); it != end_itr; ++it) {
 
 			// TODO: REPLACE BY CORRECT FUNCTION !!!
-			File file(it->path().string());
+			file file(it->path().string());
 
 			// For a directory
 			if (fs::is_directory(it->status())) {
@@ -213,7 +213,7 @@ namespace fs_utils {
 
 				if (recursive && it->path().string() != file_back_element) {
 					// List the files in the directory
-					auto directoryFiles = list_files(file.path(), recursive, filter, regularFilesOnly);
+					auto directoryFiles = list_files(file.path(), recursive, filter, regular_files_only);
 					// Add to the end of the current vector
 					fileList.insert(fileList.end(), directoryFiles.begin(), directoryFiles.end());
 				}
@@ -229,7 +229,7 @@ namespace fs_utils {
 				file.type = file_type::unknown;
 			}
 
-			if (regularFilesOnly && !file.is_regular_file()) {
+			if (regular_files_only && !file.is_regular_file()) {
 				continue;
 			}
 
@@ -243,14 +243,14 @@ namespace fs_utils {
 	/**
 	* Concatenate two pathes and simplify the result.
 	*/
-	std::string build_path(const std::string& strPath1, const std::string& strPath2)
+	std::string build_path(const std::string& path_as_string_1, const std::string& path_as_string_2)
 	{
-		if (strPath2.find(':') != string::npos) {
+		if (path_as_string_2.find(':') != string::npos) {
 			throw file_exception("fs_utils::build_path", "Second path can't contains ':' character.");
 		}
 
-		Path path1 = Path(strPath1);
-		Path path2 = Path(strPath2);
+		path path1 = path(path_as_string_1);
+		path path2 = path(path_as_string_2);
 
 		// Concatenate the two pathes
 		auto concatenation = std::vector<string>();
@@ -275,7 +275,7 @@ namespace fs_utils {
 
 		path1.levels = newPath;
 
-		return path1.getValue();
+		return path1.to_string();
 	}
 
 	bool create_directory(const string& dirPath) {

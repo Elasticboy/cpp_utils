@@ -4,33 +4,32 @@
 #include <map>
 #include "file_handler.h"
 
-class Properties
+class properties
 {
 public:
-	Properties(const std::string& path);
-	~Properties();
+	properties(const std::string& path);
 
 protected:
-	void loadProperties(const std::string& path);
-	void saveProperties(const std::string& path);
-	void saveProperties();
+	void load_properties(const std::string& path);
+	void save_properties(const std::string& path);
+	void save_properties();
 	
-	const std::string getString(const std::string& key);
-	const std::string getString(const std::string& key, const std::string& defaultValue);
-	void setString(const std::string& key, const std::string& value);
+	const std::string get_string(const std::string& key);
+	const std::string get_string(const std::string& key, const std::string& default_value);
+	void set_string(const std::string& key, const std::string& value);
 
-	const int getInt(const std::string& key);
-	const int getInt(const std::string& key, const int& defaultValue);
-	void setInt(const std::string& key, const int& value);
+	const int get_int(const std::string& key);
+	const int get_int(const std::string& key, const int& default_value);
+	void set_int(const std::string& key, const int& value);
 
-	const bool getBool(const std::string& key);
-	const bool getBool(const std::string& key, const bool& defaultValue);
-	void setBool(const std::string& key, const bool& value);
+	const bool get_bool(const std::string& key);
+	const bool get_bool(const std::string& key, const bool& default_value);
+	void set_bool(const std::string& key, const bool& value);
 
-	const std::map<std::string, std::string> getList() { return m_properties; }
-	const std::string getFilePath() { return m_filePath; }
+	const std::map<std::string, std::string> get_list() const { return properties_; }
+	const std::string get_file_path() const { return file_path_; }
 
 private:
-	std::map<std::string, std::string> m_properties;
-	std::string m_filePath;
+	std::map<std::string, std::string> properties_;
+	std::string file_path_;
 };

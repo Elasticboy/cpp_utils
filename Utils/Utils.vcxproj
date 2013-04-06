@@ -107,36 +107,34 @@
     <ClInclude Include="src\exception\property_exception.h" />
     <ClInclude Include="src\fs_utils.h" />
     <ClInclude Include="src\platform_config.h" />
-    <ClInclude Include="src\Singleton.h" />
-    <ClInclude Include="src\Lang.h" />
+    <ClInclude Include="src\lexicon.h" />
     <ClInclude Include="src\logger.h" />
     <ClInclude Include="src\exception\file_exception.h" />
     <ClInclude Include="src\exception\config_exception.h" />
     <ClInclude Include="src\exception\Exception.h" />
     <ClInclude Include="src\file_handler.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="src\Goemetry.h" />
-    <ClInclude Include="src\Properties.h" />
+    <ClInclude Include="src\goemetry.h" />
+    <ClInclude Include="src\properties.h" />
     <ClInclude Include="src\string_utils.h" />
     <ClInclude Include="src\timer.h" />
-    <ClInclude Include="src\Translator.h" />
+    <ClInclude Include="src\lexicon_manager.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\exception\property_exception.cpp" />
     <ClCompile Include="src\fs_utils.cpp" />
-    <ClCompile Include="src\Singleton.cpp" />
-    <ClCompile Include="src\Lang.cpp" />
+    <ClCompile Include="src\lexicon.cpp" />
     <ClCompile Include="src\logger.cpp" />
     <ClCompile Include="src\exception\file_exception.cpp" />
     <ClCompile Include="src\exception\config_exception.cpp" />
     <ClCompile Include="src\exception\Exception.cpp" />
     <ClCompile Include="src\file_handler.cpp" />
-    <ClCompile Include="src\Goemetry.cpp" />
-    <ClCompile Include="src\Properties.cpp" />
+    <ClCompile Include="src\geometry.cpp" />
+    <ClCompile Include="src\properties.cpp" />
     <ClCompile Include="src\string_utils.cpp" />
     <ClCompile Include="src\timer.cpp" />
-    <ClCompile Include="src\Translator.cpp" />
+    <ClCompile Include="src\lexicon_manager.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
