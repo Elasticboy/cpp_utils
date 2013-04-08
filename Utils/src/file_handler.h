@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 
+// TODO: refactoring of file_handler class. Rename namespace fh_open_mode
 namespace fh_open_mode {
     
 	enum open_mode
