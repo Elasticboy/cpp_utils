@@ -53,7 +53,7 @@ namespace string_utils {
 
 	template<typename T> std::string to_string(const T& arg)
 	{
-		return helper::helper_arithmetic(arg, std::is_arithmetic<T>::type());
+		return helper::helper_arithmetic(arg, typename std::is_arithmetic<T>::type());
 	}
 
 	template<typename T> const std::string replace_string(const std::string& str, const std::string& pattern, const T& arg)

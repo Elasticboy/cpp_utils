@@ -51,17 +51,6 @@
 			<Add directory="./lib" />
 		</Linker>
 		<Unit filename="ReadMe.txt" />
-		<Unit filename="resource.h" />
-		<Unit filename="src/Goemetry.cpp" />
-		<Unit filename="src/Goemetry.h" />
-		<Unit filename="src/Lang.cpp" />
-		<Unit filename="src/Lang.h" />
-		<Unit filename="src/Properties.cpp" />
-		<Unit filename="src/Properties.h" />
-		<Unit filename="src/Singleton.cpp" />
-		<Unit filename="src/Singleton.h" />
-		<Unit filename="src/Translator.cpp" />
-		<Unit filename="src/Translator.h" />
 		<Unit filename="src/Utils.cpp" />
 		<Unit filename="src/Utils.h" />
 		<Unit filename="src/exception/Exception.cpp" />
@@ -76,9 +65,17 @@
 		<Unit filename="src/file_handler.h" />
 		<Unit filename="src/fs_utils.cpp" />
 		<Unit filename="src/fs_utils.h" />
+		<Unit filename="src/geometry.cpp" />
+		<Unit filename="src/goemetry.h" />
+		<Unit filename="src/lexicon.cpp" />
+		<Unit filename="src/lexicon.h" />
+		<Unit filename="src/lexicon_manager.cpp" />
+		<Unit filename="src/lexicon_manager.h" />
 		<Unit filename="src/logger.cpp" />
 		<Unit filename="src/logger.h" />
 		<Unit filename="src/platform_config.h" />
+		<Unit filename="src/properties.cpp" />
+		<Unit filename="src/properties.h" />
 		<Unit filename="src/string_utils.cpp" />
 		<Unit filename="src/string_utils.h" />
 		<Unit filename="src/timer.cpp" />
