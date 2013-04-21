@@ -8,7 +8,8 @@
 class lexicon_manager
 {
 public:
-	static const std::string LANG_EN;
+	static const std::string LANG_EN_UK;
+	static const std::string LANG_EN_US;
 	static const std::string LANG_FR;
 	static lexicon_manager* instance();
 	static void free_instance();

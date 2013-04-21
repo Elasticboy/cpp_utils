@@ -5,8 +5,9 @@
 
 using namespace std;
 
-const string lexicon_manager::LANG_EN = "EN";
-const string lexicon_manager::LANG_FR = "FR";
+const string lexicon_manager::LANG_EN_UK	= "UK";
+const string lexicon_manager::LANG_EN_US	= "US";
+const string lexicon_manager::LANG_FR		= "FR";
 
 lexicon_manager* lexicon_manager::instance_ = nullptr;
 
@@ -24,10 +25,7 @@ void lexicon_manager::free_instance()
 	instance_ = nullptr;
 }
 
-lexicon_manager::lexicon_manager()
-{
-	language_key_ = LANG_EN;
-}
+lexicon_manager::lexicon_manager() : language_key_(LANG_EN_US) { }
 
 /**
  * Set the language if it is available in lexicon_map_.
