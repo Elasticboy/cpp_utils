@@ -106,6 +106,44 @@ void properties::set_int(const string& key, const int& value)
 /**
  * Get the property value that matches the key.
  * @param key The key of the property.
+ * @return The value of the property as a long.
+ * @throw read_property_exception cast from string to long fails.
+ */
+const long properties::get_long(const string& key)
+{
+	auto propertyAsString = get_string(key);
+	return stol(propertyAsString);
+}
+
+/**
+ * Get the property value that matches the key.
+ * @param key The key of the property.
+ * @param defaultValue The value to return if read_property_exception is raised.
+ * @return The value of the property as a long.
+ */
+const long properties::get_long(const string& key, const long& defaultValue)
+{
+	try {
+		return get_long(key);
+	} catch (const exception&) {
+		return defaultValue;
+	}
+}
+
+/**
+ * Set the property value that matches the key.
+ * @param key The key of the property.
+ * @param value The value to set.
+ * @throw read_property_exception if the key is not found.
+ */
+void properties::set_long(const string& key, const long& value)
+{
+	set_string(key, to_string(value));
+}
+
+/**
+ * Get the property value that matches the key.
+ * @param key The key of the property.
  * @return The value of the property as a boolean.
  */
 const bool properties::get_bool(const string& key)

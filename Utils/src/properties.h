@@ -21,6 +21,10 @@ protected:
 	const int get_int(const std::string& key);
 	const int get_int(const std::string& key, const int& default_value);
 	void set_int(const std::string& key, const int& value);
+	
+	const long get_long(const std::string& key);
+	const long get_long(const std::string& key, const long& default_value);
+	void set_long(const std::string& key, const long& value);
 
 	const bool get_bool(const std::string& key);
 	const bool get_bool(const std::string& key, const bool& default_value);
