@@ -61,9 +61,9 @@ namespace string_utils {
 		return helper::replace_string(str, pattern, to_string(arg));
 	}
 
-	template<typename T> void securedPrint(char[] &buffer, const char* format, const T& arg) {
+	template<typename T> void securedPrint(char* buffer, const int& length, const char* format, const T& arg) {
 # if defined(WINDOWS_PLATFORM)
-		sprintf_s(buffer,  format, arg);
+		sprintf_s(buffer, length, format, arg);
 # else
 		sprintf(buffer, format, arg);
 # endif
