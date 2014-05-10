@@ -41,8 +41,8 @@ const string properties::get_string(const string& key, const string& defaultValu
 {
 	try {
 		return get_string(key);
-	} catch (const exception&) {
-		Utils::get_logger()->warning("Properties::getString() : Using default value \"" + defaultValue + "\" for key \"" + key + "\".");
+	} catch (const Exception& e) {
+		Utils::get_logger()->warning(e.simpleMessage() + " : Using default value \"" + defaultValue + "\".");
 		return defaultValue;
 	}
 }
