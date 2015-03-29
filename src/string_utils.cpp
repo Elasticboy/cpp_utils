@@ -1,6 +1,7 @@
 #include "string_utils.h"
 
 #include <regex>
+#include <string.h>
 
 namespace string_utils
 {
@@ -8,7 +9,7 @@ namespace string_utils
 	/**
 	* Test if a string begins by a given substring.
 	* @param str The string to test.
-	* @param prefix The string to be expected at the begining of the tested string.
+	* @param prefix The string to be expected at the beginning of the tested string.
 	* @return True if the string starts with the given prefix. False otherwise.
 	*/
 	bool starts_with(const std::string& str, const std::string& prefix)
@@ -24,7 +25,7 @@ namespace string_utils
 	* Test if a string ends by a given substring.
 	* @param str The string to test.
 	* @param suffix The string to be expected at the end of the tested string.
-	* @return True if the string ends with the given suffix. Flase otherwise.
+	* @return True if the string ends with the given suffix. False otherwise.
 	*/
 	bool ends_with(const std::string& str, const std::string& suffix)
 	{
@@ -41,22 +42,10 @@ namespace string_utils
 	*/
 	void clear_buffer(char* buffer)
 	{
-		buffer = '\0';
-		//memset(buffer, 0, sizeof(buffer));
+//		buffer = '\0';
+		memset(buffer, 0, sizeof(buffer));
 		//memset(_buffer, '\0', sizeof(buffer));
 	}
-
-# if defined(WINDOWS_PLATFORM)
-	/**
-	* Convert string to bstr_t.
-	* @param str The string to convert.
-	* @return The converted string.
-	*/
-	bstr_t string_to_bstr(const std::string& str)
-	{
-		return bstr_t(str.c_str());
-	}
-# endif
 
 	/**
 	* Convert a std::string into a std::wstring
@@ -64,7 +53,7 @@ namespace string_utils
 	std::wstring string_to_wstring(const std::string& str)
 	{
 		// TODO: write Unit Test
-		// TODO: Modif for non ASCII characters
+		// TODO: Modify for non ASCII characters
 		return std::wstring(str.begin(), str.end());
 	}
 
@@ -74,7 +63,7 @@ namespace string_utils
 	std::string wstring_to_string(const std::wstring& wstr)
 	{
 		// TODO: write Unit Test
-		// TODO: Modif for non ASCII characters
+		// TODO: Modify for non ASCII characters
 		return std::string(wstr.begin(), wstr.end());
 	}
 
@@ -84,7 +73,7 @@ namespace string_utils
 	}
 
 	/**
-	* Remove the caracters to the left of a string if they are filtered by the given function.
+	* Remove the characters to the left of a string if they are filtered by the given function.
 	* @param str The string to clear.
 	* @param filter The filter function.
 	* @return The left cleared string.
@@ -99,7 +88,7 @@ namespace string_utils
 	}
 
 	/**
-	* Remove the caracters to the right of a string if they are filtered by the given function.
+	* Remove the characters to the right of a string if they are filtered by the given function.
 	* @param str The string to clear.
 	* @param filter The filter function.
 	* @return The right cleared string.

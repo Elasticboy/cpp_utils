@@ -31,7 +31,7 @@ std::fstream& file_handler::get_file()
 
 /**
  * Get the ios_base::openmode corresponding to the internal open_mode value.
- * @param open_mode The mode of openning to translate.
+ * @param open_mode The mode of opening to translate.
  * @return The ios_base::openmode corresponding to the internal open_mode value.
  * @throws An open_file_exception if the given open_mode is not supported.
  */

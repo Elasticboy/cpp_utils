@@ -200,7 +200,7 @@ void properties::load_properties(const string& path)
 		string line;
 		while(getline(fh.get_file(), line)) {
 
-			// Ingnore empty lines and lines that begin with "#" (considered as comments)
+			// Ignore empty lines and lines that begin with "#" (considered as comments)
 			if (line.empty() || string_utils::starts_with(string_utils::trim(line), "#")) {
 				continue;
 			}

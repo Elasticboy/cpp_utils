@@ -48,7 +48,7 @@ void lexicon_manager::set_language(const string& language_key)
  */
 void lexicon_manager::add_language(const string& language_key, const string& dataFile)
 {
-	// Add only if dosen't exist
+	// Add only if doesn't exist
 	if (lexicons_.find(language_key) != lexicons_.end()) {
 		// Key already exists => return.
 		Utils::get_logger()->debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" already added.");
@@ -73,7 +73,7 @@ string lexicon_manager::get_string(const string& key, const string& arg)
 }
 
 /**
- * The lexicon_manager is concidered initialized if at least on language is set.
+ * The lexicon_manager is considered initialized if at least on language is set.
  * @return True if the number of registered languages is superior to zero.
  */
 bool lexicon_manager::is_initialized()

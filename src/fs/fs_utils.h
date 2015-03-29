@@ -16,7 +16,7 @@ namespace fs_utils {
 	class file
 	{
 	public:
-		file(const std::string& filepath);
+		file(const std::string& filePath);
 		std::string filename() const;
 		std::string path() const;
 		std::string parent_path() const;

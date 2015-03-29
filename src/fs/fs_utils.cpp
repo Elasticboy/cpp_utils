@@ -13,7 +13,7 @@ namespace fs_utils {
 
 	using std::string;
 
-	file::file(const string& filepath) : path_(filepath) { }
+	file::file(const string& filePath) : path_(filePath) { }
 
 	/**
 	* @return The filename without the path.
@@ -169,7 +169,7 @@ namespace fs_utils {
 	/**
 	* List files and directories of the directory passed as parameter.
 	* @param root The root directory to explore.
-	* @param recursive True if the search should be recusive. False otherwise.
+	* @param recursive True if the search should be recursive. False otherwise.
 	* @param filter A string that will be turn into a regexp to select special files or directory.
 	* @return A vector containing the File find by the function.
 	*/
@@ -183,13 +183,13 @@ namespace fs_utils {
 
 		// Throw exception if path doesn't exist or isn't a directory.
 		if (!fs::exists(rootPath)) {
-			throw file_exception("fs_utils::list_files", "rootPath does not exist");
+			throw file_exception("fs_utils::list_files", "root \"" + root + "\" does not exist");
 		}
 		if (!fs::is_directory(rootPath)) {
-			throw file_exception("fs_utils::list_files", "rootPath is not a directory.");
+			throw file_exception("fs_utils::list_files", "root \"" + root + "\" is not a directory.");
 		}
 
-		// List all the files in the directory and get some informations
+		// List all the files in the directory and get some information
 		const std::regex regexFilter(filter);
 		auto fileList = std::vector<file>();
 
@@ -241,7 +241,7 @@ namespace fs_utils {
 	}
 
 	/**
-	* Concatenate two pathes and simplify the result.
+	* Concatenate two paths and simplify the result.
 	*/
 	std::string build_path(const std::string& path_as_string_1, const std::string& path_as_string_2)
 	{
@@ -252,7 +252,7 @@ namespace fs_utils {
 		path path1 = path(path_as_string_1);
 		path path2 = path(path_as_string_2);
 
-		// Concatenate the two pathes
+		// Concatenate the two paths
 		auto concatenation = std::vector<string>();
 		concatenation.insert(concatenation.end(), path1.levels.begin(), path1.levels.end());
 		concatenation.insert(concatenation.end(), path2.levels.begin(), path2.levels.end());

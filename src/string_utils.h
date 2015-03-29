@@ -3,11 +3,7 @@
 #include <iostream>
 #include <string>
 #include <type_traits>
-
-#include "platform_config.h"
-# if defined(WINDOWS_PLATFORM)
-#	include <comdef.h>
-# endif
+#include <stdio.h>
 
 namespace string_utils {
 
@@ -24,9 +20,6 @@ namespace string_utils {
 	//                      Conversions
 	/////////////////////////////////////////////////////////////////
 
-# if defined(WINDOWS_PLATFORM)
-	bstr_t string_to_bstr(const std::string& str);
-# endif
 	std::wstring string_to_wstring(const std::string& str);
 	std::string wstring_to_string(const std::wstring& wstr);
 
@@ -62,11 +55,7 @@ namespace string_utils {
 	}
 
 	template<typename T> void securedPrint(char* buffer, const int& length, const char* format, const T& arg) {
-# if defined(WINDOWS_PLATFORM)
-		sprintf_s(buffer, length, format, arg);
-# else
 		sprintf(buffer, format, arg);
-# endif
 	}
 
 }
