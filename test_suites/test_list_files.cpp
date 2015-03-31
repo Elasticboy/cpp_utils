@@ -19,9 +19,8 @@ std::string assets_dir()
 TEST(ListFiles, ListFiles1Arg)
 {
     std::string root = assets_dir();
-    std::cout << "Search in dir : " << root << std::endl;
-
     auto fileList = fs_utils::list_files(root);
+
     ASSERT_EQ(fileList.size(), 6UL) << "Vector size should be 6.";
 
     int fileCount = 0;
@@ -36,8 +35,8 @@ TEST(ListFiles, ListFiles1Arg)
         }
     }
 
-    ASSERT_EQ(fileCount, 3) << "There are 3 regular files.";
-    ASSERT_EQ(dirCount, 3) << "There are 3 directories.";
+    ASSERT_EQ(fileCount, 3) << "There should be 3 regular files.";
+    ASSERT_EQ(dirCount, 3) << "There should be 3 directories.";
 }
 
 /**
@@ -48,28 +47,25 @@ TEST(ListFiles, ListFiles1Arg)
 TEST(ListFiles, ListFiles2Args)
 {
     std::string root = assets_dir();
-    std::cout << "Search in dir : " << root << std::endl;
-
     const bool recursive = true;
-    const std::string fnameWinAPI = "assets";
-    const std::string pathWinAPI = "assets";
-    const std::string parentWinAPI = "assets";
-
     auto fileList = fs_utils::list_files(root, recursive);
-    size_t fileCount = 3;
-    size_t realFileCount = fileList.size();
 
-    ASSERT_EQ(realFileCount, fileCount) << "The sizes of the vectors are not equal.";
+    ASSERT_EQ(fileList.size(), 23UL) << "Vector size should be 23.";
 
-    const int size(fileList.size());
+    int fileCount = 0;
+    int dirCount = 0;
+
     for (auto currentFile : fileList) {
-        auto fname = currentFile.filename();
-        const std::string pathStr = currentFile.path();
-        const std::string parentBoost = currentFile.parent_path();
-        ASSERT_EQ(fname, fnameWinAPI) << "Filenames do not match.";
-        ASSERT_EQ(pathStr, pathWinAPI) << "Pathes do not match.";
-        ASSERT_EQ(parentBoost, parentWinAPI) << "Filenames do not match.";
+        if (currentFile.is_regular_file()) {
+            fileCount++;
+        }
+        if (currentFile.is_directory()) {
+            dirCount++;
+        }
     }
+
+    ASSERT_EQ(fileCount, 18) << "There should be 18 regular files.";
+    ASSERT_EQ(dirCount, 5) << "There should be 5 directories.";
 }
 
 /**
@@ -81,28 +77,25 @@ TEST(ListFiles, ListFiles2Args)
 TEST(ListFiles, ListFiles3Args)
 {
     std::string root = assets_dir();
-    std::cout << "Search in dir : " << root << std::endl;
-
     const bool recursive = true;
-    const std::string filter = ".*test.*";
-    size_t fileCount = 3;
-    const std::string fnameWinAPI = "assets";
-    const std::string pathWinAPI = "assets";
-    const std::string parentWinAPI = "assets";
-
+    const std::string filter = ".*dirLevel2.*";
     auto fileList = fs_utils::list_files(root, recursive, filter);
+    ASSERT_EQ(fileList.size(), 8UL) << "Vector size should be 8.";
 
-    ASSERT_EQ(fileList.size(), fileCount) << "The sizes of the vectors are not equal.";
+    int fileCount = 0;
+    int dirCount = 0;
 
-    const int size(fileList.size());
     for (auto currentFile : fileList) {
-        const std::string fname = currentFile.filename();
-        const std::string pathStr = currentFile.path();
-        const std::string parentBoost = currentFile.parent_path();
-        ASSERT_EQ(fname, fnameWinAPI) << "Filenames do not match.";
-        ASSERT_EQ(pathStr, pathWinAPI) << "Pathes do not match.";
-        ASSERT_EQ(parentBoost, parentWinAPI) << "Filenames do not match.";
+        if (currentFile.is_regular_file()) {
+            fileCount++;
+        }
+        if (currentFile.is_directory()) {
+            dirCount++;
+        }
     }
+
+    ASSERT_EQ(fileCount, 6) << "There should be 6 regular files.";
+    ASSERT_EQ(dirCount, 2) << "There should be 2 directories.";
 }
 
 /**
@@ -115,27 +108,26 @@ TEST(ListFiles, ListFiles3Args)
 TEST(ListFiles, ListFiles4Args)
 {
     std::string root = assets_dir();
-    std::cout << "Search in dir : " << root << std::endl;
 
     const bool recursive = true;
-    const std::string filter = ".*test.*";
+    const std::string filter = ".*dirLevel2_2.*";
     const bool regularOnly = true;
-    const std::size_t fileCount = 3;
-    const std::string fnameWinAPI = "assets";
-    const std::string pathWinAPI = "assets";
-    const std::string parentWinAPI = "assets";
-
     auto fileList = fs_utils::list_files(root, recursive, filter, regularOnly);
 
-    ASSERT_EQ(fileList.size(), fileCount) << "The sizes of the vectors are not equal.";
+    ASSERT_EQ(fileList.size(), 3UL) << "Vector size should be 3.";
 
-    const int size(fileList.size());
+    int fileCount = 0;
+    int dirCount = 0;
+
     for (auto currentFile : fileList) {
-        const std::string fname = currentFile.filename();
-        const std::string pathStr = currentFile.path();
-        const std::string parentBoost = currentFile.parent_path();
-        ASSERT_EQ(fname, fnameWinAPI) << "Filenames do not match.";
-        ASSERT_EQ(pathStr, pathWinAPI) << "Pathes do not match.";
-        ASSERT_EQ(parentBoost, parentWinAPI) << "Filenames do not match.";
+        if (currentFile.is_regular_file()) {
+            fileCount++;
+        }
+        if (currentFile.is_directory()) {
+            dirCount++;
+        }
     }
+
+    ASSERT_EQ(fileCount, 3) << "There should be 18 regular files.";
+    ASSERT_EQ(dirCount, 0) << "There should be no directory.";
 }

@@ -214,9 +214,9 @@ namespace fs_utils
 
                 // Skip directories file_current_element and "$RECYCLE.BIN"
                 if (it->path().filename() == file_current_element ||
-                        it->path().filename() == file_back_element ||
-                        it->path().filename() == "$Recycle.Bin" ||
-                        it->path().filename() == "$RECYCLE.BIN") {
+                    it->path().filename() == file_back_element ||
+                    it->path().filename() == "$Recycle.Bin" ||
+                    it->path().filename() == "$RECYCLE.BIN") {
                     continue;
                 }
                 file.type = file_type::directory_file;
@@ -229,9 +229,6 @@ namespace fs_utils
                 }
 
             } else if (fs::is_regular_file(it->status())) { // For a regular file
-                if (filter != "" && !regex_match(file.path(), regexFilter)) {
-                    continue;
-                }
                 file.type = file_type::regular_file;
 
             } else {
@@ -240,6 +237,11 @@ namespace fs_utils
             }
 
             if (regular_files_only && !file.is_regular_file()) {
+                continue;
+            }
+
+            // regexp check
+            if (filter != "" && !regex_match(file.path(), regexFilter)) {
                 continue;
             }
 
@@ -270,12 +272,15 @@ namespace fs_utils
         // Create the new path
         auto newPath = std::vector<string>();
         for (auto element : concatenation) {
+
+            // No need to check to add the first element to the path
             if (newPath.size() == 0) {
                 newPath.push_back(element);
                 continue;
             }
 
             const string lastAdded = newPath.back();
+
             if (element == file_back_element && !lastAdded.empty() && lastAdded != file_back_element) {
                 newPath.pop_back();
                 continue;
