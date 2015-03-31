@@ -1,33 +1,43 @@
 #include "gtest/gtest.h"
 
-#include <functional>
 #include <regex>
 
 #include "../src/fs/fs_utils.h"
 
 /**
+* @return the path of assets directory
+*/
+std::string assets_dir()
+{
+    std::string currentDir = fs_utils::get_current_directory();
+    return fs_utils::build_path(currentDir, "../../blocks/cyrillrx/utils/test_suites/assets");
+}
+/**
 * List files with 1 argument :
 * - path
 */
-TEST(TestFileUtils, ListFiles1Arg)
+TEST(ListFiles, ListFiles1Arg)
 {
-    std::string root = "./assets";
-    const std::string fnameWinAPI = "assets";
-    const std::string pathWinAPI = "assets";
-    const std::string parentWinAPI = "assets";
+    std::string root = assets_dir();
+    std::cout << "Search in dir : " << root << std::endl;
 
     auto fileList = fs_utils::list_files(root);
-    ASSERT_TRUE(((int) fileList.size()) == 3) << "The sizes of the vectors are not equal.";
+    ASSERT_EQ(fileList.size(), 6UL) << "Vector size should be 6.";
 
-    const int size(fileList.size());
+    int fileCount = 0;
+    int dirCount = 0;
+
     for (auto currentFile : fileList) {
-        const std::string fname = currentFile.filename();
-        const std::string pathStr = currentFile.path();
-        const std::string parentBoost = currentFile.parent_path();
-        ASSERT_EQ(fname, fnameWinAPI) << "Filenames do not match.";
-        ASSERT_EQ(pathStr, pathWinAPI) << "Pathes do not match.";
-        ASSERT_EQ(parentBoost, parentWinAPI) << "Filenames do not match.";
+        if (currentFile.is_regular_file()) {
+            fileCount++;
+        }
+        if (currentFile.is_directory()) {
+            dirCount++;
+        }
     }
+
+    ASSERT_EQ(fileCount, 3) << "There are 3 regular files.";
+    ASSERT_EQ(dirCount, 3) << "There are 3 directories.";
 }
 
 /**
@@ -35,9 +45,11 @@ TEST(TestFileUtils, ListFiles1Arg)
 * - path
 * - recursive
 */
-TEST(TestFileUtils, ListFiles2Args)
+TEST(ListFiles, ListFiles2Args)
 {
-    std::string root = "./assets";
+    std::string root = assets_dir();
+    std::cout << "Search in dir : " << root << std::endl;
+
     const bool recursive = true;
     const std::string fnameWinAPI = "assets";
     const std::string pathWinAPI = "assets";
@@ -66,9 +78,11 @@ TEST(TestFileUtils, ListFiles2Args)
 * - recursive
 * - filter
 */
-TEST(TestFileUtils, ListFiles3Args)
+TEST(ListFiles, ListFiles3Args)
 {
-    std::string root = "assets";
+    std::string root = assets_dir();
+    std::cout << "Search in dir : " << root << std::endl;
+
     const bool recursive = true;
     const std::string filter = ".*test.*";
     size_t fileCount = 3;
@@ -98,9 +112,11 @@ TEST(TestFileUtils, ListFiles3Args)
 * - filter
 * - regularOnly
 */
-TEST(TestFileUtils, ListFiles4Args)
+TEST(ListFiles, ListFiles4Args)
 {
-    std::string root = "./assets";
+    std::string root = assets_dir();
+    std::cout << "Search in dir : " << root << std::endl;
+
     const bool recursive = true;
     const std::string filter = ".*test.*";
     const bool regularOnly = true;

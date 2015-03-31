@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "../src/fs/fs_utils.h"
 
-TEST(TestFileUtils, Test_File_filename)
+TEST(FileUtils, GetFilename)
 {
     fs_utils::file file("C:\\toto\\titi\\tata\\bla.exe");
 
@@ -11,7 +11,7 @@ TEST(TestFileUtils, Test_File_filename)
     ASSERT_EQ(expectedFilename, actualFilename) << "Filename is not as expected.";
 }
 
-TEST(TestFileUtils, Test_File_path)
+TEST(FileUtils, GetFilePath)
 {
     fs_utils::file file("C:\\toto\\titi\\tata\\bla.exe");
 
@@ -20,7 +20,7 @@ TEST(TestFileUtils, Test_File_path)
     ASSERT_EQ(expectedFullPath, actualFullPath) << "FullPath is not as expected.";
 }
 
-TEST(TestFileUtils, Test_File_parent_path)
+TEST(FileUtils, GetParentPath)
 {
     fs_utils::file file("C:\\toto\\titi\\tata\\bla.exe");
 
