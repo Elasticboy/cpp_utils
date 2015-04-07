@@ -12,6 +12,7 @@ std::string assets_dir()
     std::string currentDir = fs_utils::get_current_directory();
     return fs_utils::build_path(currentDir, "../../blocks/cyrillrx/utils/test_suites/assets");
 }
+
 /**
 * List files with 1 argument :
 * - path
