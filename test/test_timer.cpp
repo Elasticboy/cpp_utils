@@ -1,12 +1,26 @@
+#include <iostream>
+#include <chrono>
+
 #include "gtest/gtest.h"
 
 TEST(TestTimer, ElapsedTime)
 {
-    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-    std::time_t now_c = std::chrono::system_clock::to_time_t(now - std::chrono::hours(24));
-    std::cout << "24 hours ago, the time was " << std::put_time(std::localtime(&now_c), "%F %T") << '\n';
+    ASSERT_FALSE(std::chrono::system_clock::is_steady) << "system_clock should not be steady.";
+    ASSERT_FALSE(std::chrono::high_resolution_clock::is_steady) << "high_resolution_clock should not be steady.";
+    ASSERT_TRUE(std::chrono::steady_clock::is_steady) << "steady_clock should be steady.";
 
-    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now(); std::cout << "Hello World\n";
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Printing took " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << "us.\n";
+    auto start = std::chrono::steady_clock::now();
+    int i = 1000000;
+    while (i > 0) { i--; }
+    auto end = std::chrono::steady_clock::now();
+
+    // Store the time difference between start and end
+    auto diff = end - start;
+    std::cout << std::chrono::duration<double, std::milli>(diff).count() << " ms" << std::endl;
+    std::cout << std::chrono::duration<double, std::nano>(diff).count() << " ns" << std::endl;
+
+    auto diff_nano = std::chrono::duration_cast<std::chrono::nanoseconds>(diff);
+    std::cout << diff_nano.count() << std::endl;
+
+    SUCCEED();
 }
