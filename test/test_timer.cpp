@@ -24,3 +24,7 @@ TEST(TestTimer, ElapsedTime)
 
     SUCCEED();
 }
+
+TEST(TestTimer, ElapsedTime)
+{
+}
