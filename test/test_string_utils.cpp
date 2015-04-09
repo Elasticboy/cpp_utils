@@ -46,7 +46,6 @@ TEST(TestStringUtils, Test_regex_extension)
 
 TEST(TestStringUtils, Trim)
 {
-
     std::string input = "       bla, bla, bla     ";
     std::string expected = "bla, bla, bla";
     ASSERT_EQ(string_utils::trim(input), expected) << "String not trimmed as expected.";

@@ -1,3 +1,5 @@
+#include "timer.h"
+
 #include <cstdio>
 #include <ctime>
 #include <string>
