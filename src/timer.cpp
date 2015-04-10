@@ -1,7 +1,6 @@
 #include "timer.h"
 
 #include <chrono>  // chrono::system_clock
-#include <ctime>   // localtime
 #include <sstream> // stringstream
 #include <iomanip> // put_time
 
@@ -35,6 +34,14 @@ const std::string timer::current_time(const std::string &format)
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&in_time_t), format);
+    // ss << std::put_time(std::localtime(&in_time_t), format);
+
+    const auto buffer_size = 80;
+    char buffer[buffer_size];
+
+    // note: localtime() is not threadsafe, lock with a mutex if necessary
+    if (strftime(buffer, buffer_size, format.c_str(), localtime(&in_time_t))) {
+        ss << buffer;
+    }
     return ss.str();
 }
