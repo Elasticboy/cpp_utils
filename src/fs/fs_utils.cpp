@@ -1,8 +1,5 @@
 #include "fs_utils.h"
 
-#define BOOST_FILESYSTEM_VERSION 3
-#define BOOST_FILESYSTEM_NO_DEPRECATED
-
 #include <regex>
 #include <boost/filesystem.hpp>
 
@@ -14,7 +11,7 @@ namespace fs_utils
 
     using std::string;
 
-    file::file(const string &filePath) : path_(filePath) { }
+    file::file(const string& filePath) : path_(filePath) { }
 
     /**
     * @return The filename without the path.
@@ -63,7 +60,7 @@ namespace fs_utils
         return type == file_type::regular_file;
     }
 
-    path::path(const std::string &path)
+    path::path(const std::string& path)
     {
         const bool startWithSeparator = path.find(file_separator) == 0;
 
@@ -95,7 +92,7 @@ namespace fs_utils
         }
     }
 
-    path::path(const std::vector<string> &path_levels)
+    path::path(const std::vector<string>& path_levels)
     {
         levels = path_levels;
     }
@@ -109,7 +106,7 @@ namespace fs_utils
         return path_as_string;
     }
 
-    bool is_separator(const char &c)
+    bool is_separator(const char& c)
     {
         return (c == '/') || (c == '\\');
     }
@@ -121,7 +118,7 @@ namespace fs_utils
     {
         try {
             return boost::filesystem::current_path().string();
-        } catch (const boost::filesystem::filesystem_error &e) {
+        } catch (const boost::filesystem::filesystem_error& e) {
             throw file_exception("fs_utils::current_path", string(e.what()));
         }
     }
@@ -129,9 +126,9 @@ namespace fs_utils
     /**
     * @return The path without the name of the file.
     */
-    string get_filepath_only(const string &filename)
+    string get_filepath_only(const string& filename)
     {
-        int pos;
+        unsigned long pos;
 
         if ((pos = filename.find_last_of('\\')) != string::npos) {
             return filename.substr(0, pos + 1UL);
@@ -147,9 +144,9 @@ namespace fs_utils
     /**
     * @return The filename without the path.
     */
-    string get_filename_only(const string &filename)
+    string get_filename_only(const string& filename)
     {
-        int pos;
+        unsigned long pos;
 
         if ((pos = filename.find_last_of('\\')) != string::npos) {
             return filename.substr(pos + 1UL);
@@ -165,9 +162,9 @@ namespace fs_utils
     /**
     * @return The filename without the extension.
     */
-    string trunc_extension(const string &filename)
+    string trunc_extension(const string& filename)
     {
-        int pos;
+        unsigned long pos;
 
         if ((pos = filename.find_last_of('.')) != string::npos) {
             return filename.substr(0, pos);
@@ -183,7 +180,7 @@ namespace fs_utils
     * @param filter A string that will be turn into a regexp to select special files or directory.
     * @return A vector containing the File find by the function.
     */
-    std::vector<file> list_files(const string &root, bool recursive, const string &filter, bool regular_files_only)
+    std::vector<file> list_files(const string& root, bool recursive, const string& filter, bool regular_files_only)
     {
         namespace fs = boost::filesystem;
         // Error if root is like "C:" => "C:/"
@@ -232,7 +229,7 @@ namespace fs_utils
                 file.type = file_type::regular_file;
 
             } else {
-                // TODO: throw an error
+                // TODO: throw an error ?
                 file.type = file_type::unknown;
             }
 
@@ -255,7 +252,7 @@ namespace fs_utils
     /**
     * Concatenate two paths and simplify the result.
     */
-    std::string build_path(const std::string &path_as_string_1, const std::string &path_as_string_2)
+    std::string build_path(const std::string& path_as_string_1, const std::string& path_as_string_2)
     {
         if (path_as_string_2.find(':') != string::npos || path_as_string_2.find(file_separator) == 0) {
             throw file_exception("fs_utils::build_path", "Second path can't be absolute");
@@ -293,11 +290,16 @@ namespace fs_utils
         return path1.to_string();
     }
 
-    bool create_directory(const string &dirPath)
+    bool exists(const string& path)
+    {
+        return boost::filesystem::exists(boost::filesystem::path(path));
+    }
+
+    bool create_directory(const string& dirPath)
     {
         try {
             return boost::filesystem::create_directory(boost::filesystem::path(dirPath));
-        } catch (const boost::filesystem::filesystem_error &e) {
+        } catch (const boost::filesystem::filesystem_error& e) {
             throw file_exception("fs_utils::create_directory", string(e.what()));
         }
     }

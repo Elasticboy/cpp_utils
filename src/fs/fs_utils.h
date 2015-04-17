@@ -7,7 +7,7 @@
 namespace fs_utils {
 
 	enum file_type
-	{ 
+	{
 		regular_file,
 		directory_file,
 		unknown
@@ -44,7 +44,7 @@ namespace fs_utils {
 	const std::string file_current_element	= ".";
 	const std::string file_back_element		= "..";
 
-	
+
 	bool is_separator(const char& c);
 
 	std::string get_current_directory();
@@ -53,6 +53,6 @@ namespace fs_utils {
 	std::string trunc_extension(const std::string& filename);
 	std::vector<file> list_files(const std::string& root, bool recursive = false, const std::string& filter = "", bool regular_files_only = false);
 	std::string build_path(const std::string& path1, const std::string& path2);
-	// TODO: bool file_exists(const std::string& path);
+	bool exists(const std::string& path);
 	bool create_directory(const std::string& dir_path);
 }
