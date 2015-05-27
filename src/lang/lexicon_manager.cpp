@@ -1,13 +1,15 @@
 #include "lexicon_manager.h"
 
+#include "logger/console_logger.h"
 #include "../exception/config_exception.h"
-#include "../Utils.h"
 
 using namespace std;
 
 const string lexicon_manager::LANG_EN_UK	= "UK";
 const string lexicon_manager::LANG_EN_US	= "US";
 const string lexicon_manager::LANG_FR		= "FR";
+
+auto logger = ConsoleLogger(DEBUG);
 
 lexicon_manager* lexicon_manager::instance_ = nullptr;
 
@@ -34,7 +36,7 @@ void lexicon_manager::set_language(const string& language_key)
 {
 	if (lexicons_.find(language_key) != lexicons_.end()) {
 		language_key_ = language_key;
-		Utils::get_logger()->debug("lexicon_manager::setLanguage(), new language \"" + language_key + "\".");
+		logger.Debug("lexicon_manager::setLanguage(), new language \"" + language_key + "\".");
 		return;
 	}
 
@@ -51,13 +53,13 @@ void lexicon_manager::add_language(const string& language_key, const string& dat
 	// Add only if doesn't exist
 	if (lexicons_.find(language_key) != lexicons_.end()) {
 		// Key already exists => return.
-		Utils::get_logger()->debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" already added.");
+		logger.Debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" already added.");
 		return;
 	}
 
 	// Key does not exist. Add the file
 	lexicons_.insert(make_pair(language_key, lexicon(dataFile)));
-	Utils::get_logger()->debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" added to the lexicon_manager.");
+	logger.Debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" added to the lexicon_manager.");
 }
 
 /**/

@@ -3,7 +3,6 @@
 #include <sstream>
 
 #include "string_utils.h"
-#include "Utils.h"
 #include "exception/property_exception.h"
 
 using namespace std;

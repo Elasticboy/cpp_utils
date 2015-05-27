@@ -1,6 +1,8 @@
 #include "goemetry.h"
 
-#include "Utils.h"
+#include "logger/console_logger.h"
+
+auto logger = ConsoleLogger(DEBUG);
 
 /////////////////////////////////////////////////////////
 // pointf
@@ -15,8 +17,8 @@ pointf::pointf(POINT point)
 
 void pointf::display(std::string name)
 {
-	Utils::get_logger()->debug("Displaying " + name);
-	Utils::get_logger()->debug("(" + std::to_string(x) + "; " + std::to_string(y) + ")");
+	logger.Debug("Displaying " + name);
+	logger.Debug("(" + std::to_string(x) + "; " + std::to_string(y) + ")");
 }
 
 /////////////////////////////////////////////////////////
@@ -32,13 +34,13 @@ rect::rect(RECT rect)
 
 void rect::display(std::string name)
 {
-	Utils::get_logger()->debug("Displaying " + name);
-	Utils::get_logger()->debug(" - Position : "
+	logger.Debug("Displaying " + name);
+	logger.Debug(" - Position : "
 		+ std::to_string(left) + ", "
 		+ std::to_string(top) + ", "
 		+ std::to_string(right) + ", "
 		+ std::to_string(bottom));
-	Utils::get_logger()->debug(" - Dimensions : " + std::to_string(get_width()) + "x" + std::to_string(get_height()));
+	logger.Debug(" - Dimensions : " + std::to_string(get_width()) + "x" + std::to_string(get_height()));
 }
 
 int rect::get_width() const
