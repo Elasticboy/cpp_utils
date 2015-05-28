@@ -1,3 +1,5 @@
+#include "lexicon_manager.h"
+
 #include "logger/console_logger.h"
 
 using namespace std;
