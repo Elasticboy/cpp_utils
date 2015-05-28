@@ -1,6 +1,7 @@
 #include "lexicon_manager.h"
 
 #include "logger/console_logger.h"
+#include "../exception/config_exception.h"
 
 using namespace std;
 
