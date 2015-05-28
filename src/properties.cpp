@@ -8,7 +8,7 @@
 
 using namespace std;
 
-auto log = ConsoleLogger(DEBUG);
+auto propLog = ConsoleLogger(DEBUG);
 
 properties::properties(const string& path) : file_path_(path)
 {
@@ -29,7 +29,7 @@ const string properties::get_string(const string& key)
         }
     }
 
-    log.Warning("Properties::getString(" + key + ") : Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
+    propLog.Warning("Properties::getString(" + key + ") : Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
     throw read_property_exception("Properties::getString()", "Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
 }
 
@@ -44,7 +44,7 @@ const string properties::get_string(const string& key, const string& defaultValu
     try {
         return get_string(key);
     } catch (const Exception& e) {
-        log.Warning(e.simpleMessage() + " : Using default value \"" + defaultValue + "\".");
+        propLog.Warning(e.simpleMessage() + " : Using default value \"" + defaultValue + "\".");
         return defaultValue;
     }
 }
@@ -64,7 +64,7 @@ void properties::set_string(const string& key, const string& value)
         }
     }
 
-    log.Warning("Properties::setString(), The key \"" + key + "\" does not exist in file \"" + file_path_ + "\".");
+    propLog.Warning("Properties::setString(), The key \"" + key + "\" does not exist in file \"" + file_path_ + "\".");
 }
 
 /**
