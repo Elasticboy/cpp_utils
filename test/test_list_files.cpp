@@ -5,8 +5,8 @@
 #include "../src/fs/fs_utils.h"
 
 /**
-* @return the path of assets directory
-*/
+ * @return the path of assets directory
+ */
 std::string assets_dir()
 {
     std::string currentDir = fs_utils::get_current_directory();
@@ -14,9 +14,9 @@ std::string assets_dir()
 }
 
 /**
-* List files with 1 argument :
-* - path
-*/
+ * List files with 1 argument :
+ * - path
+ */
 TEST(ListFiles, ListFiles1Arg)
 {
     std::string root = assets_dir();
@@ -41,10 +41,10 @@ TEST(ListFiles, ListFiles1Arg)
 }
 
 /**
-* List files with 2 arguments :
-* - path
-* - recursive
-*/
+ * List files with 2 arguments :
+ * - path
+ * - recursive
+ */
 TEST(ListFiles, ListFiles2Args)
 {
     std::string root = assets_dir();
@@ -70,11 +70,11 @@ TEST(ListFiles, ListFiles2Args)
 }
 
 /**
-* List files with 3 arguments :
-* - path
-* - recursive
-* - filter
-*/
+ * List files with 3 arguments :
+ * - path
+ * - recursive
+ * - filter
+ */
 TEST(ListFiles, ListFiles3Args)
 {
     std::string root = assets_dir();
@@ -100,12 +100,12 @@ TEST(ListFiles, ListFiles3Args)
 }
 
 /**
-* List files with 4 arguments :
-* - path
-* - recursive
-* - filter
-* - regularOnly
-*/
+ * List files with 4 arguments :
+ * - path
+ * - recursive
+ * - filter
+ * - regularOnly
+ */
 TEST(ListFiles, ListFiles4Args)
 {
     std::string root = assets_dir();

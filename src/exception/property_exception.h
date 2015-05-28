@@ -9,23 +9,27 @@
 class load_property_exception : public Exception
 {
 public:
-	load_property_exception(const std::string& source, const std::string& message);// = "Error while loading property.");
+    // = "Error while loading property.");
+    load_property_exception(const std::string& source, const std::string& message);
 };
 
 class save_property_exception : public Exception
 {
 public:
-	save_property_exception(const std::string& source, const std::string& message);// = "Error while saving property.");
+    // = "Error while saving property.");
+    save_property_exception(const std::string& source, const std::string& message);
 };
 
 class read_property_exception : public Exception
 {
 public:
-	read_property_exception(const std::string& source, const std::string& message);// = "Error while reading property.");
+    // = "Error while reading property.");
+    read_property_exception(const std::string& source, const std::string& message);
 };
 
 class write_property_exception : public Exception
 {
 public:
-	write_property_exception(const std::string& source, const std::string& message);// = "Error while writing property.");
+    // = "Error while writing property.");
+    write_property_exception(const std::string& source, const std::string& message);
 };

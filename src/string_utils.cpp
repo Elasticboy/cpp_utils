@@ -4,7 +4,6 @@
 
 namespace string_utils
 {
-
     /**
      * Test if a string begins by a given substring.
      * @param str The string to test.
@@ -39,9 +38,9 @@ namespace string_utils
      * Clear a char* buffer.
      * @param _buffer The buffer to clear.
      */
-    void clear_buffer(char *buffer)
+    void clear_buffer(char* buffer)
     {
-        memset(buffer, 0, sizeof(char *));
+        memset(buffer, 0, sizeof(char*));
         //memset(buffer, 0', sizeof(buffer));
     }
 
@@ -76,7 +75,7 @@ namespace string_utils
      * @param filter The filter function.
      * @return The left cleared string.
      */
-    const std::string clear_left(const std::string& str, bool (*filter)(const char& c))
+    const std::string clear_left(const std::string& str, bool (* filter)(const char& c))
     {
         auto trimmedStr = str;
         while (filter(trimmedStr.at(0))) {
@@ -91,7 +90,7 @@ namespace string_utils
      * @param filter The filter function.
      * @return The right cleared string.
      */
-    const std::string clear_right(const std::string& str, bool (*filter)(const char& c))
+    const std::string clear_right(const std::string& str, bool (* filter)(const char& c))
     {
         auto trimmedStr = str;
         while (filter(trimmedStr.at(trimmedStr.length() - 1))) {
@@ -118,5 +117,4 @@ namespace string_utils
             return std::regex_replace(str, r, arg);
         }
     }
-
 }

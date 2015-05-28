@@ -2,15 +2,17 @@
 
 #include <sstream>
 
+#include "logger/console_logger.h"
 #include "string_utils.h"
-#include "Utils.h"
 #include "exception/property_exception.h"
 
 using namespace std;
 
+auto log = ConsoleLogger(DEBUG);
+
 properties::properties(const string& path) : file_path_(path)
 {
-	load_properties(file_path_);
+    load_properties(file_path_);
 }
 
 /**
@@ -21,14 +23,14 @@ properties::properties(const string& path) : file_path_(path)
  */
 const string properties::get_string(const string& key)
 {
-	for (const auto& prop : properties_) {
-		if (prop.first == key) {
-			return prop.second;
-		}
-	}
+    for (const auto& prop : properties_) {
+        if (prop.first == key) {
+            return prop.second;
+        }
+    }
 
-	Utils::get_logger()->warning("Properties::getString(" + key + ") : Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
-	throw read_property_exception("Properties::getString()", "Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
+    log.Warning("Properties::getString(" + key + ") : Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
+    throw read_property_exception("Properties::getString()", "Key \"" + key + "\" not found in file \"" + file_path_ + "\".");
 }
 
 /**
@@ -39,12 +41,12 @@ const string properties::get_string(const string& key)
  */
 const string properties::get_string(const string& key, const string& defaultValue)
 {
-	try {
-		return get_string(key);
-	} catch (const Exception& e) {
-		Utils::get_logger()->warning(e.simpleMessage() + " : Using default value \"" + defaultValue + "\".");
-		return defaultValue;
-	}
+    try {
+        return get_string(key);
+    } catch (const Exception& e) {
+        log.Warning(e.simpleMessage() + " : Using default value \"" + defaultValue + "\".");
+        return defaultValue;
+    }
 }
 
 /**
@@ -55,14 +57,14 @@ const string properties::get_string(const string& key, const string& defaultValu
  */
 void properties::set_string(const string& key, const string& value)
 {
-	for (auto& prop : properties_) {
-		if (prop.first == key) {
-			prop.second = value;
-			return;
-		}
-	}
+    for (auto& prop : properties_) {
+        if (prop.first == key) {
+            prop.second = value;
+            return;
+        }
+    }
 
-	Utils::get_logger()->warning("Properties::setString(), The key \"" + key + "\" does not exist in file \"" + file_path_ + "\".");
+    log.Warning("Properties::setString(), The key \"" + key + "\" does not exist in file \"" + file_path_ + "\".");
 }
 
 /**
@@ -73,8 +75,8 @@ void properties::set_string(const string& key, const string& value)
  */
 const int properties::get_int(const string& key)
 {
-	auto propertyAsString = get_string(key);
-	return stoi(propertyAsString);
+    auto propertyAsString = get_string(key);
+    return stoi(propertyAsString);
 }
 
 /**
@@ -85,11 +87,11 @@ const int properties::get_int(const string& key)
  */
 const int properties::get_int(const string& key, const int& defaultValue)
 {
-	try {
-		return get_int(key);
-	} catch (const exception&) {
-		return defaultValue;
-	}
+    try {
+        return get_int(key);
+    } catch (const exception&) {
+        return defaultValue;
+    }
 }
 
 /**
@@ -100,7 +102,7 @@ const int properties::get_int(const string& key, const int& defaultValue)
  */
 void properties::set_int(const string& key, const int& value)
 {
-	set_string(key, to_string(value));
+    set_string(key, to_string(value));
 }
 
 /**
@@ -111,8 +113,8 @@ void properties::set_int(const string& key, const int& value)
  */
 const long properties::get_long(const string& key)
 {
-	auto propertyAsString = get_string(key);
-	return stol(propertyAsString);
+    auto propertyAsString = get_string(key);
+    return stol(propertyAsString);
 }
 
 /**
@@ -123,11 +125,11 @@ const long properties::get_long(const string& key)
  */
 const long properties::get_long(const string& key, const long& defaultValue)
 {
-	try {
-		return get_long(key);
-	} catch (const exception&) {
-		return defaultValue;
-	}
+    try {
+        return get_long(key);
+    } catch (const exception&) {
+        return defaultValue;
+    }
 }
 
 /**
@@ -138,7 +140,7 @@ const long properties::get_long(const string& key, const long& defaultValue)
  */
 void properties::set_long(const string& key, const long& value)
 {
-	set_string(key, to_string(value));
+    set_string(key, to_string(value));
 }
 
 /**
@@ -148,14 +150,14 @@ void properties::set_long(const string& key, const long& value)
  */
 const bool properties::get_bool(const string& key)
 {
-	auto string_property = get_string(key);
-	if (string_property == "true") {
-		return true;
-	} else if (string_property == "false") {
-		return false;
-	}
+    auto string_property = get_string(key);
+    if (string_property == "true") {
+        return true;
+    } else if (string_property == "false") {
+        return false;
+    }
 
-	throw read_property_exception("Properties::getBool()", "Can not convert \"" + string_property + "\" to a boolean in file \"" + file_path_ + "\".");
+    throw read_property_exception("Properties::getBool()", "Can not convert \"" + string_property + "\" to a boolean in file \"" + file_path_ + "\".");
 }
 
 /**
@@ -166,11 +168,11 @@ const bool properties::get_bool(const string& key)
  */
 const bool properties::get_bool(const string& key, const bool& defaultValue)
 {
-	try {
-		return get_bool(key);
-	} catch (const exception&) {
-		return defaultValue;
-	}
+    try {
+        return get_bool(key);
+    } catch (const exception&) {
+        return defaultValue;
+    }
 }
 
 /**
@@ -181,8 +183,8 @@ const bool properties::get_bool(const string& key, const bool& defaultValue)
  */
 void properties::set_bool(const string& key, const bool& value)
 {
-	const string valueAsString = (value) ? "true" : "false";
-	set_string(key, valueAsString);
+    const string valueAsString = (value) ? "true" : "false";
+    set_string(key, valueAsString);
 }
 
 /**
@@ -191,49 +193,49 @@ void properties::set_bool(const string& key, const bool& value)
  */
 void properties::load_properties(const string& path)
 {
-	file_handler fh(path, fh_open_mode::open_mode::read);
-	if (!fh.get_file()) {
-		throw load_property_exception("Properties::loadProperties()", "Can not open the file \"" + path + "\" to read !");
-	}
+    file_handler fh(path, fh_open_mode::open_mode::read);
+    if (!fh.get_file()) {
+        throw load_property_exception("Properties::loadProperties()", "Can not open the file \"" + path + "\" to read !");
+    }
 
-	try {
-		string line;
-		while(getline(fh.get_file(), line)) {
+    try {
+        string line;
+        while (getline(fh.get_file(), line)) {
 
-			// Ignore empty lines and lines that begin with "#" (considered as comments)
-			if (line.empty() || string_utils::starts_with(string_utils::trim(line), "#")) {
-				continue;
-			}
+            // Ignore empty lines and lines that begin with "#" (considered as comments)
+            if (line.empty() || string_utils::starts_with(string_utils::trim(line), "#")) {
+                continue;
+            }
 
-			const int equalPos	= line.find('=');
-			if (equalPos != string::npos) {
-				const string key	= string_utils::trim(line.substr(0, equalPos));
-				const string value	= string_utils::trim(line.substr(equalPos + 1));
-				properties_[key] = value;
-			}
-		}
-	} catch (const exception& e) {
-		throw load_property_exception("Properties::loadProperties()", "An error occured while parsing the property file \"" + path + "\" : " + e.what());
-	}
+            const int equalPos = line.find('=');
+            if (equalPos != string::npos) {
+                const string key = string_utils::trim(line.substr(0, equalPos));
+                const string value = string_utils::trim(line.substr(equalPos + 1));
+                properties_[key] = value;
+            }
+        }
+    } catch (const exception& e) {
+        throw load_property_exception("Properties::loadProperties()", "An error occured while parsing the property file \"" + path + "\" : " + e.what());
+    }
 }
 
 void properties::save_properties(const string& path)
 {
-	file_handler fh(path, fh_open_mode::open_mode::write);
-	if (!fh.get_file()) {
-		throw save_property_exception("Properties::saveProperties()", "Can not open the file \"" + path + "\" to write !");
-	}
+    file_handler fh(path, fh_open_mode::open_mode::write);
+    if (!fh.get_file()) {
+        throw save_property_exception("Properties::saveProperties()", "Can not open the file \"" + path + "\" to write !");
+    }
 
-	try {
-		for (const auto& prop : properties_) {
-			fh.get_file() << prop.first << "=" << prop.second << endl;
-		}
-	} catch(const exception&) {
-		throw save_property_exception("Properties::saveProperties()", "Error while saving the properties in the file \"" + path + "\".");
-	}
+    try {
+        for (const auto& prop : properties_) {
+            fh.get_file() << prop.first << "=" << prop.second << endl;
+        }
+    } catch (const exception&) {
+        throw save_property_exception("Properties::saveProperties()", "Error while saving the properties in the file \"" + path + "\".");
+    }
 }
 
 void properties::save_properties()
 {
-	save_properties(file_path_);
+    save_properties(file_path_);
 }

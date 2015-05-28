@@ -4,8 +4,8 @@
 #include "../src/fs/fs_utils.h"
 
 /**
-* Tests the Build a Path from a string.
-*/
+ * Tests the Build a Path from a string.
+ */
 TEST(BuildPath, FromString)
 {
     std::string path = fs_utils::get_current_directory();
@@ -20,8 +20,8 @@ TEST(BuildPath, FromString)
 }
 
 /**
-* Tests the Build a Path from a vector.
-*/
+ * Tests the Build a Path from a vector.
+ */
 TEST(BuildPath, FromVector)
 {
     std::string path = fs_utils::get_current_directory();
@@ -40,8 +40,8 @@ TEST(BuildPath, FromVector)
 }
 
 /**
-* Tests the current directory.
-*/
+ * Tests the current directory.
+ */
 TEST(BuildPath, CurrentPath)
 {
     std::string path = fs_utils::get_current_directory();

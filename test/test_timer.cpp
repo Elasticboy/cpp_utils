@@ -6,7 +6,6 @@
 TEST(TestTimer, ElapsedTime)
 {
     ASSERT_FALSE(std::chrono::system_clock::is_steady) << "system_clock should not be steady.";
-    ASSERT_FALSE(std::chrono::high_resolution_clock::is_steady) << "high_resolution_clock should not be steady.";
     ASSERT_TRUE(std::chrono::steady_clock::is_steady) << "steady_clock should be steady.";
 
     auto start = std::chrono::steady_clock::now();

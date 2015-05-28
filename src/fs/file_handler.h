@@ -4,26 +4,27 @@
 #include <fstream>
 
 // TODO: refactoring of file_handler class. Rename namespace fh_open_mode
-namespace fh_open_mode {
-    
-	enum open_mode
-	{
-		read,
-		write,
-		append
-	};
-
+namespace fh_open_mode
+{
+    enum open_mode
+    {
+        read,
+        write,
+        append
+    };
 }
 
 class file_handler
 {
 public:
-	file_handler(const std::string& path, const fh_open_mode::open_mode& open_type);
-	~file_handler();
+    file_handler(const std::string& path, const fh_open_mode::open_mode& open_type);
 
-	std::fstream& get_file();
+    ~file_handler();
+
+    std::fstream& get_file();
 
 private :
-	std::fstream file_;
-	std::ios_base::openmode get_open_mode(const fh_open_mode::open_mode& open_mode);
+    std::fstream file_;
+
+    std::ios_base::openmode get_open_mode(const fh_open_mode::open_mode& open_mode);
 };

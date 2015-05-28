@@ -8,7 +8,7 @@
 class config_exception : public Exception
 {
 public:
-	config_exception(const std::string& source, const std::string& message) throw();
+    config_exception(const std::string& source, const std::string& message) throw();
 };
 
 /**
@@ -17,7 +17,7 @@ public:
 class software_exception : public Exception
 {
 public:
-	software_exception(const std::string& source, const std::string& message) throw();
+    software_exception(const std::string& source, const std::string& message) throw();
 };
 
 /**
@@ -26,5 +26,5 @@ public:
 class platform_exception : public Exception
 {
 public:
-	platform_exception(const std::string& source) throw();
+    platform_exception(const std::string& source) throw();
 };

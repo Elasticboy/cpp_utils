@@ -14,32 +14,32 @@ namespace fs_utils
     file::file(const string& filePath) : path_(filePath) { }
 
     /**
-    * @return The filename without the path.
-    */
+     * @return The filename without the path.
+     */
     string file::filename() const
     {
         return get_filename_only(path_);
     }
 
     /**
-    * @return the full path of the file (path and filename).
-    */
+     * @return the full path of the file (path and filename).
+     */
     string file::path() const
     {
         return path_;
     }
 
     /**
-    * @return The path without the name.
-    */
+     * @return The path without the name.
+     */
     string file::parent_path() const
     {
         return get_filepath_only(path_);
     }
 
     /**
-    * @return The size of the file.
-    */
+     * @return The size of the file.
+     */
     uintmax_t file::size() const
     {
         if (is_regular_file()) {
@@ -112,8 +112,8 @@ namespace fs_utils
     }
 
     /**
-    * @return the current directory.
-    */
+     * @return the current directory.
+     */
     string get_current_directory()
     {
         try {
@@ -124,8 +124,8 @@ namespace fs_utils
     }
 
     /**
-    * @return The path without the name of the file.
-    */
+     * @return The path without the name of the file.
+     */
     string get_filepath_only(const string& filename)
     {
         unsigned long pos;
@@ -142,8 +142,8 @@ namespace fs_utils
     }
 
     /**
-    * @return The filename without the path.
-    */
+     * @return The filename without the path.
+     */
     string get_filename_only(const string& filename)
     {
         unsigned long pos;
@@ -160,8 +160,8 @@ namespace fs_utils
     }
 
     /**
-    * @return The filename without the extension.
-    */
+     * @return The filename without the extension.
+     */
     string trunc_extension(const string& filename)
     {
         unsigned long pos;
@@ -174,12 +174,12 @@ namespace fs_utils
     }
 
     /**
-    * List files and directories of the directory passed as parameter.
-    * @param root The root directory to explore.
-    * @param recursive True if the search should be recursive. False otherwise.
-    * @param filter A string that will be turn into a regexp to select special files or directory.
-    * @return A vector containing the File find by the function.
-    */
+     * List files and directories of the directory passed as parameter.
+     * @param root The root directory to explore.
+     * @param recursive True if the search should be recursive. False otherwise.
+     * @param filter A string that will be turn into a regexp to select special files or directory.
+     * @return A vector containing the File find by the function.
+     */
     std::vector<file> list_files(const string& root, bool recursive, const string& filter, bool regular_files_only)
     {
         namespace fs = boost::filesystem;
@@ -250,8 +250,8 @@ namespace fs_utils
     }
 
     /**
-    * Concatenate two paths and simplify the result.
-    */
+     * Concatenate two paths and simplify the result.
+     */
     std::string build_path(const std::string& path_as_string_1, const std::string& path_as_string_2)
     {
         if (path_as_string_2.find(':') != string::npos || path_as_string_2.find(file_separator) == 0) {

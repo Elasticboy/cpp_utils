@@ -5,6 +5,5 @@
 class timer
 {
 public:
-	static const std::string current_time(const std::string& format);
-
+    static const std::string current_time(const std::string& format);
 };
