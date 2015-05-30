@@ -8,9 +8,6 @@ using namespace std;
 const string lexicon_manager::LANG_EN_UK = "UK";
 const string lexicon_manager::LANG_EN_US = "US";
 const string lexicon_manager::LANG_FR = "FR";
-
-auto log = ConsoleLogger(DEBUG);
-
 lexicon_manager *lexicon_manager::instance_ = nullptr;
 
 lexicon_manager *lexicon_manager::instance()
@@ -27,7 +24,8 @@ void lexicon_manager::free_instance()
     instance_ = nullptr;
 }
 
-lexicon_manager::lexicon_manager() : language_key_(LANG_EN_US) { }
+lexicon_manager::lexicon_manager()
+        : language_key_(LANG_EN_US), log_(ConsoleLogger(DEBUG)) { }
 
 /**
  * Set the language if it is available in lexicon_map_.
@@ -36,7 +34,7 @@ void lexicon_manager::set_language(const string& language_key)
 {
     if (lexicons_.find(language_key) != lexicons_.end()) {
         language_key_ = language_key;
-        log.Debug("lexicon_manager::setLanguage(), new language \"" + language_key + "\".");
+        log_.Debug("lexicon_manager::setLanguage(), new language \"" + language_key + "\".");
         return;
     }
 
@@ -55,13 +53,13 @@ void lexicon_manager::add_language(const string& language_key, const string& dat
     // Add only if doesn't exist
     if (lexicons_.find(language_key) != lexicons_.end()) {
         // Key already exists => return.
-        log.Debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" already added.");
+        log_.Debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" already added.");
         return;
     }
 
     // Key does not exist. Add the file
     lexicons_.insert(make_pair(language_key, lexicon(dataFile)));
-    log.Debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" added to the lexicon_manager.");
+    log_.Debug("lexicon_manager::addLanguage(), Language \"" + language_key + "\" added to the lexicon_manager.");
 }
 
 /**/

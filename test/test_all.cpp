@@ -4,9 +4,10 @@
 #include "gtest/gtest.h"
 #include "../src/goemetry.h"
 #include "../src/properties.h"
+#include "../src/lang/lexicon_manager.h"
 #include "../src/fs/fs_utils.h"
 
-TEST(TestGeometry, TestPoint)
+TEST(TestAll, Geometry)
 {
     auto pt = pointf();
     pt.display("pt");
@@ -18,11 +19,19 @@ TEST(TestGeometry, TestPoint)
 
 }
 
-TEST(TestProp, Read)
+TEST(TestAll, Properties)
 {
     const std::string& currentDir = fs_utils::get_current_directory();
-    const std::string propFile = fs_utils::build_path(currentDir, "../../blocks/cyrillrx/utils/test/assets/file1.txt");
+    const std::string& propFile = fs_utils::build_path(currentDir, "../../blocks/cyrillrx/utils/test/assets/file1.txt");
     auto prop = properties(propFile);
+
+    SUCCEED();
+}
+
+TEST(TestAll, LexiconManager)
+{
+    auto manager = lexicon_manager::instance();
+    manager->set_language(lexicon_manager::LANG_EN_US);
 
     SUCCEED();
 }
