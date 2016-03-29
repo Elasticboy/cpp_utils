@@ -1,13 +1,38 @@
+PROJECT( cpp_utils )
+cmake_minimum_required(VERSION 3.0)
 
-#Include the biicode Boost setup script
-include(biicode/boost/setup)
+include(conanbuildinfo.cmake)
+conan_basic_setup()
 
-ADD_BII_TARGETS()
+add_library(utils
+		src/exception/config_exception.cpp
+		src/exception/config_exception.h
+		src/exception/Exception.cpp
+		src/exception/Exception.h
+		src/exception/file_exception.cpp
+		src/exception/file_exception.h
+		src/exception/property_exception.cpp
+		src/exception/property_exception.h
+		src/fs/file_handler.cpp
+		src/fs/file_handler.h
+		src/fs/fs_utils.cpp
+		src/fs/fs_utils.h
+		src/lang/lexicon.cpp
+		src/lang/lexicon.h
+		src/lang/lexicon_manager.cpp
+		src/lang/lexicon_manager.h
+		src/geometry.cpp
+		src/geometry.h
+		src/properties.cpp
+		src/properties.h
+		src/string_utils.cpp
+		src/string_utils.h
+		src/timer.cpp
+		src/timer.h)
+target_link_libraries(utils ${CONAN_LIBS})
 
-# Enable C++11
-INCLUDE(biicode/cmake/tools) # Include tools.cmake file from cmake block from the "biicode" user
-ACTIVATE_CPP11(INTERFACE ${BII_BLOCK_TARGET})
-
-# Link Boost system and filesystem libraries
-bii_find_boost(COMPONENTS system filesystem REQUIRED)
-target_link_libraries(${BII_BLOCK_TARGET} INTERFACE ${Boost_LIBRARIES})
+IF(BUILD_TEST)
+	add_executable(test_utils
+			test/test_suites.cpp)
+	target_link_libraries(test_utils utils ${CONAN_LIBS})
+ENDIF()

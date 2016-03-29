@@ -2,7 +2,7 @@
 #include <chrono>
 
 #include "gtest/gtest.h"
-#include "../src/goemetry.h"
+#include "../src/geometry.h"
 
 TEST(TestGeometry, TestPoint)
 {

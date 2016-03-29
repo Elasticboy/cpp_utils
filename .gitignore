@@ -23,11 +23,10 @@ include
 lib
 ipch
 
-# Biicode
-/bii/
-/cmake/
-/build/
-/bin/
-/deps/
-/blocks/
-settings.pyc
+# Conan.io
+conanbuildinfo.*
+conaninfo.txt
+conanfile.pyc
+
+# Other
+build/
