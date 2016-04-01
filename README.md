@@ -1,5 +1,6 @@
 # Cpp utils
-A bunch of cpp util classes 
+A bunch of cpp utils
+ 
 * File system
 * Internationalization
 * Geometry

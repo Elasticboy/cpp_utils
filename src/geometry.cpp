@@ -2,8 +2,6 @@
 
 #include "logger/console_logger.h"
 
-auto log = ConsoleLogger(DEBUG);
-
 /////////////////////////////////////////////////////////
 // pointf
 /////////////////////////////////////////////////////////
@@ -17,6 +15,7 @@ pointf::pointf(POINT point)
 
 void pointf::display(std::string name)
 {
+    auto log = ConsoleLogger(DEBUG);
     log.Debug("Displaying " + name);
     log.Debug("(" + std::to_string(x) + "; " + std::to_string(y) + ")");
 }
@@ -34,6 +33,7 @@ rect::rect(RECT rect)
 
 void rect::display(std::string name)
 {
+    auto log = ConsoleLogger(DEBUG);
     log.Debug("Displaying " + name);
     log.Debug(" - Position : "
               + std::to_string(left) + ", "

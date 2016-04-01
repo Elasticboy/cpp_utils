@@ -1,6 +1,7 @@
 #include "string_utils.h"
 
 #include <regex>
+#include <cstring>
 
 namespace string_utils
 {

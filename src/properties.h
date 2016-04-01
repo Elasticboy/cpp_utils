@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 
+#include "logger/console_logger.h"
 #include "fs/file_handler.h"
 
 class properties
@@ -48,4 +49,5 @@ protected:
 private:
     std::map <std::string, std::string> properties_;
     std::string file_path_;
+    ConsoleLogger log_;
 };

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <map>
+#include "logger/console_logger.h"
 #include "lexicon.h"
 #include "../string_utils.h"
 
@@ -34,6 +35,7 @@ public:
 
 private:
     static lexicon_manager* instance_;
+    ConsoleLogger log_;
     std::string language_key_;
     std::map <std::string, lexicon> lexicons_;
 
