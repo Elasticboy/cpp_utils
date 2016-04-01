@@ -22,7 +22,7 @@ TEST(TestAll, Geometry)
 TEST(TestAll, Properties)
 {
     const std::string& currentDir = fs_utils::get_current_directory();
-    const std::string& propFile = fs_utils::build_path(currentDir, "../../blocks/cyrillrx/utils/test/assets/file1.txt");
+    const std::string& propFile = fs_utils::build_path(currentDir, "../../test/assets/file1.txt");
     auto prop = properties(propFile);
 
     SUCCEED();
